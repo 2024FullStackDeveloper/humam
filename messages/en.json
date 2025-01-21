@@ -39,7 +39,8 @@
         "password_min_length":"Minimum password length",
         "password_max_length":"Largest password length",
         "complex_password":"Complex password",
-        "remove_old_sessions":"Remove old sessions"
+        "remove_old_sessions":"Remove old sessions",
+        "subs":"Sub Categories"
 
     },
     "placeholders":{
@@ -54,7 +55,8 @@
         "otp_length":"Type OTP code length",
         "mis_login_count":"Type Number of missed entries allowed",
         "password_min_length":"Type Minimum password length",
-        "password_max_length":"Type Largest password length"
+        "password_max_length":"Type Largest password length",
+        "subs":"Select Sub Category"
 
     },
     "buttons":{
@@ -93,7 +95,8 @@
          "user_details":"User Details",
          "region_details":"Region Details",
          "delete_confirmation":"Delete Confirmation",
-         "password_settings":"Password Settings"
+         "password_settings":"Password Settings",
+         "category_details":"Category Details"
 
     },
     "paragraphs":{

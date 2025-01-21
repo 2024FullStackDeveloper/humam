@@ -10,9 +10,8 @@ const respnse = await ApiAction<APIGlobalSettingsResponseType>({
 });
 
 
-const data = (respnse.isServerOn && respnse.result?.code == 0) ? respnse.result.data : undefined;
 
 
-return <DisplayGlobalSettingsContainer settings={data}/>
+return <DisplayGlobalSettingsContainer settings={respnse?.result?.data }/>
 };
 export default SettingsPage;

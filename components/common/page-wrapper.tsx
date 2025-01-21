@@ -118,13 +118,12 @@ const PageWrapper = ({
           )}
           {props?.onFilter && (
             <>
-              {" "}
               <Button variant="destructive">
                 <Filter />
               </Button>
               <div className="flex flex-row items-center gap-2">
-                <Label htmlFor="paginate">تفعيل خيارات التنقل</Label>
                 <Switch
+                 label="تفعيل خيارات التنقل"
                   id="paginate"
                   dir="ltr"
                   checked={on}

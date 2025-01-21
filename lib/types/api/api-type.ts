@@ -128,6 +128,14 @@ interface APIGlobalSettingsResponseType{
     misLoginCount:number
 };
 
+enum CategoryTypes{
+    identity = 1,
+    career
+}
+
+interface APICategoryResponseType extends DropdownType<CategoryTypes>{
+ subs?:Array<DropdownType<number>>
+}
 
 export type {
     APIResponseType,
@@ -140,5 +148,7 @@ export type {
     APIUserProfileType,
     APIUserResponseType,
     APIRegionResponseType,
-    APIGlobalSettingsResponseType
+    APIGlobalSettingsResponseType,
+    CategoryTypes,
+    APICategoryResponseType
 };

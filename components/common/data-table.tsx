@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
 import { useToggle } from "@uidotdev/usehooks";
 import { Label } from "../ui/label";
+import NoDataBox from "./no-data-box";
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -89,12 +90,7 @@ export default function DataTable<TData, TValue>({
                     {t("paragraphs.loading")}{" "}
                   </p>
                 ) : (
-                  <div className="flex flex-col justify-center items-center gap-2">
-                      <Image src="/assets/empty.png" height={80} width={80} alt="empty"/>
-                      <span className="text-primary text-[16px] select-none font-bold">
-                          {t("paragraphs.empty_data")}
-                      </span>
-                  </div>
+                  <NoDataBox/>
                 )}
               </TableCell>
             </TableRow>

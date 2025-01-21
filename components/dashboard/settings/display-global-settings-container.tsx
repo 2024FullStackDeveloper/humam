@@ -51,10 +51,10 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
             return;
           }
 
-          if(code !== 0 && fields){
-            setErrors(validateAPIErrors(fields));
-          }else if(code === 0 && response){
-            toast.success(message);
+          if(response?.code !== 0 && response?.fields){
+            setErrors(validateAPIErrors(response?.fields));
+          }else if(response?.code === 0 && response?.data){
+            toast.success(response?.message);
           } 
         }
       }}

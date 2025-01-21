@@ -39,7 +39,8 @@
         "password_min_length":"اقل طول لكلمة المرور",
         "password_max_length":"اكبر طول لكلمة المرور",
         "complex_password":"كلمة سر معقدة",
-        "remove_old_sessions":"مسح الجلسات القديمة"
+        "remove_old_sessions":"مسح الجلسات القديمة",
+        "subs":"الفئات الفرعية"
     },
     "placeholders":{
         "phone_or_email":"اكتب رقم الموبايل او البريد الالكتروني",
@@ -53,9 +54,8 @@
         "otp_length":"ادخل رمز طول ال OTP",
         "mis_login_count":"ادخل عدد مرات الدخول الخاطىء المسموح بها",
         "password_min_length":"ادخل اقل طول لكلمة المرور",
-        "password_max_length":"ادخل اكبر طول لكلمة المرور"
-
-
+        "password_max_length":"ادخل اكبر طول لكلمة المرور",
+        "subs":"اختر الفئة الفرعية"
     },
     "status":{
         "Idle":"خامل",
@@ -92,7 +92,8 @@
         "user_details":"تفاصيل المستخدم",
         "region_details":"تفاصيل المنطقة",
         "delete_confirmation":"تأكيد الحذف",
-        "password_settings":"اعدادات كلمة المرور"
+        "password_settings":"اعدادات كلمة المرور",
+        "category_details":"تفاصيل الفئة"
     },
     "paragraphs":{
         "otp_not_sent":"إذا لم يتم إرسال الرمز",
