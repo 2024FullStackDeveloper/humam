@@ -1,0 +1,121 @@
+{
+    "app":{
+        "name":"Humam"
+    },
+    "labels":{
+        "phone_or_email":"Mobile number or email",
+        "password":"Password",
+        "phone_number":"Phone number",
+        "new_password":"New password",
+        "name":"Name",
+        "email":"Email",
+        "last_log_in":"Last Log In",
+        "last_log_out":"Last Log Out",
+        "crtd_at":"Created At",
+        "is_super_user":"Super User",
+        "actions":"Actions",
+        "lockoutEnabled":"Locked Account",
+        "lockoutEnd":"Locked Date",
+        "accessFailedCount":"Wrong Login Count",
+        "profile_img":"Profile Image",
+        "profile_id":"Profile Id",
+        "role":"Role Type",
+        "identity_type":"Identity Type",
+        "identity_number":"Identity Number",
+        "identity_img":"Identity Image",
+         "city":"City",
+        "career":"Career",
+        "compny_id":"Company Id",
+        "company_name":"Company Name",
+        "cr_number":"Commercial Register",
+        "cr_number_img":"Copy of the Commercial Registration",
+        "account_status":"Account Status",
+        "ar_desc":"Arabic Description",
+        "en_desc":"English Description",
+        "cities":"Cities",
+        "region":"Region",
+        "otp_length":"OTP code length",
+        "mis_login_count":"Number of missed entries allowed",
+        "password_min_length":"Minimum password length",
+        "password_max_length":"Largest password length",
+        "complex_password":"Complex password",
+        "remove_old_sessions":"Remove old sessions"
+
+    },
+    "placeholders":{
+        "phone_or_email":"Type mobile number or email",
+        "password":"Type password",
+        "phone_number":"Write phone number",
+        "new_password":"Write new password",
+        "city":"Select a city",
+        "region":"Select a region",
+        "ar_desc":"Type Arabic Description",
+        "en_desc":"Type English Description",
+        "otp_length":"Type OTP code length",
+        "mis_login_count":"Type Number of missed entries allowed",
+        "password_min_length":"Type Minimum password length",
+        "password_max_length":"Type Largest password length"
+
+    },
+    "buttons":{
+        "forget_password":"Forget password?",
+        "sign_in":"Signin",
+        "next":"Next",
+        "save":"Save",
+        "resend":"Resend",
+        "profile":"Profile",
+        "sign_out":"Log out",
+        "cancel":"Cancel",
+        "ok":"Yes",
+        "previous":"Previous"
+
+    },
+    "tooltips":{
+        "details_show":"Details Show"
+    },
+    "status":{
+        "Idle":"Idle",
+        "Approved":"Approved",
+        "Rejected":"Rejected",
+        "Pending":"Pending",
+        "UnderReview":"Under Review",
+        "Stopped":"Stopped"
+    },
+    "phases":{
+        "copy_rights":"All rights reserved by"
+    },
+    "titles":{
+        "platform_management":"Login to manage the platform",
+         "verify_account":"Account identity verification",
+         "reset_password":"Reset user password",
+         "sign_out":"Log out",
+         "user_profiles":"User Profiles",
+         "user_details":"User Details",
+         "region_details":"Region Details",
+         "delete_confirmation":"Delete Confirmation",
+         "password_settings":"Password Settings"
+
+    },
+    "paragraphs":{
+        "otp_not_sent":"If the code is not sent",
+        "sign_out":"Would you like to confirm the checkout?",
+        "loading":"Data loading",
+        "empty_data":"No data found",
+        "delete_confirmation":"Would you like to confirm the delete?"
+    },
+    "errors":{
+        "server_off":"Unable to access service",
+        "required_field":"Mandatory data field",
+        "max_length":"Field length exceeded"
+    },
+    "routes":{
+        "home":"Home",
+        "user_management":"User Management",
+        "global_settings":"Public Settings",
+        "settings":"Settings",
+        "regions_cities":"Regions And Cities",
+        "global_categories":"General Categories",
+        "create":"Create",
+        "update":"Update"
+    }
+}

@@ -1,0 +1,64 @@
+"use client";
+import DataTable from "@/components/common/data-table";
+import SingleRow from "@/components/common/single-row";
+import TitleHeader from "@/components/common/title-header";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import useLocalizer from "@/lib/hooks/use-localizer";
+import { APIRegionResponseType } from "@/lib/types/api/api-type";
+import { DropdownType } from "@/lib/types/common-type";
+import { ColumnDef } from "@tanstack/react-table";
+import { BookCheck, Info } from "lucide-react";
+
+const RegionDetailsSheet = ({data}:{data:APIRegionResponseType})=>{
+    const {t,isRtl} = useLocalizer();
+
+    const cols: ColumnDef<DropdownType<number>>[] = [
+        {
+          accessorKey: "id",
+          header: "#",
+        },
+        {
+          accessorKey: "arDesc",
+          header: t("labels.ar_desc"),
+        },
+        {
+          accessorKey: "enDesc",
+          header: t("labels.en_desc"),
+        },
+      ];
+
+    return (
+        <Sheet>
+        <SheetTrigger asChild >
+          <Button variant="default" title={t("tooltips.details_show")}>
+            <Info />
+          </Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>{t("titles.region_details")}</SheetTitle>
+          </SheetHeader>
+          <div className="flex flex-col gap-5 py-4">
+            <SingleRow
+            icon={<BookCheck/>}
+            label={t("labels.ar_desc")}
+            value={data.arDesc}
+            />
+            <SingleRow
+            icon={<BookCheck/>}
+            label={t("labels.en_desc")}
+            value={data.enDesc}
+            />
+            <TitleHeader
+            className="h-12 rounded-none"
+            title={t("labels.cities")}
+            />
+           <DataTable columns={cols} data={data?.cities ?? []} />
+          </div>
+        </SheetContent>
+      </Sheet>
+    )
+};
+export default RegionDetailsSheet;

@@ -1,0 +1,119 @@
+{
+    "app":{
+        "name":"همام"
+    },
+    "labels":{
+        "phone_or_email":"رقم الموبايل او البريد الالكتروني",
+        "password":"كلمة المرور",
+        "phone_number":"رقم الموبايل",
+        "new_password":"كلمة المرور الجديدة",
+        "name":"الاسم",
+        "email":"البريد الالكتروني",
+        "last_log_in":"اخر تسجيل دخول",
+        "last_log_out":"اخر تسجيل خروج",
+        "crtd_at":"تاريخ الاضافة",
+        "is_super_user":"حساب رئيسي",
+        "actions":"الاجراءات",
+        "lockoutEnabled":"الحساب مقفل",
+        "lockoutEnd":"تاريخ الاقفال",
+        "accessFailedCount":"عدد مرات تسجيل الدخول الخاطىء",
+        "profile_img":"الصورة الشخصية",
+        "profile_id":"رقم البروفايل",
+        "role":"نوع الحساب",
+        "identity_type":"نوع الهوية",
+        "identity_number":"رقم الهوية",
+        "identity_img":"صورة الهوية",
+        "city":"المدينة",
+        "career":"المهنة",
+        "compny_id":"رقم الشركة",
+        "company_name":"اسم الشركة",
+        "cr_number":"السجل التجاري",
+        "cr_number_img":"صورة السجل التجاري",
+        "account_status":"حالة الحساب",
+        "ar_desc":"الوصف بالعربي",
+        "en_desc":"الوصف بالانجليزي",
+        "cities":"المدن",
+        "region":"المنطقة",
+        "otp_length":"طول رمز ال OTP",
+        "mis_login_count":"عدد مرات الدخول الخاطىء المسموح بها",
+        "password_min_length":"اقل طول لكلمة المرور",
+        "password_max_length":"اكبر طول لكلمة المرور",
+        "complex_password":"كلمة سر معقدة",
+        "remove_old_sessions":"مسح الجلسات القديمة"
+    },
+    "placeholders":{
+        "phone_or_email":"اكتب رقم الموبايل او البريد الالكتروني",
+        "password":"اكتب كلمة المرور",
+        "phone_number":"اكتب رقم الموبايل",
+        "new_password":"اكتب كلمة المرور الجديدة",
+        "city":"اختر المدينة",
+        "region":"اختر المنطقة",
+        "ar_desc":"اكتب الوصف بالعربي",
+        "en_desc":"اكتب الوصف بالانجليزي",
+        "otp_length":"ادخل رمز طول ال OTP",
+        "mis_login_count":"ادخل عدد مرات الدخول الخاطىء المسموح بها",
+        "password_min_length":"ادخل اقل طول لكلمة المرور",
+        "password_max_length":"ادخل اكبر طول لكلمة المرور"
+
+
+    },
+    "status":{
+        "Idle":"خامل",
+        "Approved":"معتمد",
+        "Rejected":"مرفوض",
+        "Pending":"معلق",
+        "UnderReview":"قيد المراجعة",
+        "Stopped":"موقف"
+    },
+    "buttons":{
+        "forget_password":"نسيت كلمة المرور؟",
+        "sign_in":"تسجيل الدخول",
+        "next":"التالي",
+        "save":"حفظ",
+        "resend":"إعادة الارسال",
+        "profile":"الملف الشخصي",
+        "sign_out":"تسجيل خروج",
+        "cancel":"إلغاء الامر",
+        "ok":"نعم",
+        "previous":"السابق"
+    },
+    "tooltips":{
+        "details_show":"عرض التفاصيل"
+    },
+    "phases":{
+        "copy_rights":"جميع الحقوق محفوظة عبر"
+    },
+    "titles":{
+        "platform_management":"الدخول الى إدارة المنصة",
+        "verify_account":"التحقق من هوية الحساب",
+        "reset_password":"إعادة ضبط كلمة المرور",
+        "sign_out":"تسجيل خروج",
+        "user_profiles":"بروفايلات المستخدم",
+        "user_details":"تفاصيل المستخدم",
+        "region_details":"تفاصيل المنطقة",
+        "delete_confirmation":"تأكيد الحذف",
+        "password_settings":"اعدادات كلمة المرور"
+    },
+    "paragraphs":{
+        "otp_not_sent":"إذا لم يتم إرسال الرمز",
+        "sign_out":"هل ترغب بتأكيد تسجيل الخروج ؟",
+        "loading":"جاري تحميل البيانات",
+        "empty_data":"لا توجد بيانات",
+        "delete_confirmation":"هل ترغب بتأكيد الحذف؟"
+    },
+    "errors":{
+        "server_off":"غير قادر للوصول للخدمة",
+        "required_field":"حقل بيانات اجباري",
+        "max_length":"تم تجاوز طول الحقل"
+    },
+    "routes":{
+        "home":"الرئيسية",
+        "user_management":"ادارة المستخدمين",
+        "global_settings":"الاعدادات العامة",
+        "settings":"الاعدادات",
+        "regions_cities":"المناطق والمدن",
+        "global_categories":"الفئات العامة",
+        "create":"إضافة",
+        "update":"تعديل"
+        }
+}
