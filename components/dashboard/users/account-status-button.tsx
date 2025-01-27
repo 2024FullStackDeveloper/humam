@@ -7,6 +7,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import useLocalizer from "@/lib/hooks/use-localizer";
+import { RoleType } from "@/lib/types/api/role-type";
 import { AccountStatusType } from "@/lib/types/api/status-type";
 import { CheckSquare, LockKeyhole, ScanEye, Underline, X } from "lucide-react";
 import React from "react";
@@ -14,9 +15,11 @@ export interface AccountStatusButtonProps {
   status: AccountStatusType;
   loading?: boolean;
   disabled?:boolean,
+  role?:RoleType,
   onClick: (status: AccountStatusType,statusCode:number) => void;
 }
 const AccountStatusButton = ({
+  role,
   status,
   disabled,
   ...props
@@ -52,6 +55,34 @@ const AccountStatusButton = ({
           {t("status.Stopped")}
         </TextButton>,
       ];
+    }else if(role == "client" && status.toString() == "Approved"){
+      return [
+        <TextButton
+          key={1}
+          onClick={() => {
+            props?.onClick("Stopped",3);
+          }}
+          variant="ghost"
+          className="flex flex-row items-center gap-2"
+        >
+          <LockKeyhole size={16} />
+          {t("status.Stopped")}
+        </TextButton>,
+      ];
+    }else if(role == "client" && status.toString() == "Stopped"){
+      return[
+        <TextButton
+        key={1}
+        onClick={() => {
+          props?.onClick("Approved",5);
+        }}
+        variant="ghost"
+        className="flex flex-row items-center gap-2"
+      >
+        <CheckSquare size={16} />
+        {t("status.Approved")}
+      </TextButton>,
+      ]
     }
     return [
       <TextButton

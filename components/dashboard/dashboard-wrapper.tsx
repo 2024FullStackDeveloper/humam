@@ -14,11 +14,12 @@ import { useSession } from "next-auth/react";
 import SidebarHeader from "./sidebar-header";
 import adminRoutes from "@/lib/routes/admin-routes";
 import SidebarSticky from "./sidebar-sticky";
+import { useSearchParams } from "next/navigation";
 
 const DashboardWrapper = ({
-  children
-}:Readonly<{
-  children:React.ReactNode
+  children,
+}: Readonly<{
+  children: React.ReactNode;
 }>) => {
   const [on, toggle] = useToggle(false);
   const { t, isRtl } = useLocalizer();
@@ -26,10 +27,19 @@ const DashboardWrapper = ({
   const [broken, setBroken] = React.useState(smallDevice);
   const session = useSession();
   const path = usePathname();
+  const [collpased,setCollpased] = React.useState<boolean>(false);
+  const searchParams = useSearchParams();
+
+
+  const purePath = React.useMemo(() : string=>{
+    return path?.replace(searchParams.toString(),"").replace("?","");
+  },[searchParams,path]);
 
   return (
-    <div className="relative h-full w-full flex">
+    <div className="relative h-full w-full flex flex-row">
+
       <Sidebar
+        collapsed ={ collpased}
         customBreakPoint="800px"
         onBreakPoint={(breakPoint) => {
           setBroken(breakPoint);
@@ -39,13 +49,16 @@ const DashboardWrapper = ({
         rtl={isRtl}
         backgroundColor="hsl(var(--primary))"
         toggled={on}
+        className=" relative"
       >
         <SidebarHeader
           userName={session?.data?.user?.userDetails?.fullName ?? ""}
           logInDate={session?.data?.user?.userDetails?.lastLogin}
           logOutDate={session?.data?.user?.userDetails?.lastLogOut}
         />
+
         <Menu
+         closeOnClick
           transitionDuration={250}
           menuItemStyles={{
             button: ({ level, active }) => {
@@ -61,22 +74,29 @@ const DashboardWrapper = ({
           rootStyles={{
             [`.${menuClasses.button}`]: {
               userSelect: "none",
-              color: "white",
+              color:  collpased ? "hsl(var(--primary))" : "white" ,
               marginBottom: "2px",
               "&:hover": {
                 backgroundColor: "hsl(var(--destructive))",
                 color: "hsl(var(--primary))",
               },
             },
+            [`.${menuClasses.icon}`]: {
+              color: "white",
+            },
+            [`.${menuClasses.SubMenuExpandIcon}`]: {
+              color: "white",
+            },
             [`.${menuClasses.active}`]: {
               backgroundColor: "hsl(var(--destructive))",
               color: "hsl(var(--primary))",
             },
             ["." + menuClasses.subMenuContent]: {
-              backgroundColor: "transparent",
+              backgroundColor: collpased ? "white": "transparent",
             },
           }}
         >
+
           {adminRoutes?.map((e) => {
             if (e.sub) {
               return (
@@ -87,38 +107,44 @@ const DashboardWrapper = ({
                   component="div"
                 >
                   {e.sub.map((ee) => (
-                    <MenuItem key={ee.id} active={path == ee.route} component="div">
-                      <Link href={ee.route}>{t(ee.title)}</Link>
-                    </MenuItem>
+                    <Link key={ee.id} href={ee.route}>
+                      <MenuItem active={purePath == ee.route} component="div">
+                        {t(ee.title)}
+                      </MenuItem>
+                    </Link>
                   ))}
                 </SubMenu>
               );
             }
             return (
-              <MenuItem
-                key={e.id}
-                href={e.route}
-                icon={e.icon}
-                component="div"
-                active={path == e.route}
-              >
-                <Link href={e.route}>{t(e.title)}</Link>
-              </MenuItem>
+              <Link key={e.id} href={e.route}>
+                <MenuItem
+                  href={e.route}
+                  icon={e.icon}
+                  component="div"
+                  active={purePath == e.route}
+                >
+                  {t(e.title)}
+                </MenuItem>
+              </Link>
             );
           })}
         </Menu>
       </Sidebar>
-      <div className="relative min-h-screen w-full flex flex-col">
-        <SidebarSticky 
-        toggle={broken} onToggle={()=>{
-          toggle(true);
-        }}/>
-       <main className="p-5 h-full w-full">
-       {children}
-       </main>
+      <div className="relative  min-h-screen w-full flex flex-col">
+        <SidebarSticky
+        collapsed={collpased}
+        onCollapse={(value)=>{
+          setCollpased(value);
+        }}
+          toggle={broken}
+          onToggle={() => {
+            toggle(true);
+          }}
+        />
+        <main className="p-5 h-full w-full grow">{children}</main>
       </div>
     </div>
-
   );
 };
 

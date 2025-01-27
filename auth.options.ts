@@ -51,12 +51,12 @@ const authOptions: NextAuthOptions = {
         })
     ],
     pages: {
-        signIn: "/",
+        signIn: "/ar/sign-in",
         error: "/"
     },
     secret: process.env.NEXTAUTH_SECREAT!,
     session: {
-        strategy: "jwt"
+        strategy: "jwt",
     },
     callbacks: {
         session: ({ session, token }) => {

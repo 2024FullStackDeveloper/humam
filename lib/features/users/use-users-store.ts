@@ -1,13 +1,17 @@
 import ApiAction from '@/lib/server/action';
-import { APICollectionResponseType, APIResponseType, APIUserProfileType, APIUserResponseType } from '@/lib/types/api/api-type'
-import { CoreStateType, GlobalResponseType, PaginateType } from '@/lib/types/common-type';
+import { APICollectionResponseType, APIResponseType, APIUserProfileType, APIUserResponse2Type, APIUserResponseType } from '@/lib/types/api/api-type'
+import { CoreStateType, GlobalResponseType, PaginateType, StateResponseType } from '@/lib/types/common-type';
 import { create } from 'zustand'
+import z from "zod";
+import { UpdateUserSchema, UserSchema } from '@/lib/schemas/users-schema';
 
 interface UsersState extends CoreStateType<APIUserResponseType>{
     users?:Array<APIUserResponseType> | null,
     getUsers:(props?:PaginateType)=>Promise<void>,
     resetPassword:(phoneNumber:string)=>Promise<boolean>,
-    changeStatus:(props:{profileId:number,statusCode:number})=>Promise<APIUserProfileType | undefined | null>
+    changeStatus:(props:{profileId:number,statusCode:number})=>Promise<APIUserProfileType | undefined | null>,
+    addNewUser:(props:z.infer<typeof UserSchema>)=>Promise<StateResponseType<APIUserResponse2Type> | undefined | null>,
+    updateUserProfile:(profileId:number, props:z.infer<typeof UpdateUserSchema>)=>Promise<StateResponseType<APIUserResponse2Type> | undefined | null>,
 };
 
 const useUsersStore = create<UsersState>(
@@ -24,10 +28,10 @@ const useUsersStore = create<UsersState>(
            const response = await ApiAction<APICollectionResponseType<APIUserResponseType>>(
             {
                 controller:"admin",
-                url:`users ${props ? `?paginate=${props?.paginate}&page=${props?.page}&size=${props?.size}&sortedType=${props?.sortedType}&sortedField=${props?.sortedField}` : ''}`,
+                url:"users",
                 method:"GET",
                 authorized:true,
-                revalidate:20
+                paginateOptions:props
             }
         );
         set({isPending:false,result:response,users:response.result?.data?.resultSet,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage});
@@ -58,6 +62,34 @@ const useUsersStore = create<UsersState>(
          );
          set({isPending:false,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage});
          return response.result?.data;
+         },
+         addNewUser:async (props)=>{
+            set({isPending:true,code:undefined,message:undefined,isServerOn:true,serverOffMessage:undefined});
+            const response = await ApiAction<APIUserResponse2Type>(
+             {
+                 controller:"admin",
+                 url:`users/add_new_user`,
+                 method:"POST",
+                 authorized:true,
+                 body:{...props,phoneNumber:props?.phoneNumber.replace("+","").replace(" ","")}
+             }
+         );
+         set({isPending:false,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage});
+         return {code:response?.result?.code,message:response?.result?.message,fields:response?.result?.fields,data:response?.result?.data,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage};
+         },
+         updateUserProfile:async (profileId,props)=>{
+            set({isPending:true,code:undefined,message:undefined,isServerOn:true,serverOffMessage:undefined});
+            const response = await ApiAction<APIUserResponse2Type>(
+             {
+                 controller:"admin",
+                 url:`users/update_user_profile/${profileId}`,
+                 method:"PATCH",
+                 authorized:true,
+                 body:props
+             }
+         );
+         set({isPending:false,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage});
+         return {code:response?.result?.code,message:response?.result?.message,fields:response?.result?.fields,data:response?.result?.data,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage};
          }
     })
 );

@@ -20,15 +20,22 @@ export interface DataTablepaginationProps {
 const DataTablePagination = ({
   maxPages = 5,
   pagesCount,
-  size,
-  page,
+  size = 50,
+  page = 1,
 }: DataTablepaginationProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
+  const params = new URLSearchParams(searchParams.toString());
+
+
+
+
 
   const getPureSearchParams = React.useMemo((): string => {
     if (params) {
+      if (params.has("paginate")) {
+        params.delete("paginate");
+      }
       if (params.has("size")) {
         params.delete("size");
       }
@@ -51,6 +58,15 @@ const DataTablePagination = ({
     }
     return result;
   }, [page, pagesCount]);
+
+
+
+  const currentPage = React.useMemo((): number => {
+    if(searchParams.has("page")){
+      return parseInt(searchParams.get("page") ?? "0");
+    }
+    return 0;
+  },[searchParams]);
 
   const showNext = React.useMemo((): boolean => {
     let result = false;
@@ -87,7 +103,7 @@ const DataTablePagination = ({
           <PaginationItem>
             {showPrevious && (
               <PaginationPrevious
-                href={`${pathname}?size=${size}&page=${
+                href={`${pathname}?paginate=true&size=${size}&page=${
                   (page ?? 0) - 1
                 }${getPureSearchParams}`}
                 className="min-w-[100px] bg-primary text-white shadow  gap-2  border border-primary font-semibold"
@@ -99,8 +115,8 @@ const DataTablePagination = ({
               pages?.map((e) => (
                 <PaginationItem key={e}>
                   <PaginationLink
-                    isActive={e == page}
-                    href={`${pathname}?size=${size}&page=${e}${getPureSearchParams}`}
+                    isActive={e == currentPage}
+                    href={`${pathname}?paginate=true&size=${size}&page=${e}${getPureSearchParams}`}
                   >
                     {e}
                   </PaginationLink>
@@ -110,7 +126,7 @@ const DataTablePagination = ({
           <PaginationItem>
             {showNext && (
               <PaginationNext
-                href={`${pathname}?size=${size}&page=${
+                href={`${pathname}?paginate=true&size=${size}&page=${
                   (page ?? 0) + 1
                 }${getPureSearchParams}`}
                 className="min-w-[100px] bg-primary text-white shadow  gap-2  border border-primary font-semibold"

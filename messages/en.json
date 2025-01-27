@@ -25,9 +25,9 @@
         "identity_img":"Identity Image",
          "city":"City",
         "career":"Career",
-        "compny_id":"Company Id",
+        "company_id":"Company Id",
         "company_name":"Company Name",
-        "cr_number":"Commercial Register",
+        "cr_number":"Commercial Register Number",
         "cr_number_img":"Copy of the Commercial Registration",
         "account_status":"Account Status",
         "ar_desc":"Arabic Description",
@@ -40,7 +40,9 @@
         "password_max_length":"Largest password length",
         "complex_password":"Complex password",
         "remove_old_sessions":"Remove old sessions",
-        "subs":"Sub Categories"
+        "subs":"Sub Categories",
+        "category":"Category",
+        "full_name":"Full Name"
 
     },
     "placeholders":{
@@ -56,7 +58,15 @@
         "mis_login_count":"Type Number of missed entries allowed",
         "password_min_length":"Type Minimum password length",
         "password_max_length":"Type Largest password length",
-        "subs":"Select Sub Category"
+        "subs":"Select Sub Category",
+        "category":"Select a category",
+        "full_name":"Type Full Name",
+        "email":"Type Email",
+        "identity_type":"Select Identity Type",
+        "identity_number":"Type Identity Number",
+        "career":"Select Career",
+        "cr_number":"Type Commercial Register Number"
+
 
     },
     "buttons":{
@@ -69,7 +79,8 @@
         "sign_out":"Log out",
         "cancel":"Cancel",
         "ok":"Yes",
-        "previous":"Previous"
+        "previous":"Previous",
+        "update":"Update"
 
     },
     "tooltips":{
@@ -109,7 +120,8 @@
     "errors":{
         "server_off":"Unable to access service",
         "required_field":"Mandatory data field",
-        "max_length":"Field length exceeded"
+        "max_length":"Field length exceeded",
+        "invalid_email":"Invalid email"
     },
     "routes":{
         "home":"Home",

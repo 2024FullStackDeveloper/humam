@@ -13,15 +13,21 @@ import { RefreshCcw } from "lucide-react";
 import React from "react";
 import DataTable from "@/components/common/data-table";
 import PageWrapper from "@/components/common/page-wrapper";
+import { useRouter } from "@/i18n/routing";
+import usePaginate from "@/lib/hooks/use-paginate";
 
 const DisplayUserContainer = () => {
   const { t } = useLocalizer();
+  const {paginate} = usePaginate();
+  const paginateValue = React.useDeferredValue(paginate);
+  const router = useRouter();
+
   const {
     getUsers,
+    result,
     users,
     isPending,
     message,
-    code,
     isServerOn,
     serverOffMessage,
     resetPassword,
@@ -125,22 +131,26 @@ const DisplayUserContainer = () => {
   ];
 
   async function fetchData() {
-    await getUsers();
+    await getUsers(paginateValue);
   }
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [paginateValue]);
 
   return (
     <PageWrapper
     onRefresh={async()=>{
       await fetchData();
     }}
+    onAdd={()=>{
+      router.push("/dashboard/users/create");
+    }}
     paginationOptions={{
-        page:2,
-        size:10,
-        pagesCount:5
+        pagesCount:result?.result?.data?.numberOfPages,
+        itemCount:result?.result?.data?.count,
+        size:paginateValue?.size ?? 50,
+        page:paginateValue?.page ?? 1
     }}
     breadcrumbs={[
       {
@@ -152,9 +162,7 @@ const DisplayUserContainer = () => {
       },
     ]}
   >
-    <div className="p-5">
       <DataTable isLoading={isPending} columns={cols} data={users ?? []} />
-    </div>
     </PageWrapper>
   )
 };

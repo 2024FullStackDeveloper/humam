@@ -28,7 +28,8 @@ const PhoneNumberInput = React.forwardRef<
       <div
         className={cn(
           "flex flex-row border rounded-lg items-center justify-center px-2",
-          error && "border-failure/90"
+          error && "border-failure/90",
+          props?.disabled && "pointer-events-none"
         )}
       >
         <Input
@@ -40,6 +41,7 @@ const PhoneNumberInput = React.forwardRef<
           international
           withCountryCallingCode
           country="SA"
+          
           value={phoneValue}
           onChange={(value) => {
             if (onValueChange) {

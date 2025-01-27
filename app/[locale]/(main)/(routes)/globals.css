@@ -65,6 +65,14 @@
   strong{
     @apply text-red-600 text-[12px] md:text-sm;
   }
+
+  input[type="radio"]{
+    appearance: none;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   outline: none;
+   cursor: pointer;
+   }
 }
 
 

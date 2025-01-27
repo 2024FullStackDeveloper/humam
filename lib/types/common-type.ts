@@ -5,7 +5,7 @@ interface DropdownType<T> {
     id: T,
     arDesc: string,
     enDesc?: string,
-    addational?:any
+    addational?: any
 };
 
 
@@ -35,32 +35,40 @@ interface PaginateType {
     paginate: boolean,
     page: number,
     size: number,
-    sortedType: SortedStatusType
+    sortedType?: SortedStatusType
     sortedField?: string
 };
 
 
-interface CoreStateType<T>{
-    isPending:boolean,
-    message?:string | null,
-    code?:number | null,
+interface CoreStateType<T> {
+    isPending: boolean,
+    message?: string | null,
+    code?: number | null,
     isServerOn: boolean,
     serverOffMessage?: string,
-    fields?:Array<APIErrorFieldType> | null,
-    result?:GlobalResponseType<APIResponseType<APICollectionResponseType<T | undefined>>>,
+    fields?: Array<APIErrorFieldType> | null,
+    result?: GlobalResponseType<APIResponseType<APICollectionResponseType<T | undefined>>>,
 };
 
 
 interface InputControlType {
-      containerClass?:string,
-      label: string,
-      error?: string,
-      prefixicon: React.ReactNode,
+    containerClass?: string,
+    label: string,
+    error?: string,
+    prefixicon: React.ReactNode,
 }
 
 type VariantButtomType = "default" | "destructive" | "ghost" | "secondary" | "warningOutline" | "dangerOutline" | "idleOutline" | "successOutline" | "infoOutline" | "none";
 
+interface StateResponseType<T> {
 
+    code?: number,
+    message?: string | null,
+    fields?: Array<APIErrorFieldType> | null,
+    data?: T | null,
+    isServerOn: boolean,
+    serverOffMessage?: string,
+};
 
 export type {
     DropdownType,
@@ -70,5 +78,6 @@ export type {
     PaginateType,
     CoreStateType,
     VariantButtomType,
-    InputControlType
+    InputControlType,
+    StateResponseType
 };

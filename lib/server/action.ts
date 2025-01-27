@@ -1,7 +1,7 @@
 "use server";
 import { getServerSession } from "next-auth";
 import { APIResponseType } from "../types/api/api-type";
-import { GlobalResponseType } from "../types/common-type";
+import { GlobalResponseType, PaginateType } from "../types/common-type";
 import getServerLocale from "../utils/stuff-server";
 import authOptions from "@/auth.options";
 
@@ -11,6 +11,7 @@ export default async function ApiAction<TResponse>({
     method = "GET",
     body,
     formData,
+    paginateOptions,
     revalidate,
     authorized
 }: {
@@ -19,6 +20,7 @@ export default async function ApiAction<TResponse>({
     method?: "POST" | "GET" | "PATCH" | "DELETE" | "PUT",
     body?: any | unknown,
     formData?: FormData,
+    paginateOptions?:PaginateType,
     revalidate?: number,
     authorized?:boolean
 }): Promise<GlobalResponseType<APIResponseType<TResponse>>> {
@@ -27,11 +29,13 @@ export default async function ApiAction<TResponse>({
     let result : GlobalResponseType<APIResponseType<TResponse>> = {isServerOn:true};
     const baseUrl = process.env.BASE_API_URL!;
     const version = process.env.VERSION!;
-    const fullUrl = `${baseUrl}/${controller}/${version}/${url}`;
+    let fullUrl = `${baseUrl}/${controller}/${version}/${url}`.replace(" ","");
+    if(paginateOptions){
+        fullUrl+=`?paginate=${paginateOptions?.paginate}&page=${paginateOptions?.page}&size=${paginateOptions?.size}`;
+    }
     const { locale } = await getServerLocale();
     const session = await getServerSession(authOptions);
     const token = session?.user?.token;
-
 
     if (body && formData) throw new Error("It can't use both  body and formData fields with same time.");
     try {

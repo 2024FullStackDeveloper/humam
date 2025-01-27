@@ -72,7 +72,7 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
         },
       ]}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 p-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         <div className="flex flex-col gap-5">
            
          <Switch 

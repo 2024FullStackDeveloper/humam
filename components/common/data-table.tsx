@@ -8,14 +8,9 @@ import {
 } from "@tanstack/react-table";
 import useLocalizer from "@/lib/hooks/use-localizer";
 import { cn } from "@/lib/utils";
-import { Filter, Loader2, RefreshCcw } from "lucide-react";
+import {  Loader2 } from "lucide-react";
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import Image from "next/image";
-import { Button } from "../ui/button";
-import { Switch } from "../ui/switch";
-import { useToggle } from "@uidotdev/usehooks";
-import { Label } from "../ui/label";
 import NoDataBox from "./no-data-box";
 
 export interface DataTableProps<TData, TValue> {

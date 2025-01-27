@@ -27,8 +27,9 @@ const useRegionsStore = create<RegionsState>(
            const response = await ApiAction<APICollectionResponseType<APIRegionResponseType>>(
             {
                 controller:"settings",
-                url:`get_regions ${props ? `?paginate=${props?.paginate}&page=${props?.page}&size=${props?.size}&sortedType=${props?.sortedType}&sortedField=${props?.sortedField}` : ''}`,
-                method:"GET"
+                url:"get_regions",
+                method:"GET",
+                paginateOptions:props
             }
         );
         set({isPending:false,result:response,regions:response.result?.data?.resultSet,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage});

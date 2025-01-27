@@ -66,6 +66,8 @@ export default async function middleware(req: NextRequest , res:NextResponse) {
     const isAuthorized = !!token;
 
 
+
+
     if (pathname === '/' || pathname === `/${locale}`) {
         return NextResponse.redirect(new URL('/sign-in', req.url));
       }
@@ -74,9 +76,13 @@ export default async function middleware(req: NextRequest , res:NextResponse) {
         return NextResponse.redirect(new URL(`/${locale}/dashboard`,req.nextUrl));
     }
 
-    const isProtected = isProtectedPath(pathnameWithLocale);
+    // const isProtected = isProtectedPath(pathnameWithLocale);   
+    
+    // if(){
+    //     return NextResponse.redirect(new URL(`/${locale}/sign-in`, req.url));
+    // }
 
-    if(isProtected)
+    if(!isAuthorized && pathname?.startsWith(`/${locale}/dashboard`))
         return (withAuthMiddleware as any) (req);
     else 
     return withIntlMiddleware(req);

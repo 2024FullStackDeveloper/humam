@@ -22,11 +22,12 @@ import FormButton from "@/components/common/form-button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { useRouter } from "@/i18n/routing";
-import { revalidatePath } from "next/cache";
+import usePaginate from "@/lib/hooks/use-paginate";
 
 const DisplayRegionContainer = () => {
   const { t, isRtl } = useLocalizer();
-  const { isPending, regions, code , message, isServerOn , serverOffMessage,  getRegions , deleteCityById } = useRegionsStore();
+  const { isPending, regions, code , result, message, isServerOn , serverOffMessage,  getRegions , deleteCityById } = useRegionsStore();
+  const {paginate} = usePaginate();
   const [selectedCityList,setSelectedCityList] = React.useState<{regionId:number,cityId:number}[]>([]);
   const router = useRouter();
 
@@ -40,12 +41,12 @@ const DisplayRegionContainer = () => {
   },[selectedCityList]);
 
   async function fetchData() {
-    await getRegions();
+    await getRegions(paginate);
   }
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [paginate]);
 
   const cols: ColumnDef<APIRegionResponseType>[] = [
     {
@@ -102,7 +103,7 @@ const DisplayRegionContainer = () => {
             </Button>
             <Dialog>
             <DialogTrigger className="order-3" asChild>
-            <Button onClick={async () => {}} variant="dangerOutline" disabled={disabledComponent(data.id)}>
+            <Button  variant="dangerOutline" disabled={disabledComponent(data.id)}>
               <Trash2 />
             </Button>
             </DialogTrigger>
@@ -158,13 +159,11 @@ const DisplayRegionContainer = () => {
       onAdd={()=>{
         router.push("/dashboard/regions/create")
       }}
-      onFilter={()=>{
-
-      }}
       paginationOptions={{
-        page: 2,
-        size: 10,
-        pagesCount: 5,
+        pagesCount: result?.result?.data?.numberOfPages,
+        itemCount:result?.result?.data?.count,
+        size:paginate?.size ?? 50,
+        page:paginate?.page ?? 1
       }}
       breadcrumbs={[
         {
@@ -180,9 +179,7 @@ const DisplayRegionContainer = () => {
         },
       ]}
     >
-      <div className="p-5">
         <DataTable isLoading={isPending} columns={cols} data={regions ?? []} />
-      </div>
     </PageWrapper>
   );
 };

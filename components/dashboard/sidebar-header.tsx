@@ -19,22 +19,23 @@ const SidebarHeader = ({className,userName,logInDate,logOutDate}:SidebarHeaderPr
 return (
     <div
     className={cn(
-      "gap-2 select-none flex flex-row items-center justify-between w-full h-[96px] sticky top-0 border-b border-b-light p-4",className
+      "gap-2 select-none flex relative flex-row items-center justify-center w-full h-[96px]  border-b border-b-light p-4",className
     )}
   >
+
     <Image
       alt="logo"
-      height={48}
-      width={48}
+      height={64}
+      width={64}
       src="/assets/logo.svg"
       className="order-2"
       priority
     />
     <div className="flex flex-col gap-1 order-1">
-    <p className="font-bold text-destructive text-sm truncate max-w">
+    {/* <p className="font-bold text-destructive text-sm truncate max-w">
         {userName}
-    </p>
-    {
+    </p> */}
+    {/* {
     (logInDate && Date.parse(logInDate) != 0) && <div className="flex flex-row items-center gap-2">
         <LogIn size={14} color="white"/>
         <span className="text-white text-[12px]"><bdi>{dateFormat(logInDate,"dd/mm/yyyy hh:MM TT")}</bdi></span>
@@ -45,7 +46,7 @@ return (
         <LogOut size={14} color="white"/>
         <span className="text-white text-[12px]"><bdi>{dateFormat(logOutDate,"dd/mm/yyyy hh:MM TT")}</bdi></span>
     </div>
-    }
+    } */}
     </div>
 
   </div>

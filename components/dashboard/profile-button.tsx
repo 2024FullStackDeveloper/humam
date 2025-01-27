@@ -98,6 +98,8 @@ const ProfileButton = () => {
                 }catch{
                   console.log('Something wrong occured once loging out.');
                 }
+                router.refresh();
+
                 }}>
                   <FormButton title={t("buttons.ok")} />
                 </form>

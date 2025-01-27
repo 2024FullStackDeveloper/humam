@@ -7,10 +7,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Link } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import useLocalizer from "@/lib/hooks/use-localizer";
 import dateFormat from "dateformat";
-import { Building2, CalendarClockIcon, Eye, FileBadge, IdCard, Info, LockKeyholeIcon, LogIn, LogOut, Mail, Phone, UserSquare } from "lucide-react";
+import { Building2, CalendarClockIcon, EditIcon, Eye, FileBadge, IdCard, Info, LockKeyholeIcon, LogIn, LogOut, Mail, Phone, UserSquare } from "lucide-react";
 import AccountStatusButton from "./account-status-button";
 import { APIUserResponseType } from "@/lib/types/api/api-type";
 import React from "react";
@@ -26,6 +26,7 @@ isPending?:boolean,
 onChangeStatus?:({profileId,statusCode}:{profileId:number,statusCode:number})=>void
 })=>{
 const {t,isRtl} = useLocalizer();
+const router = useRouter();
 return (
     <Sheet>
     <SheetTrigger asChild >
@@ -96,6 +97,9 @@ return (
           {
             data.profiles?.map(e=>(
               <div key={e.profileId} className="flex flex-col gap-5 border-b border-b-secondary pb-4">
+                <Button onClick={()=>router.push(`/dashboard/users/update?id=${e.profileId}`)} variant="destructive" title={t("buttons.update")} disabled={data.isSuperUser && e.role  == "admin" || e.role == "client"}>
+                  <EditIcon/>
+                </Button>
                 <SingleRow 
                 icon={<IdCard size={20}/>}
                 label={t("labels.profile_id")}
@@ -147,23 +151,23 @@ return (
                   e.organizationDetails && <div className="flex flex-col gap-4">
                     <SingleRow 
                     icon={<Building2 size={20}/>}
-                    label={t("labels.compny_id")}
+                    label={t("labels.company_id")}
                     value={e?.organizationDetails.id}
                     />
                     <SingleRow 
                     icon={<Building2 size={20}/>}
-                    label={t("labels.compny_name")}
+                    label={t("labels.company_name")}
                     value={e?.organizationDetails.companyName}
                     />
                     <SingleRow 
                     icon={<FileBadge size={20}/>}
                     label={t("labels.cr_number")}
-                    value={e?.organizationDetails.cRNumber}
+                    value={e?.organizationDetails.crNumber}
                     />
                     <SingleRow 
                     icon={<FileBadge size={20}/>}
                     label={t("labels.cr_number_img")}
-                    value={e.identityImg ? <Link target="_blank" href={e?.organizationDetails.cRNumberImg}>
+                    value={e.identityImg ? <Link target="_blank" href={e?.organizationDetails.crNumberImg}>
                         <Eye/>
                     </Link> : <></>}
                     />
@@ -172,6 +176,7 @@ return (
                <div className="flex flex-col gap-2">
                 <span className="text-sm font-bold">{t("labels.account_status")}</span>
                  <AccountStatusButton 
+                    role={e.role}
                     loading={isPending}
                     disabled={data.isSuperUser}
                     status={e.profileStatus} 

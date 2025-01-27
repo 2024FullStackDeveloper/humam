@@ -25,9 +25,9 @@
         "identity_img":"صورة الهوية",
         "city":"المدينة",
         "career":"المهنة",
-        "compny_id":"رقم الشركة",
+        "company_id":"رقم الشركة",
         "company_name":"اسم الشركة",
-        "cr_number":"السجل التجاري",
+        "cr_number":"رقم السجل التجاري",
         "cr_number_img":"صورة السجل التجاري",
         "account_status":"حالة الحساب",
         "ar_desc":"الوصف بالعربي",
@@ -40,7 +40,10 @@
         "password_max_length":"اكبر طول لكلمة المرور",
         "complex_password":"كلمة سر معقدة",
         "remove_old_sessions":"مسح الجلسات القديمة",
-        "subs":"الفئات الفرعية"
+        "subs":"الفئات الفرعية",
+        "category":"الفئة",
+        "full_name":"الاسم الكامل",
+        "organization_name":"اسم الشركة"
     },
     "placeholders":{
         "phone_or_email":"اكتب رقم الموبايل او البريد الالكتروني",
@@ -55,7 +58,16 @@
         "mis_login_count":"ادخل عدد مرات الدخول الخاطىء المسموح بها",
         "password_min_length":"ادخل اقل طول لكلمة المرور",
         "password_max_length":"ادخل اكبر طول لكلمة المرور",
-        "subs":"اختر الفئة الفرعية"
+        "subs":"اختر الفئة الفرعية",
+        "category":"اختر الفئة",
+        "full_name":"اكتب الاسم الكامل",
+        "email":"اكتب البريد الالكتروني",
+        "identity_type":"اختر نوع الهوية",
+        "identity_number":"اكتب رقم الهوية",
+        "career":"اختر المهنة",
+        "organization_name":"اكتب اسم الشركة",
+        "cr_number":"اكتب رقم السجل التجاري"
+
     },
     "status":{
         "Idle":"خامل",
@@ -75,7 +87,8 @@
         "sign_out":"تسجيل خروج",
         "cancel":"إلغاء الامر",
         "ok":"نعم",
-        "previous":"السابق"
+        "previous":"السابق",
+        "update":"تعديل"
     },
     "tooltips":{
         "details_show":"عرض التفاصيل"
@@ -105,7 +118,8 @@
     "errors":{
         "server_off":"غير قادر للوصول للخدمة",
         "required_field":"حقل بيانات اجباري",
-        "max_length":"تم تجاوز طول الحقل"
+        "max_length":"تم تجاوز طول الحقل",
+        "invalid_email":"البريد الالكتروني غير صحيح"
     },
     "routes":{
         "home":"الرئيسية",

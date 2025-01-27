@@ -52,8 +52,8 @@ interface APILoginOrganizationDetailsResponseType{
 id:number,
 companyName:string,
 responsibleName:string,
-cRNumber:string,
-cRNumberImg:string
+crNumber:string,
+crNumberImg:string
 };
 
 interface APICollectionResponseType<T>{
@@ -74,7 +74,8 @@ interface APILoginUserDetailsResponseType{
     organizationDetails?:APILoginOrganizationDetailsResponseType | null,
     crtdAt?:string | null,
     lastLogin?:string | null,
-    lastLogOut?:string | null
+    lastLogOut?:string | null,
+    crtdBy?:string | null
    };
 
 
@@ -133,9 +134,43 @@ enum CategoryTypes{
     career
 }
 
-interface APICategoryResponseType extends DropdownType<CategoryTypes>{
- subs?:Array<DropdownType<number>>
+export enum RoleTypes{
+    client = 1,
+    admin = 4,
+    worker = 2,
+    organization = 3
 }
+
+interface SubCategoryType extends DropdownType<number>{
+    mainCategoryId:number,
+    orderValue:number
+};
+
+interface APICategoryResponseType extends DropdownType<CategoryTypes>{
+ subs?:Array<SubCategoryType>
+}
+
+
+interface APIUserResponse2Type{
+    id:String,
+    profileId:number,
+    role:RoleType,
+    isSuperUser:boolean,
+    fullName:string,
+    email?:string | null,
+    phoneNumber:string,
+    personImg?:string  | null,
+    identity?:DropdownType<number> | null,
+    identityNumber?:string | null,
+    identityImg?:string | null,
+    city?:DropdownType<number> | null,
+    career?:DropdownType<number>  | null,
+    organizationDetails?:APILoginOrganizationDetailsResponseType | null,
+    crtdAt?:string | null,
+    lastLogin?:string | null,
+    lastLogOut?:string | null,
+    crtdBy?:string | null
+   };
 
 export type {
     APIResponseType,
@@ -150,5 +185,7 @@ export type {
     APIRegionResponseType,
     APIGlobalSettingsResponseType,
     CategoryTypes,
-    APICategoryResponseType
+    APICategoryResponseType,
+    SubCategoryType,
+    APIUserResponse2Type
 };

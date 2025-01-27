@@ -9,9 +9,6 @@ const respnse = await ApiAction<APIGlobalSettingsResponseType>({
         method:"GET",
 });
 
-
-
-
 return <DisplayGlobalSettingsContainer settings={respnse?.result?.data }/>
 };
 export default SettingsPage;

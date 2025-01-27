@@ -1,12 +1,12 @@
 "use client";
-
 import PageWrapper from "@/components/common/page-wrapper";
 import SelectList from "@/components/common/select-list";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/routing";
-import { useRegionsStore } from "@/lib/features/regions/use-regions-store";
+import { useCategoryStore } from "@/lib/features/categories/use-categories-store";
 import useLocalizer from "@/lib/hooks/use-localizer";
 import { DocumentSchema } from "@/lib/schemas/settings-schema";
+import { SubCategoryType } from "@/lib/types/api/api-type";
 import { DropdownType } from "@/lib/types/common-type";
 import { validateData } from "@/lib/utils/stuff-client";
 import { BookA } from "lucide-react";
@@ -14,11 +14,11 @@ import React from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const UpdateRegionForm = ({regions,city}:{regions?:Array<DropdownType<number>>,city?:DropdownType<number> | null})=>{
-    const {t} = useLocalizer();
+const UpdateCategoryForm = ({categories,subCategory}:{categories?:Array<DropdownType<number>> | null,subCategory?:SubCategoryType | null})=>{
+      const {t} = useLocalizer();
     const [errors,setErrors] = React.useState<any | undefined>(undefined);
-    const [request,setRequest] = React.useState<z.infer<typeof DocumentSchema>>({id:city?.addational?.toString() ?? '',arDesc:city?.arDesc ?? '',enDesc:city?.enDesc ?? ''});
-    const {isPending,isServerOn,serverOffMessage,code,message,updateCity} = useRegionsStore();
+    const [request,setRequest] = React.useState<z.infer<typeof DocumentSchema>>({id:subCategory?.mainCategoryId?.toString() ?? '',arDesc:subCategory?.arDesc ?? '',enDesc:subCategory?.enDesc ?? ''});
+    const {isPending,isServerOn,serverOffMessage,code,message,updateSubCategory} = useCategoryStore();
     const router = useRouter();
     
     return <PageWrapper 
@@ -32,8 +32,8 @@ const UpdateRegionForm = ({regions,city}:{regions?:Array<DropdownType<number>>,c
             link: "/dashboard",
           },
           {
-            itemTitle: "routes.regions_cities",
-            link:"/dashboard/regions"
+            itemTitle: "routes.global_categories",
+            link:"/dashboard/categories"
           },
           {
             itemTitle: "routes.update",
@@ -54,19 +54,19 @@ const UpdateRegionForm = ({regions,city}:{regions?:Array<DropdownType<number>>,c
             setErrors(validate.errorsList);
             return;
           }
-          if(city){
-            const response = await updateCity(city?.id!,request);
-            if(!isServerOn){
+          if(subCategory){
+            const response = await updateSubCategory(subCategory?.id!,request);
+            if(!response?.isServerOn){
               toast.error(t(serverOffMessage));
               return;
             }
-            if(code == 0 && response){
-              toast.success(message);
-              router.push("/dashboard/regions");
+            if(response?.code == 0 && response?.data){
+              toast.success(response?.message);
+              router.push("/dashboard/categories");
               router.refresh();
               return;
             }else{
-                toast.error(message);
+                toast.error(response?.message);
             }
           }
         }
@@ -75,9 +75,9 @@ const UpdateRegionForm = ({regions,city}:{regions?:Array<DropdownType<number>>,c
     
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <SelectList
-                label={t("labels.region")}
-                placeholder={t("placeholders.region")}
-                options={regions ?? []}
+                label={t("labels.category")}
+                placeholder={t("placeholders.category")}
+                options={categories ?? []}
                 value={request?.id}
                 prefixicon={<BookA />}
                 onValueChange={(value) => {
@@ -112,4 +112,5 @@ const UpdateRegionForm = ({regions,city}:{regions?:Array<DropdownType<number>>,c
     
     </PageWrapper>
 };
-export default UpdateRegionForm; 
+
+export default UpdateCategoryForm;
