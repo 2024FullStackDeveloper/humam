@@ -13,6 +13,7 @@ const UpdateGlobalSettingsSchema = z.object({
     passwordMaxLength:z.number().gt(0,{message:"errors.required_field"}),
     complexPasswordEnabled:z.boolean(),
     misLoginCount:z.number().gt(0,{message:"errors.required_field"}),
+    maxDistanceBetween:z.number().gt(0,{message:"errors.required_field"}),
 });
 
 

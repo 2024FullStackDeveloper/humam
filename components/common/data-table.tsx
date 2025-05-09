@@ -12,6 +12,7 @@ import {  Loader2 } from "lucide-react";
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import NoDataBox from "./no-data-box";
+import usePaginate from "@/lib/hooks/use-paginate";
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -24,18 +25,38 @@ export default function DataTable<TData, TValue>({
   data,
   isLoading,
 }: DataTableProps<TData, TValue>) {
+  const {isPaginateEnabled,paginate,} = usePaginate();
+  const { t, isRtl } = useLocalizer();
+
+  const [pagination, setPagination] = React.useState<{pageIndex:number,pageSize:number}>({
+    pageIndex: 0,
+    pageSize: 5,
+  });
+
+  React.useLayoutEffect(()=>{
+      setPagination({
+        pageIndex:paginate?.page ?? 0,
+        pageSize:paginate?.size ?? 0
+      })
+  },[isPaginateEnabled])
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    ...(isPaginateEnabled && {
+      getPaginationRowModel:getPaginationRowModel(),
+      onPaginationChange:setPagination,
+      state:{
+        pagination
+      }
+    }),
     getSortedRowModel: getSortedRowModel(),
     enableMultiRowSelection: false,
     enableRowSelection:true,
+    enableColumnFilters : true
   });
 
-  const { t, isRtl } = useLocalizer();
 
   return (
     <div className="max-w-full">
@@ -62,7 +83,7 @@ export default function DataTable<TData, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {table.getRowModel().rows?.length > 0 ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
               className="hover:bg-secondary/20 hover:text-primary transition-all"
@@ -81,8 +102,8 @@ export default function DataTable<TData, TValue>({
               <TableCell colSpan={columns.length} className="text-center">
                 {isLoading ? (
                   <p className="flex flex-row justify-center items-center gap-2">
-                    <Loader2 className="animate-spin" />{" "}
-                    {t("paragraphs.loading")}{" "}
+                    <Loader2 className="animate-spin" />
+                    {t("paragraphs.loading")}
                   </p>
                 ) : (
                   <NoDataBox/>

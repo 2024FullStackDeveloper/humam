@@ -79,11 +79,13 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       fileName = file.name;
       fileBase64Result = await toBase64(file);
     }
-    props?.onChange &&
+    
+    if(props?.onChange){ 
       props.onChange({
         data: fileBase64Result,
         extension: fileName?.split(".").pop(),
       });
+    }
   };
 
 
@@ -91,7 +93,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     return files?.length > 0;
   }, [files]);
   
-  const {isRtl} = useLocalizer();
+  const {t,isRtl} = useLocalizer();
 
   const {
     isFocused,
@@ -122,7 +124,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   return (
     <div className="flex flex-col gap-4">
      {path && <div className="flex flex-row justify-between items-center">
-      <Label>مسار الصورة</Label>
+      <Label>{t("labels.file_show")}</Label>
       <Link target="_blank" href={path ?? ''}>
         <Eye/>
       </Link>
@@ -135,6 +137,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         {!hasFileBinding && <p className="text-sm text-primary">{isRtl?"السحب و الإفلات أو النقر":"Drag and drop or click"}</p>}
         </div>
     </div>
+    {props?.error &&<strong>{props?.error}</strong>}
     </div>
   );
 };

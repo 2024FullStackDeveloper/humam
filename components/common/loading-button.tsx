@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { LoaderCircle } from "lucide-react";
-import { Button, buttonVariants } from "../ui/button";
+import { Button } from "../ui/button";
 import { VariantButtomType } from "@/lib/types/common-type";
 
 export interface LoadingButtonProps{

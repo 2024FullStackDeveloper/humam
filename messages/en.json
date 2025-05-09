@@ -42,14 +42,22 @@
         "remove_old_sessions":"Remove old sessions",
         "subs":"Sub Categories",
         "category":"Category",
-        "full_name":"Full Name"
-
+        "full_name":"Full Name",
+        "is_online":"Online status",
+        "max_distance_between":"Maximum distance between the service provider and the client in meters",
+        "services":"Services",
+        "organization_name":"Company Name",
+        "disable_paginate_option":"Disable navigation option",
+        "file_show":"File Show",
+        "choose":"Choose",
+        "stopped":"Stopped"
     },
     "placeholders":{
         "phone_or_email":"Type mobile number or email",
         "password":"Type password",
-        "phone_number":"Write phone number",
-        "new_password":"Write new password",
+        "phone_number":"Type phone number",
+        "new_password":"Type new password",
+        "organization_name":"Type company name",
         "city":"Select a city",
         "region":"Select a region",
         "ar_desc":"Type Arabic Description",
@@ -65,7 +73,9 @@
         "identity_type":"Select Identity Type",
         "identity_number":"Type Identity Number",
         "career":"Select Career",
-        "cr_number":"Type Commercial Register Number"
+        "cr_number":"Type Commercial Register Number",
+        "max_distance_between":"Type maximum distance between the service provider and the client in meters",
+        "services":"Services"
 
 
     },
@@ -80,8 +90,10 @@
         "cancel":"Cancel",
         "ok":"Yes",
         "previous":"Previous",
-        "update":"Update"
-
+        "update":"Update",
+        "show":"Show",
+        "details":"Details",
+        "search":"Search"
     },
     "tooltips":{
         "details_show":"Details Show"
@@ -107,8 +119,13 @@
          "region_details":"Region Details",
          "delete_confirmation":"Delete Confirmation",
          "password_settings":"Password Settings",
-         "category_details":"Category Details"
-
+         "category_details":"Category Details",
+         "linked_sub_services":"Linked Subservices",
+         "choose_operation":"Choose operation",
+         "user_data":"User Data",
+         "extra_data":"Extra Data",
+         "company_data":"Company Data",
+         "services":"Services"
     },
     "paragraphs":{
         "otp_not_sent":"If the code is not sent",
@@ -121,7 +138,10 @@
         "server_off":"Unable to access service",
         "required_field":"Mandatory data field",
         "max_length":"Field length exceeded",
-        "invalid_email":"Invalid email"
+        "invalid_email":"Invalid email",
+        "only_one_service":"Only one service must be selected",
+        "required_services":"At least one service must be selected"
+
     },
     "routes":{
         "home":"Home",
@@ -131,6 +151,7 @@
         "regions_cities":"Regions And Cities",
         "global_categories":"General Categories",
         "create":"Create",
-        "update":"Update"
+        "update":"Update",
+        "about_app":"About App"
     }
 }

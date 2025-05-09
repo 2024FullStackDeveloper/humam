@@ -19,7 +19,9 @@ const SidebarSticky = ({ toggle, onToggle , collapsed , onCollapse}: SidebarStic
       <div className="flex flex-row gap-2 items-center">
       <TextButton
           onClick={() => {
-            onCollapse && onCollapse(!collapsed);
+            if(onCollapse){
+              onCollapse(!collapsed);
+            }
           }}
         >
           {!collapsed ?  (isRtl ? <SidebarOpenIcon color="white" /> :  <SidebarCloseIcon color="white" />) : (isRtl ?  <SidebarCloseIcon color="white" /> : <SidebarOpenIcon color="white" />) }

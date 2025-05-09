@@ -1,7 +1,5 @@
 "use client";
 import { cn } from "@/lib/utils";
-import dateFormat from "dateformat";
-import { LogIn, LogOut } from "lucide-react";
 import Image from "next/image";
 
 
@@ -14,7 +12,7 @@ export interface SidebarHeaderProps{
 
 
 
-const SidebarHeader = ({className,userName,logInDate,logOutDate}:SidebarHeaderProps)=>{
+const SidebarHeader = ({className}:SidebarHeaderProps)=>{
 
 return (
     <div

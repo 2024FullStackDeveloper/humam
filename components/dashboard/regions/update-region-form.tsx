@@ -55,7 +55,7 @@ const UpdateRegionForm = ({regions,city}:{regions?:Array<DropdownType<number>>,c
             return;
           }
           if(city){
-            const response = await updateCity(city?.id!,request);
+            const response = await updateCity(city?.id,request);
             if(!isServerOn){
               toast.error(t(serverOffMessage));
               return;

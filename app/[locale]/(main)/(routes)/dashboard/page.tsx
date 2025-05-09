@@ -3,7 +3,7 @@
 import DecorationBox from "@/components/common/decoration-box";
 import NoDataBox from "@/components/common/no-data-box";
 import StatisticBox from "@/components/dashboard/statistic-box";
-import { Users2, Users2Icon } from "lucide-react";
+import { Users2Icon } from "lucide-react";
 
 const DashboardPage = () => {
   return (

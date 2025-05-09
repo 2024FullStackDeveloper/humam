@@ -36,7 +36,7 @@ const ProfileButton = () => {
         <div className="relative h-10 w-10 border border-secondary rounded-full flex items-center justify-center overflow-hidden cursor-pointer select-none">
           {userDetails?.personImg ? (
             <Image
-              src={userDetails?.personImg!}
+              src={userDetails?.personImg}
               priority
               fill
               objectFit="cover"

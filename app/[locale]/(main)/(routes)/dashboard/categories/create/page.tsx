@@ -1,6 +1,5 @@
 import CreateCategoryForm from "@/components/dashboard/categories/create-category-form";
 import ApiAction from "@/lib/server/action";
-import { CategoryTypes } from "@/lib/types/api/api-type";
 import { DropdownType } from "@/lib/types/common-type";
 const CreateCategoryPage = async () => {
 

@@ -10,7 +10,29 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat.extends("next/core-web-vitals", "next/typescript"),{
+    rules:{
+      "@typescript-eslint/no-explicit-any": ["off"],
+      "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+              "args": "all",
+              "argsIgnorePattern": "^_",
+              "vars": "all",
+              "varsIgnorePattern": "^_|^props$", // Ignore React props
+              "ignoreRestSiblings": true,
+              "caughtErrors": "all"
+            }
+          ],
+          "@typescript-eslint/no-empty-interface": [
+            "error",
+            {
+              "allowSingleExtends": true,  // Allow empty interfaces extending one type
+             "allowMultipleExtends": false 
+            }
+          ]
+    }
+  }
 ];
 
 export default eslintConfig;

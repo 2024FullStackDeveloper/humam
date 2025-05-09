@@ -5,11 +5,12 @@ import { SubCategoryType } from "@/lib/types/api/api-type";
 import { DropdownType } from "@/lib/types/common-type";
 import { getLocale } from "next-intl/server";
 
-const UpdateCategoryPage = async (props: Promise<{
-    searchParams?: { id: string }
-  }>) => {
-    const params = await props;
-    const subCategoryId = params?.searchParams?.id;
+const UpdateCategoryPage = async ({
+  searchParams
+}: {
+  searchParams?: Promise<{ id: string }>
+ }) => {
+    const subCategoryId = (await searchParams)?.id;
     const locale = await getLocale();
     
     if(!subCategoryId){

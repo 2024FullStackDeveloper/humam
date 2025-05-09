@@ -63,7 +63,7 @@ interface APICollectionResponseType<T>{
 };
 
 interface APILoginUserDetailsResponseType{
-    id:String,
+    id:string,
     profileId:number,
     role:RoleType,
     isSuperUser:boolean,
@@ -91,13 +91,15 @@ interface APIUserProfileType{
     crtdAt?:string | null,
     organizationDetails?:APILoginOrganizationDetailsResponseType | null,
     profileStatusCode:number,
-    profileStatus:AccountStatusType
+    profileStatus:AccountStatusType,
+    isOnline:boolean,
+    mainServices?:Array<number> | null,
 };
 
 
    
 interface APIUserResponseType{
-    id:String,
+    id:string,
     isSuperUser:boolean,
     email?:string | null,
     phoneNumber:string,
@@ -126,7 +128,8 @@ interface APIGlobalSettingsResponseType{
     passwordMinLength:number,
     passwordMaxLength:number,
     complexPasswordEnabled:boolean,
-    misLoginCount:number
+    misLoginCount:number,
+    maxDistanceBetween?:number,
 };
 
 enum CategoryTypes{
@@ -152,7 +155,7 @@ interface APICategoryResponseType extends DropdownType<CategoryTypes>{
 
 
 interface APIUserResponse2Type{
-    id:String,
+    id:string,
     profileId:number,
     role:RoleType,
     isSuperUser:boolean,
@@ -164,13 +167,91 @@ interface APIUserResponse2Type{
     identityNumber?:string | null,
     identityImg?:string | null,
     city?:DropdownType<number> | null,
-    career?:DropdownType<number>  | null,
+    mainServices?:Array<number> | null
     organizationDetails?:APILoginOrganizationDetailsResponseType | null,
     crtdAt?:string | null,
     lastLogin?:string | null,
     lastLogOut?:string | null,
     crtdBy?:string | null
    };
+
+
+interface APIAboutAppResponseType{
+    arContent:string,
+    enContent:string,
+};
+
+
+   
+interface APIMainServiceResponseType{
+    id:number,
+    arDesc:string,
+    enDesc:string,
+    serviceImg?:string | null,
+    stopEnabled:boolean,
+};
+
+
+
+interface APISubServiceResponseType{
+    id:number,
+    arDesc:string,
+    enDesc:string,
+    arDetails?:string,
+    enDetails?:string,
+    subServiceImg?:string | null,
+    stopEnabled:boolean,
+    mainServiceId:number
+}
+
+interface APIServiceDetailsResponseType{
+    id:number,
+    arDesc:string,
+    enDesc:string,
+    arDetails?:string,
+    enDetails?:string,
+    serviceImg?:string | null,
+    stopEnabled:boolean,
+    subServiceId:number,
+    countable:boolean,
+    offerId?:number,
+    discountRate?:number,
+    priceAfterDiscount?:number,
+}
+
+interface APIProviderServiceItemBaseeRsponseType{
+    serviceId:number,
+    stopEnabled:boolean
+}
+
+
+interface APIProviderServiceItemResponseType extends APIProviderServiceItemBaseeRsponseType{
+    id:number,
+}
+
+
+interface APIServiceItemResponseType{
+    id:number,
+    arDesc:string,
+    enDesc:string,
+    serviceImg?:string | null,
+}
+
+
+interface APISubServiceItemResponseType  extends APIServiceItemResponseType{
+    serviceDetailsList?:Array<APIServiceItemResponseType>,
+}
+
+interface APIServiceInfoResponseType extends APIServiceItemResponseType{
+    subServiceList?:Array<APISubServiceItemResponseType>,
+}
+
+
+interface APIProviderServiceResponseType{
+    mainServices?:Array<APIProviderServiceItemResponseType>,
+    subServices?:Array<APIProviderServiceItemResponseType>,
+    servicesDetails?:Array<APIProviderServiceItemResponseType>,
+}
 
 export type {
     APIResponseType,
@@ -187,5 +268,15 @@ export type {
     CategoryTypes,
     APICategoryResponseType,
     SubCategoryType,
-    APIUserResponse2Type
+    APIUserResponse2Type,
+    APIAboutAppResponseType,
+    APIMainServiceResponseType,
+    APISubServiceResponseType,
+    APIServiceDetailsResponseType,
+    APIProviderServiceResponseType,
+    APIProviderServiceItemResponseType,
+    APIServiceInfoResponseType,
+    APIServiceItemResponseType,
+    APISubServiceItemResponseType,
+    APIProviderServiceItemBaseeRsponseType,
 };

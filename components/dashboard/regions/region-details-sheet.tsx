@@ -3,7 +3,6 @@ import DataTable from "@/components/common/data-table";
 import SingleRow from "@/components/common/single-row";
 import TitleHeader from "@/components/common/title-header";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import useLocalizer from "@/lib/hooks/use-localizer";
 import { APIRegionResponseType } from "@/lib/types/api/api-type";
@@ -12,7 +11,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { BookCheck, Info } from "lucide-react";
 
 const RegionDetailsSheet = ({data}:{data:APIRegionResponseType})=>{
-    const {t,isRtl} = useLocalizer();
+    const {t} = useLocalizer();
 
     const cols: ColumnDef<DropdownType<number>>[] = [
         {

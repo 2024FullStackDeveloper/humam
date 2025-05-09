@@ -18,7 +18,7 @@ const UserSchema = z.object({
         organizationName:z.string().min(1,{message: "errors.required_field"}).max(256,{message: "errors.max_length"}).optional(),
         crNumber:z.string().min(1,{message: "errors.required_field"}).max(256,{message: "errors.max_length"}).optional(),
         crNumberFile:FileSchema.optional(),
-        careerType:z.number().optional(),
+        mainServices:z.array(z.number()).optional(),
         personFile:FileSchema.optional(),
     }).optional(),
 }).superRefine((props,context)=>{
@@ -33,7 +33,6 @@ const UserSchema = z.object({
                 });
             }
         break;
-
         //مهني
         case 2:
             if(!props?.addionalData?.cityId){
@@ -43,11 +42,19 @@ const UserSchema = z.object({
                     message: "errors.required_field",
                 });
             }
-            if(!props?.addionalData?.careerType){
+            if(!props?.addionalData?.mainServices){
                 context.addIssue({
                     code: z.ZodIssueCode.custom,
-                    path:["careerType"],
-                    message: "errors.required_field",
+                    path:["mainServices"],
+                    message: "errors.required_services",
+                });
+            }
+
+            if(props?.addionalData?.mainServices && props?.addionalData?.mainServices?.length > 1){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["mainServices"],
+                    message: "errors.only_one_service",
                 });
             }
             if(!props?.addionalData?.identityType){
@@ -104,6 +111,13 @@ const UserSchema = z.object({
                     message: "errors.required_field",
                 });
             }
+            if(!props?.addionalData?.mainServices){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["mainServices"],
+                    message: "errors.required_services",
+                });
+            }
             if(!props?.addionalData?.identityNumber){
                 context.addIssue({
                     code: z.ZodIssueCode.custom,
@@ -152,13 +166,150 @@ const UpdateUserSchema = z.object({
         identityType:z.number().optional(),
         identityNumber:z.string().min(1,{message: "errors.required_field"}).max(256,{message: "errors.max_length"}).optional(), 
         identityFile:FileSchema.optional(),
+        identityFileUrl:z.string().nullable().optional(),
         organizationName:z.string().min(1,{message: "errors.required_field"}).max(256,{message: "errors.max_length"}).optional(),
         crNumber:z.string().min(1,{message: "errors.required_field"}).max(256,{message: "errors.max_length"}).optional(),
         crNumberFile:FileSchema.optional(),
-        careerType:z.number().optional(),
+        crNumberFileUrl:z.string().nullable().optional(),
+        mainServices:z.array(z.number()).optional(),
         personFile:FileSchema.optional(),
+        personFileUrl:z.string().nullable().optional(),
     }).optional(),
-});
+}).superRefine((props,context)=>{
+    switch(props.role){
+        //مدير
+        case 4:
+            if(!props?.email){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["email"],
+                    message: "errors.required_field",
+                });
+            }
+        break;
+        //مهني
+        case 2:
+            if(!props?.addionalData?.cityId){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["cityId"],
+                    message: "errors.required_field",
+                });
+            }
+            if(!props?.addionalData?.mainServices){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["mainServices"],
+                    message: "errors.required_services",
+                });
+            }
+
+            if(props?.addionalData?.mainServices && props?.addionalData?.mainServices?.length > 1){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["mainServices"],
+                    message: "errors.only_one_service",
+                });
+            }
+            if(!props?.addionalData?.identityType){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["identityType"],
+                    message: "errors.required_field",
+                });
+            }
+            if(!props?.addionalData?.identityNumber){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["identityNumber"],
+                    message: "errors.required_field",
+                });
+            }
+            if(!props?.addionalData?.identityFile && !props?.addionalData?.identityFileUrl){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["identityFile"],
+                    message: "errors.required_field",
+                });
+            }
+
+            if(!props?.addionalData?.personFile){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["personFile"],
+                    message: "errors.required_field",
+                });
+            }
+        break;
+        //شركة
+        case 3:
+            if(!props?.email){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["email"],
+                    message: "errors.required_field",
+                });
+            }
+
+            if(!props?.addionalData?.cityId){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["cityId"],
+                    message: "errors.required_field",
+                });
+            }
+            if(!props?.addionalData?.identityType){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["identityType"],
+                    message: "errors.required_field",
+                });
+            }
+            if(!props?.addionalData?.mainServices){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["mainServices"],
+                    message: "errors.required_services",
+                });
+            }
+            if(!props?.addionalData?.identityNumber){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["identityNumber"],
+                    message: "errors.required_field",
+                });
+            }
+            if(!props?.addionalData?.identityFile && !props?.addionalData?.identityFileUrl){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["identityFile"],
+                    message: "errors.required_field",
+                });
+            }
+            if(!props?.addionalData?.organizationName){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["organizationName"],
+                    message: "errors.required_field",
+                });
+            }
+            if(!props?.addionalData?.crNumber){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["crNumber"],
+                    message: "errors.required_field",
+                });
+            }
+            if(!props?.addionalData?.crNumberFile && !props?.addionalData?.crNumberFileUrl){
+                context.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path:["crNumberFile"],
+                    message: "errors.required_field",
+                });
+            }
+        break;
+    }
+});;
 
 export {
     FileSchema,

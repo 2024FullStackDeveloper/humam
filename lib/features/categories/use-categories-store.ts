@@ -1,6 +1,6 @@
 import { DocumentSchema } from '@/lib/schemas/settings-schema';
 import ApiAction from '@/lib/server/action';
-import { APICategoryResponseType, APICollectionResponseType, CategoryTypes, SubCategoryType} from '@/lib/types/api/api-type'
+import { APICategoryResponseType, APICollectionResponseType, SubCategoryType} from '@/lib/types/api/api-type'
 import { CoreStateType, PaginateType, StateResponseType } from '@/lib/types/common-type';
 import { z } from 'zod';
 import { create } from 'zustand'
@@ -65,7 +65,7 @@ const useCategoryStore = create<CategoryState>()(
             const response = await ApiAction<APICategoryResponseType | undefined | null>(
              {
                  controller:"settings",
-                 url:`add_new_sub_category`,
+                 url:`add_new_subcategory`,
                  method:"POST",
                  body:{...props,id:parseInt(props.id)},
                  authorized:true

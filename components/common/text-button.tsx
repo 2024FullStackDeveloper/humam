@@ -4,7 +4,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
 const textButtonVariants = cva(
-  "inline-flex cursor-pointer whitespace-nowrap select-none bg-transparent text-sm font-semibold transition-colors disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex  cursor-pointer whitespace-nowrap select-none bg-transparent text-sm font-semibold transition-colors disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {

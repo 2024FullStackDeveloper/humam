@@ -26,7 +26,7 @@ export default async function ApiAction<TResponse>({
 }): Promise<GlobalResponseType<APIResponseType<TResponse>>> {
 
     
-    let result : GlobalResponseType<APIResponseType<TResponse>> = {isServerOn:true};
+    const result : GlobalResponseType<APIResponseType<TResponse>> = {isServerOn:true};
     const baseUrl = process.env.BASE_API_URL!;
     const version = process.env.VERSION!;
     let fullUrl = `${baseUrl}/${controller}/${version}/${url}`.replace(" ","");
@@ -53,7 +53,6 @@ export default async function ApiAction<TResponse>({
         });
 
         const jsonResponse = await response.json();
-
         if(jsonResponse) {
             result.result = jsonResponse as  APIResponseType<TResponse>;
         } 

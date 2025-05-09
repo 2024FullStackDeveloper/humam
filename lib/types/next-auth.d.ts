@@ -5,7 +5,7 @@ import {APILoginResponseType} from "./api/api-type";
 
 declare module "next-auth" {
     interface User extends APILoginResponseType  {
-        id:String
+        id:string
     }
     
     interface Session  {
@@ -16,6 +16,5 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
     interface JWT extends APILoginResponseType {
-
   }
 }

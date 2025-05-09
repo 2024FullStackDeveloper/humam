@@ -1,5 +1,5 @@
 "use client";
-import { boolean, ZodSchema } from "zod";
+import { ZodSchema } from "zod";
 import { PaginateType, ValidationType } from "../types/common-type";
 import { APIErrorFieldType, RoleTypes } from "../types/api/api-type";
 import '@/lib/extensions/string-extensions';
@@ -16,12 +16,12 @@ export function validateData<T>(schema: ZodSchema<T>, data: any): ValidationType
 };
 
 
-export function validateAPIErrors(errors?: Array<APIErrorFieldType> | null): Map<String, String[]> | undefined {
+export function validateAPIErrors(errors?: Array<APIErrorFieldType> | null): Map<string, string[]> | undefined {
   if (!errors) return undefined;
-  let result: any = {};
+  const result: any = {};
   try {
     for (const item of errors) {
-      let propName: String = '';
+      let propName: string = '';
       if (item.propertyName?.includes(".")) {
         propName = item.propertyName?.split(".").reverse()[0]?.toLowerFirstLetter();
       } else {

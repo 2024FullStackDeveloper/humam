@@ -131,7 +131,7 @@ const DashboardWrapper = ({
           })}
         </Menu>
       </Sidebar>
-      <div className="relative  min-h-screen w-full flex flex-col">
+      <div className="relative h-full min-h-screen w-full flex flex-col">
         <SidebarSticky
         collapsed={collpased}
         onCollapse={(value)=>{
@@ -142,7 +142,7 @@ const DashboardWrapper = ({
             toggle(true);
           }}
         />
-        <main className="p-5 h-full w-full grow">{children}</main>
+        <main className="p-5 h-full w-full flex grow">{children}</main>
       </div>
     </div>
   );

@@ -5,13 +5,16 @@ import { APICollectionResponseType, APIRegionResponseType } from "@/lib/types/ap
 import { DropdownType } from "@/lib/types/common-type";
 import { getLocale } from "next-intl/server";
 
-const UpdateRegionPage = async (props: Promise<{
-    searchParams?: { id: string }
-  }>)=>{
+const UpdateRegionPage = async ({
+  searchParams
+}: {
+  searchParams?: Promise<{ id: string }>
+ })=>{
 
-const params = await props;
-const cityId = params?.searchParams?.id;
+const cityId =  (await searchParams)?.id;
 const locale = await getLocale();
+
+
 if(!cityId){
    return redirect({href:"/dashboard/regions",locale:locale});
 }

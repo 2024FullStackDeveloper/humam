@@ -34,6 +34,11 @@ const adminRoutes : Array<RouteType> = [
                 id:33,
                 title:"routes.global_settings",
                 route:"/dashboard/settings",
+            },
+            {
+                id:34,
+                title:"routes.about_app",
+                route:"/dashboard/about-app",
             }
         ]
     },

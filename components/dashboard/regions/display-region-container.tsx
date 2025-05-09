@@ -17,12 +17,13 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Trash2 } from "lucide-react";
 import React from "react";
 import RegionDetailsSheet from "./region-details-sheet";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import FormButton from "@/components/common/form-button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { useRouter } from "@/i18n/routing";
 import usePaginate from "@/lib/hooks/use-paginate";
+import SortButton from "@/components/common/sort-button";
 
 const DisplayRegionContainer = () => {
   const { t, isRtl } = useLocalizer();
@@ -30,6 +31,8 @@ const DisplayRegionContainer = () => {
   const {paginate} = usePaginate();
   const [selectedCityList,setSelectedCityList] = React.useState<{regionId:number,cityId:number}[]>([]);
   const router = useRouter();
+  const [visible, setVisible] = React.useState(false);
+  const [cityId, setCityId] = React.useState<number | undefined>(undefined);
 
 
   const disabledComponent = React.useCallback((id:number) : boolean=>{
@@ -51,15 +54,42 @@ const DisplayRegionContainer = () => {
   const cols: ColumnDef<APIRegionResponseType>[] = [
     {
       accessorKey: "id",
-      header: "#",
+      header: ({ column }) => {
+        const isAcs = column.getIsSorted() === "asc";
+        return (
+          <SortButton
+            isAcs={isAcs}
+            label="#"
+            onSort={() => column.toggleSorting(isAcs)}
+          />
+        );
+      },
     },
     {
       accessorKey: "arDesc",
-      header: t("labels.ar_desc"),
+      header: ({ column }) => {
+        const isAcs = column.getIsSorted() === "asc";
+        return (
+          <SortButton
+            isAcs={isAcs}
+            label={t("labels.ar_desc")}
+            onSort={() => column.toggleSorting(isAcs)}
+          />
+        );
+      },
     },
     {
       accessorKey: "enDesc",
-      header: t("labels.en_desc"),
+      header: ({ column }) => {
+        const isAcs = column.getIsSorted() === "asc";
+        return (
+          <SortButton
+            isAcs={isAcs}
+            label={t("labels.en_desc")}
+            onSort={() => column.toggleSorting(isAcs)}
+          />
+        );
+      },
     },
     {
       accessorKey: "cities",
@@ -101,49 +131,14 @@ const DisplayRegionContainer = () => {
             }} variant="destructive">
               <Edit />
             </Button>
-            <Dialog>
-            <DialogTrigger className="order-3" asChild>
-            <Button  variant="dangerOutline" disabled={disabledComponent(data.id)}>
+            <Button 
+            onClick={() => {
+              setCityId(data.id);
+              setVisible(true);
+            }}
+              variant="dangerOutline" disabled={disabledComponent(data.id)}>
               <Trash2 />
             </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>{t("titles.delete_confirmation")}</DialogTitle>
-                <Separator className="my-3" />
-                <DialogDescription>
-                  {t("paragraphs.delete_confirmation")}
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <form action={async () => {
-
-                    const cityResult = selectedCityList.find(e=>e.regionId == data.id)?.cityId;
-                    if(cityResult){
-                        const result = await deleteCityById(cityResult);
-                
-                        if(!isServerOn){
-                            toast.error(t(serverOffMessage));
-                            return;
-                        }
-                        if(code == 0 && result){
-                            toast.success(message);
-                            setSelectedCityList([...selectedCityList.filter(e=>e.regionId !== data.id)]);
-                            await fetchData();
-                        }else{
-                            toast.error(message);
-                        }
-                    }
-
-                }}>
-                  <FormButton title={t("buttons.ok")} />
-                </form>
-                <Button onClick={() => {}} variant="secondary">
-                  {t("buttons.cancel")}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
 
           </div>
         );
@@ -180,6 +175,49 @@ const DisplayRegionContainer = () => {
       ]}
     >
         <DataTable isLoading={isPending} columns={cols} data={regions ?? []} />
+        <Dialog open={visible} onOpenChange={setVisible}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>{t("titles.delete_confirmation")}</DialogTitle>
+                <Separator className="my-3" />
+                <DialogDescription>
+                  {t("paragraphs.delete_confirmation")}
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <form action={async () => {
+
+                    const cityResult = selectedCityList.find(e=>e.regionId == cityId)?.cityId;
+                    if(cityResult){
+                        const result = await deleteCityById(cityResult);
+                
+                        if(!isServerOn){
+                            toast.error(t(serverOffMessage));
+                            return;
+                        }
+                        if(code == 0 && result){
+                            toast.success(message);
+                            setSelectedCityList([...selectedCityList.filter(e=>e.regionId !== cityId)]);
+                            await fetchData();
+                            setVisible(false);
+                            setCityId(undefined);
+                        }else{
+                            toast.error(message);
+                        }
+                    }
+
+                }}>
+                  <FormButton title={t("buttons.ok")} />
+                </form>
+                <Button onClick={() => {
+                  setVisible(false);
+                  setCityId(undefined);
+                }} variant="secondary">
+                  {t("buttons.cancel")}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
     </PageWrapper>
   );
 };

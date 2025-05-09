@@ -17,14 +17,15 @@ import DataTablePagination, {
   DataTablepaginationProps,
 } from "./data-table-pagination";
 import { Button } from "../ui/button";
-import { Filter, Plus, RefreshCcw } from "lucide-react";
-import { useToggle } from "@uidotdev/usehooks";
-import { Switch } from "../ui/switch";
+import { Filter, Plus, RefreshCcw, X } from "lucide-react";
+// import { useToggle } from "@uidotdev/usehooks";
+// import { Switch } from "../ui/switch";
 import { VariantButtomType } from "@/lib/types/common-type";
 import LoadingButton from "./loading-button";
 import { useSearchParams } from "next/navigation";
 import SizeLimmitList from "./size-limit-list";
 import usePaginate from "@/lib/hooks/use-paginate";
+import { useToggle } from "@uidotdev/usehooks";
 
 export interface StickyButtonProps {
   className?: string;
@@ -45,24 +46,29 @@ const PageWrapper = ({
   }>;
   contentClassName?: string;
   stickyButtomControls?: boolean;
-  paginationOptions?: DataTablepaginationProps,
+  paginationOptions?: DataTablepaginationProps;
   onRefresh?: () => void;
   onAdd?: () => void;
-  onFilter?: () => void;
+  filterable?: boolean,
+  onFilterOpened?:()=>void,
+  onFilterClosed?:()=>void,
+  filterComponents?: React.ReactNode;
   stickyLeftButtonOptions?: StickyButtonProps;
   stickyRightButtonOptions?: StickyButtonProps & {
-    disabled?:boolean,
-    loading?:boolean,
+    disabled?: boolean;
+    loading?: boolean;
   };
+  enableBackButton?: boolean;
 }>) => {
   const { t } = useLocalizer();
   const router = useRouter();
-  const [on, toggle] = useToggle(false);
-  const params =  useSearchParams();
-  const searchParams = new URLSearchParams(params.toString());
+  // const [on, toggle] = useToggle(false);
+  const params = useSearchParams();
+  // const searchParams = new URLSearchParams(params.toString());
   const path = usePathname();
   const paginationValue = React.useDeferredValue(props?.paginationOptions);
-  const {isPaginateEnabled} = usePaginate();
+  const { isPaginateEnabled } = usePaginate();
+  const [on, toggle] = useToggle(false);
 
   const breadcrumbsRender = React.useMemo(():
     | Array<React.JSX.Element>
@@ -95,14 +101,22 @@ const PageWrapper = ({
     return undefined;
   }, [breadcrumbs]);
 
-
-  React.useEffect(()=>{
-    if(on){
-      router.push(path.replace(searchParams.toString(),""));
-    }else{
-      router.push(path + "?" + `paginate=true&page=${paginationValue?.page ?? 0}&size=${paginationValue?.size ?? 0}`);
+  React.useEffect(() => {
+    if (
+      !path.includes("create") &&
+      !path.includes("update") &&
+      !path.includes("settings") &&
+      !path.includes("about-app")
+    ) {
+      router.push(
+        path +
+          "?" +
+          `paginate=true&page=${paginationValue?.page ?? 0}&size=${
+            paginationValue?.size ?? 0
+          }`
+      );
     }
-  },[on]);
+  }, []);
 
   return (
     <div className=" w-full h-full relative  rounded-md !bg-secondary/10 shadow flex flex-col">
@@ -112,66 +126,96 @@ const PageWrapper = ({
             {breadcrumbsRender}
           </BreadcrumbList>
         </Breadcrumb>
-        <CircleButton
-          type="back"
-          className="h-10 w-10"
-          variant="default"
-          onClick={() => {
-            router.back();
-          }}
-        />
+        {props?.enableBackButton && (
+          <CircleButton
+            type="back"
+            className="h-10 w-10"
+            variant="default"
+            onClick={() => {
+              router.back();
+            }}
+          />
+        )}
       </header>
       <div className={cn("grow", contentClassName)}>
-       {!props?.stickyButtomControls && <div className="flex flex-col sm:flex-row  sm:items-center sm:justify-between gap-3  p-5 bg-white rounded-lg mx-5 mt-2 shadow">
-          <div className="flex flex-row items-center gap-2">
-          {props?.onRefresh && (
-            <Button variant="default" onClick={props?.onRefresh}>
-              <RefreshCcw />
-            </Button>
-          )}
-          {props?.onAdd && (
-            <Button variant="successOutline" onClick={props?.onAdd}>
-              <Plus />
-            </Button>
-          )}
-           {props?.onFilter && <Button onClick={props?.onFilter} variant="destructive">
-                <Filter />
-              </Button>
-
-        }
-          </div>
-              
+        {!props?.stickyButtomControls && (
+          <div className="flex flex-col gap-4 p-5 bg-white rounded-lg mx-5 mt-2 shadow">
+            <div className="flex flex-col sm:flex-row  sm:items-center sm:justify-between gap-3">
               <div className="flex flex-row items-center gap-2">
-                <Switch
-                 label="إبطال خيار التنقل"
-                  id="paginate"
-                  dir="ltr"
-                  checked={on}
-                  onCheckedChange={(checked)=>{
-                    toggle(checked);
-                  }}
-                />
-                <SizeLimmitList limits={[10, 20, 30, 50, 100, 200, 500, 1000]} placeholder="عدد عناصر العرض"/>
+                {props?.onRefresh && (
+                  <Button variant="default" onClick={props?.onRefresh}>
+                    <RefreshCcw />
+                  </Button>
+                )}
+                {props?.onAdd && (
+                  <Button variant="successOutline" onClick={props?.onAdd}>
+                    <Plus />
+                  </Button>
+                )}
+                {props?.filterable && (
+                  <Button
+                    onClick={() => {
+                      if (props?.filterable) {
+                        const value = !on;
+                        toggle(value);
+                        if(props?.onFilterOpened){
+                          props?.onFilterOpened();
+                          return;
+                        } 
+                        if(props?.onFilterClosed){
+                          props?.onFilterClosed();
+                        }
+                      }
+                    }}
+                    variant="destructive"
+                  >
+                    {!on ? <Filter /> : <X />}
+                  </Button>
+                )}
               </div>
-            </div>   }       
-      <div className="w-full h-full p-5">
-      {children}
+
+              <div className="flex flex-row items-center gap-2">
+                {/* <Switch
+              label={t("labels.disable_paginate_option")}
+              id="paginate"
+              dir="ltr"
+              checked={on}
+              onCheckedChange={(checked)=>{
+                if(checked){
+                  router.push(path.replace(searchParams.toString(),""));
+                }else{
+                  router.push(path + "?" + `paginate=true&page=${paginationValue?.page ?? 0}&size=${paginationValue?.size ?? 0}`);
+                }
+                toggle(checked);
+              }}
+            /> */}
+                <SizeLimmitList
+                  limits={[10, 20, 30, 50, 100, 200, 500, 1000]}
+                  placeholder="عدد عناصر العرض"
+                />
+              </div>
+            </div>
+            {on && props?.filterComponents && (
+              <div className="flex flex-col gap-2 w-full">
+                {props?.filterComponents}
+              </div>
+            )}
+          </div>
+        )}
+        <div className="w-full h-full p-5">{children}</div>
       </div>
-      </div>
-      {(!props?.stickyButtomControls && isPaginateEnabled &&(props?.paginationOptions) && (
-        <DataTablePagination {...props?.paginationOptions} />
-      ))}
-            {props?.stickyButtomControls && (
-        <div
-          className=" sticky flex flex-row bg-primary w-full rounded-bl-lg rounded-br-lg z-50 justify-between h-20 bottom-0 items-center px-6 border-t border-t-right bg-white "
-        >
+      {!props?.stickyButtomControls &&
+        isPaginateEnabled &&
+        props?.paginationOptions && (
+          <DataTablePagination {...props?.paginationOptions} />
+        )}
+      {props?.stickyButtomControls && (
+        <div className=" sticky flex flex-row bg-primary w-full rounded-bl-lg rounded-br-lg z-50 justify-between h-20 bottom-0 items-center px-6 border-t border-t-right bg-white ">
           <div className="w-full flex flex-row justify-between items-center">
             {props?.stickyLeftButtonOptions && (
               <Button
                 {...props?.stickyLeftButtonOptions}
-                variant={
-                  props?.stickyLeftButtonOptions?.variant ?? "ghost"
-                }
+                variant={props?.stickyLeftButtonOptions?.variant ?? "ghost"}
               >
                 {props?.stickyLeftButtonOptions?.label}
               </Button>
@@ -180,9 +224,7 @@ const PageWrapper = ({
               <LoadingButton
                 {...props?.stickyRightButtonOptions}
                 label={props?.stickyRightButtonOptions?.label}
-                variant={
-                  props?.stickyRightButtonOptions?.variant ?? "default"
-                }
+                variant={props?.stickyRightButtonOptions?.variant ?? "default"}
               />
             )}
           </div>

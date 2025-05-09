@@ -18,7 +18,7 @@ const UpdateCategoryForm = ({categories,subCategory}:{categories?:Array<Dropdown
       const {t} = useLocalizer();
     const [errors,setErrors] = React.useState<any | undefined>(undefined);
     const [request,setRequest] = React.useState<z.infer<typeof DocumentSchema>>({id:subCategory?.mainCategoryId?.toString() ?? '',arDesc:subCategory?.arDesc ?? '',enDesc:subCategory?.enDesc ?? ''});
-    const {isPending,isServerOn,serverOffMessage,code,message,updateSubCategory} = useCategoryStore();
+    const {isPending,serverOffMessage,updateSubCategory} = useCategoryStore();
     const router = useRouter();
     
     return <PageWrapper 
@@ -55,7 +55,7 @@ const UpdateCategoryForm = ({categories,subCategory}:{categories?:Array<Dropdown
             return;
           }
           if(subCategory){
-            const response = await updateSubCategory(subCategory?.id!,request);
+            const response = await updateSubCategory(subCategory?.id,request);
             if(!response?.isServerOn){
               toast.error(t(serverOffMessage));
               return;

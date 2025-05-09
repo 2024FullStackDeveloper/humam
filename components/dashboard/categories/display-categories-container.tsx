@@ -9,7 +9,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -33,6 +32,7 @@ import { toast } from "sonner";
 import FormButton from "@/components/common/form-button";
 import { useCategoryStore } from "@/lib/features/categories/use-categories-store";
 import usePaginate from "@/lib/hooks/use-paginate";
+import SortButton from "@/components/common/sort-button";
 const DisplayCatgoriesContainer = () => {
   const { t, isRtl } = useLocalizer();
   const {
@@ -42,11 +42,14 @@ const DisplayCatgoriesContainer = () => {
     getCategories,
     deleteSubCategory,
   } = useCategoryStore();
+
   const categoryValues = React.useDeferredValue(categories);
   const [selectedCategoryList, setSelectedCategoryist] = React.useState<
     { mainCategoryId: number; subCategoryId: number }[]
   >([]);
 
+  const [visible, setVisible] = React.useState(false);
+  const [subCategoryId, setSubCategoryId] = React.useState<number | undefined>(undefined);
   const disabledComponent = React.useCallback(
     (id: number): boolean => {
       return !selectedCategoryList?.some((e) => e.mainCategoryId == id);
@@ -79,15 +82,42 @@ const DisplayCatgoriesContainer = () => {
   const cols: ColumnDef<APICategoryResponseType>[] = [
     {
       accessorKey: "id",
-      header: "#",
+      header: ({ column }) => {
+        const isAcs = column.getIsSorted() === "asc";
+        return (
+          <SortButton
+            isAcs={isAcs}
+            label="#"
+            onSort={() => column.toggleSorting(isAcs)}
+          />
+        );
+      },
     },
     {
       accessorKey: "arDesc",
-      header: t("labels.ar_desc"),
+      header: ({ column }) => {
+        const isAcs = column.getIsSorted() === "asc";
+        return (
+          <SortButton
+            isAcs={isAcs}
+            label={t("labels.ar_desc")}
+            onSort={() => column.toggleSorting(isAcs)}
+          />
+        );
+      },
     },
     {
       accessorKey: "enDesc",
-      header: t("labels.en_desc"),
+      header: ({ column }) => {
+        const isAcs = column.getIsSorted() === "asc";
+        return (
+          <SortButton
+            isAcs={isAcs}
+            label={t("labels.en_desc")}
+            onSort={() => column.toggleSorting(isAcs)}
+          />
+        );
+      },
     },
     {
       accessorKey: "subs",
@@ -99,7 +129,7 @@ const DisplayCatgoriesContainer = () => {
             value={selectedCategoryList
               ?.find((e) => e.mainCategoryId == data.id)
               ?.subCategoryId?.toString()}
-            onValueChange={(value) => {
+              onValueChange={(value) => {
               setSelectedCategoryist([
                 ...selectedCategoryList.filter(
                   (e) => e.mainCategoryId !== data.id
@@ -143,56 +173,16 @@ const DisplayCatgoriesContainer = () => {
             >
               <Edit />
             </Button>
-            <Dialog>
-              <DialogTrigger  className="order-3" asChild>
-                <Button
+            <Button
+            onClick={() => {
+                setVisible(true);
+                setSubCategoryId(data.id);
+            }}
                   disabled={disabledComponent(data.id)}
                   variant="dangerOutline"
                 >
                   <Trash2 />
                 </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>{t("titles.delete_confirmation")}</DialogTitle>
-                  <Separator className="my-3" />
-                  <DialogDescription>
-                    {t("paragraphs.delete_confirmation")}
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <form
-                    action={async () => {
-                      const selectedResult = selectedCategoryList.find((e) => e.mainCategoryId == data.id);
-
-                      if (selectedResult) {
-                        const result = await deleteSubCategory(selectedResult?.subCategoryId);
-
-                        if (!result?.isServerOn) {
-                          toast.error(t(result?.serverOffMessage));
-                          return;
-                        }
-                        if (result.code == 0 && result) {
-                          toast.success(result.message);
-                          setSelectedCategoryist([
-                            ...selectedCategoryList.filter((e) => e.mainCategoryId !== data.id),
-                          ]);
-                          await fetchData();
-                        } else {
-                          toast.error(result.message);
-                        }
-                      }
-                    }}
-                  >
-                    <FormButton title={t("buttons.ok")} />
-                  </form>
-                  <Button onClick={() => {
-                  }} variant="secondary">
-                    {t("buttons.cancel")}
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
           </div>
         );
       },
@@ -232,6 +222,50 @@ const DisplayCatgoriesContainer = () => {
           columns={cols}
           data={categoryValues ?? []}
         />
+          <Dialog open={visible} onOpenChange={setVisible}>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>{t("titles.delete_confirmation")}</DialogTitle>
+                  <Separator className="my-3" />
+                  <DialogDescription>
+                    {t("paragraphs.delete_confirmation")}
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <form
+                    action={async () => {
+                      const selectedResult = selectedCategoryList.find((e) => e.mainCategoryId == subCategoryId);
+
+                      if (selectedResult) {
+                        const result = await deleteSubCategory(selectedResult?.subCategoryId);
+
+                        if (!result?.isServerOn) {
+                          toast.error(t(result?.serverOffMessage));
+                          return;
+                        }
+                        if (result.code == 0 && result) {
+                          toast.success(result.message);
+                          setSelectedCategoryist([
+                            ...selectedCategoryList.filter((e) => e.mainCategoryId !== subCategoryId),
+                          ]);
+                          await fetchData();
+                        } else {
+                          toast.error(result.message);
+                        }
+                      }
+                    }}
+                  >
+                    <FormButton title={t("buttons.ok")} />
+                  </form>
+                  <Button onClick={() => {
+                      setVisible(false);
+                      setSubCategoryId(undefined);
+                  }} variant="secondary">
+                    {t("buttons.cancel")}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
     </PageWrapper>
   );
 };

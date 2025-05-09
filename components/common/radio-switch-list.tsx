@@ -43,7 +43,9 @@ const RadioSwitchList = ({
             checked={selected === option.id}
             onChange={() => {
               setSelected(option.id);
-              onChange && onChange(option.id);
+              if(onChange){
+                onChange(option.id);
+              }
             }}
           />
         </Label>

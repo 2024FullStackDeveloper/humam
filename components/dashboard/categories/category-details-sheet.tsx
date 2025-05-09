@@ -13,7 +13,7 @@ import { BookCheck, Info } from "lucide-react";
 import React from "react";
 
 const CategoryDetailsSheet = ({data}:{data:APICategoryResponseType})=>{
-    const {t,isRtl} = useLocalizer();
+    const {t} = useLocalizer();
     const values = React.useDeferredValue(data?.subs);
 
     const cols: ColumnDef<DropdownType<CategoryTypes>>[] = [

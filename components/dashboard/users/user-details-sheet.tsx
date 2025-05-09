@@ -10,31 +10,37 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Link, useRouter } from "@/i18n/routing";
 import useLocalizer from "@/lib/hooks/use-localizer";
 import dateFormat from "dateformat";
-import { Building2, CalendarClockIcon, EditIcon, Eye, FileBadge, IdCard, Info, LockKeyholeIcon, LogIn, LogOut, Mail, Phone, UserSquare } from "lucide-react";
+import { Building2, CalendarClockIcon, EditIcon, Eye, FileBadge, IdCard, Info, LockKeyholeIcon, LogIn, LogOut, Mail, Network, Phone, UserSquare } from "lucide-react";
 import AccountStatusButton from "./account-status-button";
-import { APIUserResponseType } from "@/lib/types/api/api-type";
+import { APIMainServiceResponseType, APIUserResponseType } from "@/lib/types/api/api-type";
 import React from "react";
+import UserServicesDlg from "./services/user-services-dlg";
 
 
 const UserDetailsSheet = ({
+ mainServices,
  data,
  isPending,
  onChangeStatus
 }:{
+mainServices?:Array<APIMainServiceResponseType> | null,
 data:APIUserResponseType,
 isPending?:boolean,
 onChangeStatus?:({profileId,statusCode}:{profileId:number,statusCode:number})=>void
 })=>{
 const {t,isRtl} = useLocalizer();
 const router = useRouter();
+const services = React.useDeferredValue(mainServices);
+
+
 return (
     <Sheet>
-    <SheetTrigger asChild >
+    <SheetTrigger asChild>
       <Button variant="default" title="عرض التفاصيل">
         <Info />
       </Button>
     </SheetTrigger>
-    <SheetContent>
+    <SheetContent  >
       <SheetHeader>
         <SheetTitle>{t("titles.user_details")}</SheetTitle>
       </SheetHeader>
@@ -100,6 +106,19 @@ return (
                 <Button onClick={()=>router.push(`/dashboard/users/update?id=${e.profileId}`)} variant="destructive" title={t("buttons.update")} disabled={data.isSuperUser && e.role  == "admin" || e.role == "client"}>
                   <EditIcon/>
                 </Button>
+                <div className="flex flex-col gap-2">
+                <span className="text-sm font-bold">{t("labels.account_status")}</span>
+              <AccountStatusButton 
+                    loading={isPending ?? false}
+                    disabled={data.isSuperUser}
+                    role={e.role}
+                    status={e.profileStatus} 
+                    onClick={(_,stausCode)=>{
+                        if(onChangeStatus){
+                            onChangeStatus({profileId: e.profileId,statusCode:stausCode});
+                        }
+                    }}/>
+               </div>
                 <SingleRow 
                 icon={<IdCard size={20}/>}
                 label={t("labels.profile_id")}
@@ -137,16 +156,21 @@ return (
                 label={t("labels.city")}
                 value={e.city ? (isRtl ? e.city.arDesc : e.city.enDesc) : <></>}
                 />
-                <SingleRow 
-                icon={<IdCard size={20}/>}
-                label={t("labels.career")}
-                value={e?.career ? (isRtl ? e.career.arDesc : e.career.enDesc) : <></>}
-                />
+                
+
                 <SingleRow 
                 icon={<CalendarClockIcon size={20}/>}
                 label={t("labels.crtd_at")}
                 value={e.crtdAt ? <bdi>{dateFormat(e.crtdAt,"dd/mm/yyyy hh:MM TT")}</bdi> : <></>}
+
                 />
+
+              <SingleRow 
+              icon={<Network size={20}/>}
+              label={t("labels.is_online")}
+              value={<ActiveBudge isActive={e.isOnline}/>}
+              />
+
                 {
                   e.organizationDetails && <div className="flex flex-col gap-4">
                     <SingleRow 
@@ -173,19 +197,27 @@ return (
                     />
                   </div>
                 }
-               <div className="flex flex-col gap-2">
-                <span className="text-sm font-bold">{t("labels.account_status")}</span>
-                 <AccountStatusButton 
-                    role={e.role}
-                    loading={isPending}
-                    disabled={data.isSuperUser}
-                    status={e.profileStatus} 
-                    onClick={(_,stausCode)=>{
-                        if(onChangeStatus){
-                            onChangeStatus({profileId: e.profileId,statusCode:stausCode});
-                        }
-                    }}/>
-               </div>
+                {(e?.mainServices && e?.mainServices?.length > 0) && <>
+                <TitleHeader
+                className="h-12 rounded-none"
+                title={t("labels.services")}
+                />
+                
+                  <ul>
+                  {
+                    e?.mainServices.map((c)=>(
+                      <li className="flex flex-row justify-between items-center my-2" key={c}>
+                        <span className="font-bold">.{services?.find((m)=>m.id == c)?.[isRtl ? "arDesc" : "enDesc"]}</span>
+                        <UserServicesDlg 
+                        mainServiceId={services?.find(ee=> ee.id === c)?.id ?? 0} 
+                        providerId={e.profileId} />
+                      </li>
+                    ))
+                    }
+                  </ul>
+                </>
+                }
+
               </div>
             ))
           }

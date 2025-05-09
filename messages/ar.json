@@ -43,7 +43,14 @@
         "subs":"الفئات الفرعية",
         "category":"الفئة",
         "full_name":"الاسم الكامل",
-        "organization_name":"اسم الشركة"
+        "organization_name":"اسم الشركة",
+        "max_distance_between":"اقصى مسافة بين مزود الخدمة والعميل بالمتر",
+        "is_online":"حالة الاتصال",
+        "services":"الخدمات",
+        "disable_paginate_option":"إبطال خيار التنقل",
+        "file_show":"عرض الملف",
+        "choose":"اختيار",
+        "stopped":"ايقاف"
     },
     "placeholders":{
         "phone_or_email":"اكتب رقم الموبايل او البريد الالكتروني",
@@ -66,7 +73,8 @@
         "identity_number":"اكتب رقم الهوية",
         "career":"اختر المهنة",
         "organization_name":"اكتب اسم الشركة",
-        "cr_number":"اكتب رقم السجل التجاري"
+        "cr_number":"اكتب رقم السجل التجاري",
+        "max_distance_between":"اكتب اقصى مسافة بين مزود الخدمة والعميل بالمتر"
 
     },
     "status":{
@@ -88,7 +96,10 @@
         "cancel":"إلغاء الامر",
         "ok":"نعم",
         "previous":"السابق",
-        "update":"تعديل"
+        "update":"تعديل",
+        "show":"عرض",
+        "details":"تفاصيل",
+        "search":"بحث"
     },
     "tooltips":{
         "details_show":"عرض التفاصيل"
@@ -106,7 +117,13 @@
         "region_details":"تفاصيل المنطقة",
         "delete_confirmation":"تأكيد الحذف",
         "password_settings":"اعدادات كلمة المرور",
-        "category_details":"تفاصيل الفئة"
+        "category_details":"تفاصيل الفئة",
+        "linked_sub_services":"الخدمات الفرعية المرتبطة",
+        "choose_operation":"اختر العملية",
+        "user_data":"بيانات المستخدم",
+        "extra_data":"بيانات اضافية",
+        "company_data":"بيانات الشركة",
+        "services":"الخدمات"
     },
     "paragraphs":{
         "otp_not_sent":"إذا لم يتم إرسال الرمز",
@@ -119,7 +136,9 @@
         "server_off":"غير قادر للوصول للخدمة",
         "required_field":"حقل بيانات اجباري",
         "max_length":"تم تجاوز طول الحقل",
-        "invalid_email":"البريد الالكتروني غير صحيح"
+        "invalid_email":"البريد الالكتروني غير صحيح",
+        "only_one_service":"يجب اختيار خدمة واحدة فقط",
+        "required_services":"يجب اختيار خدمة واحدة على الاقل"
     },
     "routes":{
         "home":"الرئيسية",
@@ -129,6 +148,7 @@
         "regions_cities":"المناطق والمدن",
         "global_categories":"الفئات العامة",
         "create":"إضافة",
-        "update":"تعديل"
+        "update":"تعديل",
+        "about_app":"عن التطبيق"
         }
 }

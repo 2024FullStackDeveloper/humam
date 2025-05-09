@@ -22,10 +22,11 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
     passwordMaxLength:settingsValue?.passwordMaxLength ?? 0,
     passwordMinLength:settingsValue?.passwordMinLength ?? 0,
     complexPasswordEnabled:settingsValue?.complexPasswordEnabled ?? false,
-    misLoginCount:settingsValue?.misLoginCount ?? 0
+    misLoginCount:settingsValue?.misLoginCount ?? 0,
+    maxDistanceBetween:settingsValue?.maxDistanceBetween ?? 0,
   });
   const [errors,setErrors] = React.useState<any | undefined>(undefined);
-  const {isPending,isServerOn,serverOffMessage,message,code, fields, updateGlobalSettings} = useGlobalSettingsStore();
+  const {isPending,isServerOn,serverOffMessage, updateGlobalSettings} = useGlobalSettingsStore();
 
   return (
     <PageWrapper
@@ -103,6 +104,18 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
               setRequest({...request,misLoginCount:  value.value ? parseInt(value.value) : 0});
              }}
              error={errors?.misLoginCount && t(errors?.misLoginCount[0])}
+
+          />
+
+          <NumericInput
+            label={t("labels.max_distance_between")}
+            placeholder={t("placeholders.max_distance_between")}
+            prefixicon={<LogIn />}
+            value={request?.maxDistanceBetween}
+            onValueChange={(value)=>{
+              setRequest({...request,maxDistanceBetween:  value.value ? parseInt(value.value) : 0});
+             }}
+             error={errors?.maxDistanceBetween && t(errors?.maxDistanceBetween[0])}
 
           />
             <DecorationBox
