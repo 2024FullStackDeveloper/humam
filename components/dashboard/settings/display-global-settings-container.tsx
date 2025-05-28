@@ -1,5 +1,6 @@
 "use client";
 import DecorationBox from "@/components/common/decoration-box";
+import LoadingButton from "@/components/common/loading-button";
 import { NumericInput } from "@/components/common/numeric-input";
 import PageWrapper from "@/components/common/page-wrapper";
 import { Switch } from "@/components/ui/switch";
@@ -26,8 +27,8 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
     maxDistanceBetween:settingsValue?.maxDistanceBetween ?? 0,
   });
   const [errors,setErrors] = React.useState<any | undefined>(undefined);
-  const {isPending,isServerOn,serverOffMessage, updateGlobalSettings} = useGlobalSettingsStore();
-
+  const {isPending,isServerOn,serverOffMessage, updateGlobalSettings , migrate} = useGlobalSettingsStore();
+  const [migrationLoading, setMigrationLoading] = React.useState<boolean>(false);
   return (
     <PageWrapper
       stickyButtomControls
@@ -75,7 +76,27 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         <div className="flex flex-col gap-5">
-           
+          <div>
+             <LoadingButton 
+             label={t("buttons.migrate")}
+             loading={migrationLoading}
+             onClick={async ()=>{
+              setMigrationLoading(true);
+              const response = await migrate();
+              if(!response?.isServerOn){
+                toast.error(t(response?.serverOffMessage));
+                setMigrationLoading(false);
+                return;
+              }
+              if(response?.code == 0 && response?.data){
+                toast.success(response?.message);
+              }else{
+                toast.error(response?.message);
+              }       
+              setMigrationLoading(false);
+             }}
+             />
+          </div>
          <Switch 
          label= {t("labels.remove_old_sessions")} 
          checked={request?.oldUserSessionsRemoveEnabled}

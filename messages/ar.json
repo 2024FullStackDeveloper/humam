@@ -12,6 +12,7 @@
         "last_log_in":"اخر تسجيل دخول",
         "last_log_out":"اخر تسجيل خروج",
         "crtd_at":"تاريخ الاضافة",
+        "last_update_at":"تاريخ اخر تحديث",
         "is_super_user":"حساب رئيسي",
         "actions":"الاجراءات",
         "lockoutEnabled":"الحساب مقفل",
@@ -50,7 +51,14 @@
         "disable_paginate_option":"إبطال خيار التنقل",
         "file_show":"عرض الملف",
         "choose":"اختيار",
-        "stopped":"ايقاف"
+        "stopped":"ايقاف",
+        "social_media_type":"نوع منصة التواصل الاجتماعي",
+        "url":"الرابط",
+        "ar_question":"السؤال بالعربي",
+        "en_question":"السؤال بالانجليزي",
+        "ar_answer":"الجواب بالعربي",
+        "en_answer":"الجواب بالانجليزي",
+        "language":"اللغة"
     },
     "placeholders":{
         "phone_or_email":"اكتب رقم الموبايل او البريد الالكتروني",
@@ -74,7 +82,11 @@
         "career":"اختر المهنة",
         "organization_name":"اكتب اسم الشركة",
         "cr_number":"اكتب رقم السجل التجاري",
-        "max_distance_between":"اكتب اقصى مسافة بين مزود الخدمة والعميل بالمتر"
+        "max_distance_between":"اكتب اقصى مسافة بين مزود الخدمة والعميل بالمتر",
+        "ar_question":"اكتب السؤال بالعربي",
+        "en_question":"اكتب السؤال بالانجليزي",
+        "ar_answer":"اكتب الجواب بالعربي",
+        "en_answer":"اكتب الجواب بالانجليزي"
 
     },
     "status":{
@@ -99,7 +111,8 @@
         "update":"تعديل",
         "show":"عرض",
         "details":"تفاصيل",
-        "search":"بحث"
+        "search":"بحث",
+        "migrate":"تحديث قاعدة البيانات"
     },
     "tooltips":{
         "details_show":"عرض التفاصيل"
@@ -123,7 +136,11 @@
         "user_data":"بيانات المستخدم",
         "extra_data":"بيانات اضافية",
         "company_data":"بيانات الشركة",
-        "services":"الخدمات"
+        "services":"الخدمات",
+        "add_social_media":"إضافة منصة تواصل اجتماعي",
+        "add_common_question":"إضافة سؤال شائع",
+        "update":"تعديل",
+        "add":"إضافة"
     },
     "paragraphs":{
         "otp_not_sent":"إذا لم يتم إرسال الرمز",
@@ -149,6 +166,17 @@
         "global_categories":"الفئات العامة",
         "create":"إضافة",
         "update":"تعديل",
-        "about_app":"عن التطبيق"
-        }
+        "about_app":"عن التطبيق",
+        "social_media":"وسائل التواصل الاجتماعي",
+        "common_questions":"الأسئلة الشائعة",
+        "contact_us":"تواصل معنا"
+        },
+    "socialMedias":{
+        "facebook":"فيسبوك",
+        "x":"اكس",
+        "instagram":"انستغرام",
+        "youtube":"يوتيوب",
+        "linkedin":"لينكد ان",
+        "gmail":"جيميل"
+    }
 }

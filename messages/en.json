@@ -12,6 +12,7 @@
         "last_log_in":"Last Log In",
         "last_log_out":"Last Log Out",
         "crtd_at":"Created At",
+        "last_update_at":"Last Update At",
         "is_super_user":"Super User",
         "actions":"Actions",
         "lockoutEnabled":"Locked Account",
@@ -50,7 +51,14 @@
         "disable_paginate_option":"Disable navigation option",
         "file_show":"File Show",
         "choose":"Choose",
-        "stopped":"Stopped"
+        "stopped":"Stopped",
+        "social_media_type":"Social Media Type",
+        "url":"URL",
+        "ar_question":"Arabic Question",
+        "en_question":"English Question",
+        "ar_answer":"Arabic Answer",
+        "en_answer":"English Answer",
+        "language":"Language"
     },
     "placeholders":{
         "phone_or_email":"Type mobile number or email",
@@ -75,7 +83,11 @@
         "career":"Select Career",
         "cr_number":"Type Commercial Register Number",
         "max_distance_between":"Type maximum distance between the service provider and the client in meters",
-        "services":"Services"
+        "services":"Services",
+        "ar_question":"Type Arabic Question",
+        "en_question":"Type English Question",
+        "ar_answer":"Type Arabic Answer",
+        "en_answer":"Type English Answer"
 
 
     },
@@ -93,7 +105,8 @@
         "update":"Update",
         "show":"Show",
         "details":"Details",
-        "search":"Search"
+        "search":"Search",
+        "migrate":"Database update"
     },
     "tooltips":{
         "details_show":"Details Show"
@@ -125,7 +138,11 @@
          "user_data":"User Data",
          "extra_data":"Extra Data",
          "company_data":"Company Data",
-         "services":"Services"
+         "services":"Services",
+         "add_social_media":"Add Social Media Platform",
+         "add_common_question":"Add Common Question",
+         "update":"Update",
+        "add":"Add"
     },
     "paragraphs":{
         "otp_not_sent":"If the code is not sent",
@@ -152,6 +169,18 @@
         "global_categories":"General Categories",
         "create":"Create",
         "update":"Update",
-        "about_app":"About App"
+        "about_app":"About App",
+        "social_media":"Social Media",
+        "common_questions":"Common Questions",
+        "contact_us":"Contact Us"
+
+    },
+        "socialMedias":{
+        "facebook":"Facebook",
+        "x":"X",
+        "instagram":"Instagram",
+        "youtube":"YouTube",
+        "linkedin":"LinkedIn",
+        "gmail":"Gmail"
     }
 }

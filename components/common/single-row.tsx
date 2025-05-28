@@ -1,26 +1,31 @@
 "use client";
 "use client";
+
+import { cn } from "@/lib/utils";
+
 export interface SingleRowProps{
 icon:React.ReactNode,
 label:string,
 value?:string | React.ReactNode,
-title?:string | null
+title?:string | null,
+mode?:"col" | "row"
 };
 const SingleRow = ({
 icon,
 label,
 value,
-title
+title,
+mode = "row"
 }:SingleRowProps) => {
   return (
-    <div className=" justify-between items-center flex flex-row gap-1">
-      <div className="gap-2 flex flex-row justify-center items-center">
+    <div className={cn(mode == "row" ? "flex-row justify-between items-center" : "flex-col"," flex  gap-2 w-full")}>
+      <div className="gap-2 flex flex-row  items-center">
           {icon}
         <span  className="text-sm text-secondary">
             {label}
         </span>
       </div>
-      <div className="text-sm text-primary  font-semibold truncate max-w" title={title ?? ''}>
+      <div className="text-sm text-primary  font-semibold" title={title ?? ''}>
         {value}
       </div>
     </div>

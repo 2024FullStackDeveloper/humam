@@ -253,6 +253,50 @@ interface APIProviderServiceResponseType{
     servicesDetails?:Array<APIProviderServiceItemResponseType>,
 }
 
+
+
+export enum SocialMediaType  {
+    facebook = 1,
+    x,
+    instagram,
+    linkedIn,
+    youTube,
+    gmail
+}
+
+interface APISocialMediaResponseType {
+    id:number,
+    socialMediaTypeId:SocialMediaType,
+    url:string,
+    crtdBy?:string | null,
+    mdfBy?:string | null,
+    crtdAt?:string | null,
+    lastUpdateAt?:string | null,
+}
+
+
+
+interface APIContactUsResponseType {
+    id:number,
+    phoneNumber:string,
+    crtdBy?:string | null,
+    mdfBy?:string | null,
+    crtdAt?:string | null,
+    lastUpdateAt?:string | null,
+}
+
+interface APICommonQuestionsResponseType {
+    id:number,
+    arQuestion:string,
+    enQuestion:string,
+    arAnswer:string,
+    enAnswer:string,
+    crtdBy?:string | null,
+    mdfBy?:string | null,
+    crtdAt?:string | null,
+    lastUpdateAt?:string | null,
+}
+
 export type {
     APIResponseType,
     APIErrorFieldType,
@@ -279,4 +323,7 @@ export type {
     APIServiceItemResponseType,
     APISubServiceItemResponseType,
     APIProviderServiceItemBaseeRsponseType,
+    APISocialMediaResponseType,
+    APICommonQuestionsResponseType,
+    APIContactUsResponseType
 };

@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import ApiAction from "./lib/server/action";
 import { APILoginResponseType } from "./lib/types/api/api-type";
 import { z } from "zod";
-import { LoginSchema } from "./lib/schemas/authorization-schema";
+import { LoginSchema, RoleType } from "./lib/schemas/authorization-schema";
 
 const authOptions: NextAuthOptions = {
     providers: [
@@ -20,7 +20,7 @@ const authOptions: NextAuthOptions = {
                         controller: "user",
                         url: "login",
                         method: "POST",
-                        body: { emailOrPhoneNumber, password },
+                        body: { emailOrPhoneNumber, password  , roleType : RoleType.Admin},
                     });
 
 
@@ -28,19 +28,9 @@ const authOptions: NextAuthOptions = {
                         throw new Error(JSON.stringify(response));
                     }
 
-                    if (response?.result?.code == 0) {
-                        if (!response?.result?.data?.token) {
-                            const profileResult = await ApiAction<APILoginResponseType>({
-                                controller: "user",
-                                url: "login",
-                                method: "POST",
-                                body: { ...{ emailOrPhoneNumber, password }, profileId: response?.result?.data?.profiles?.find(e => e.role == "admin")?.profileId },
-                            });
-                            return { ...profileResult?.result!.data as any, token: profileResult?.result?.data?.token, id: profileResult?.result?.data?.userDetails?.id };
-                        } else {
-                            return { ...response?.result?.data as any, token: response?.result?.data?.token, id: response?.result?.data?.userDetails?.id };
-                        }
-                    }
+
+                    return { ...response?.result?.data as any, token: response?.result?.data?.token, id: response?.result?.data?.userDetails?.id };
+                                      
                 } catch (e) {
                     if (e instanceof Error) {
                         throw e;

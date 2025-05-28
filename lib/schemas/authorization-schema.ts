@@ -1,8 +1,12 @@
 import z from "zod";
+
+export enum RoleType {
+    Admin =  4
+}
+
 const LoginSchema = z.object({
     emailOrPhoneNumber:z.string().min(1,{message:"errors.required_field"}).max(256,{message:"errors.max_length"}),
     password:z.string().min(1,{message:"errors.required_field"}).max(256,{message:"errors.max_length"}),
-    profileId:z.number().nullable()
 });
 
 

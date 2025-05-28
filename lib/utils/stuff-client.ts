@@ -1,7 +1,7 @@
 "use client";
 import { ZodSchema } from "zod";
 import { PaginateType, ValidationType } from "../types/common-type";
-import { APIErrorFieldType, RoleTypes } from "../types/api/api-type";
+import { APIErrorFieldType, RoleTypes, SocialMediaType } from "../types/api/api-type";
 import '@/lib/extensions/string-extensions';
 import { RoleType } from "../types/api/role-type";
 
@@ -90,5 +90,25 @@ export function getRoleTypeNumber(role:RoleType):RoleTypes{
     case "organization":return RoleTypes.organization;
     case "worker": return RoleTypes.worker;
     case "client": return RoleTypes.client;
+  }
+}
+
+
+export function getSocialMediaNameFromType(isRtl :boolean,  mediaType:SocialMediaType):string{
+  switch (mediaType) {
+    case SocialMediaType.facebook:
+      return isRtl ? "فيسبوك" : "Facebook";
+    case SocialMediaType.instagram:
+      return isRtl ? "إنستغرام" : "Instagram";
+    case SocialMediaType.x:
+      return isRtl ? "إكس" : "X";
+    case SocialMediaType.gmail:
+      return  isRtl ? "جيميل" : "Gmail";
+    case SocialMediaType.youTube:
+      return isRtl ? "يوتيوب" : "YouTube";
+    case SocialMediaType.linkedIn:
+    return isRtl ? "لينكد إن" : "LinkedIn";
+    default:
+      return "Unknown";
   }
 }
