@@ -142,7 +142,9 @@
          "add_social_media":"Add Social Media Platform",
          "add_common_question":"Add Common Question",
          "update":"Update",
-        "add":"Add"
+        "add":"Add",
+         "show_details":"Show Details",
+        "permissions":"Permissions"
     },
     "paragraphs":{
         "otp_not_sent":"If the code is not sent",
@@ -172,7 +174,8 @@
         "about_app":"About App",
         "social_media":"Social Media",
         "common_questions":"Common Questions",
-        "contact_us":"Contact Us"
+        "contact_us":"Contact Us",
+        "profile":"Profile"
 
     },
         "socialMedias":{

@@ -62,6 +62,14 @@ interface APICollectionResponseType<T>{
     resultSet:Array<T> | null
 };
 
+interface APIPermissionType{
+id:number,
+arDesc:string,
+enDesc:string,
+claimType:string,
+claimValue:boolean
+}
+
 interface APILoginUserDetailsResponseType{
     id:string,
     profileId:number,
@@ -75,7 +83,8 @@ interface APILoginUserDetailsResponseType{
     crtdAt?:string | null,
     lastLogin?:string | null,
     lastLogOut?:string | null,
-    crtdBy?:string | null
+    crtdBy?:string | null,
+    permissions?:Array<APIPermissionType> | null
    };
 
 
@@ -87,7 +96,6 @@ interface APIUserProfileType{
     identityNumber?:string | null,
     identityImg?:string | null,
     city?:DropdownType<number> | null,
-    career?:DropdownType<number>  | null,
     crtdAt?:string | null,
     organizationDetails?:APILoginOrganizationDetailsResponseType | null,
     profileStatusCode:number,

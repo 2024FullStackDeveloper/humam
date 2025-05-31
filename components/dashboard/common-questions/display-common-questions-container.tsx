@@ -50,7 +50,7 @@ const DisplayCommonQuestionsContainer = () => {
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [paginate]);
 
 
 

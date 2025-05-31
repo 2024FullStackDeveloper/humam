@@ -77,7 +77,7 @@ const DisplaySocialMediaContainer = () => {
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [paginate]);
 
   React.useEffect(() => {
     if (socialMediaState?.mode === "edit" && urlRef.current) {

@@ -140,7 +140,9 @@
         "add_social_media":"إضافة منصة تواصل اجتماعي",
         "add_common_question":"إضافة سؤال شائع",
         "update":"تعديل",
-        "add":"إضافة"
+        "add":"إضافة",
+        "show_details":"عرض التفاصيل",
+        "permissions":"الصلاحيات"
     },
     "paragraphs":{
         "otp_not_sent":"إذا لم يتم إرسال الرمز",
@@ -169,7 +171,8 @@
         "about_app":"عن التطبيق",
         "social_media":"وسائل التواصل الاجتماعي",
         "common_questions":"الأسئلة الشائعة",
-        "contact_us":"تواصل معنا"
+        "contact_us":"تواصل معنا",
+        "profile":"الملف الشخصي"
         },
     "socialMedias":{
         "facebook":"فيسبوك",

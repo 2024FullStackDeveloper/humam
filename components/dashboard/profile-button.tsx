@@ -28,7 +28,7 @@ const ProfileButton = () => {
   const session = useSession();
   const userDetails = session?.data?.user?.userDetails;
   const router = useRouter();
-  const [on, toggle] = useToggle(true);
+  const [on, toggle] = useToggle(false);
 
   return (
     <Popover>

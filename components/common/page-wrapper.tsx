@@ -106,7 +106,8 @@ const PageWrapper = ({
       !path.includes("create") &&
       !path.includes("update") &&
       !path.includes("settings") &&
-      !path.includes("about-app")
+      !path.includes("about-app") &&
+      !path.includes("profile")
     ) {
       router.push(
         path +

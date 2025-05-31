@@ -311,8 +311,17 @@ const UpdateUserSchema = z.object({
     }
 });;
 
+
+
+const IPatchUserInfoSchema = z.object({
+    fullName:z.string().min(1,{message: "errors.required_field"}).max(256,{message: "errors.max_length"}), 
+    email:z.string().email({message: "errors.invalid_email"}).max(256,{message: "errors.max_length"}).optional(),
+    personFile: FileSchema.optional(),   
+});
+
 export {
     FileSchema,
     UserSchema,
-    UpdateUserSchema
+    UpdateUserSchema,
+    IPatchUserInfoSchema
 }

@@ -42,7 +42,7 @@ const DisplayContactUsContainer = () => {
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [paginate]);
 
   const cols = React.useMemo<ColumnDef<APIContactUsResponseType>[]>(() => {
     return [

@@ -28,7 +28,7 @@ return (
     </SheetTrigger>
     <SheetContent  >
       <SheetHeader>
-        <SheetTitle>{t("titles.user_details")}</SheetTitle>
+        <SheetTitle>{t("titles.show_details")}</SheetTitle>
       </SheetHeader>
       <div className="flex flex-col gap-5 py-4">
         <SingleRow 
