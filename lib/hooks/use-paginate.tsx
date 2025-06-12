@@ -10,7 +10,7 @@ const usePaginate = ()=>{
  const router = useRouter();
  const path = usePathname();
  const [paginate,setPaginate] = React.useState<PaginateType | undefined>(undefined);
- React.useEffect(()=>{
+ React.useLayoutEffect(()=>{
     const paginateValue:PaginateType = {paginate:false,page: 0,size: 0};
     if(urlSearchParams){
         if(urlSearchParams.get("paginate")){
@@ -28,7 +28,7 @@ const usePaginate = ()=>{
     }else{
         setPaginate(undefined);
     }
- },[searchParams]);
+ },[searchParams,path]);
 
 
  const isPaginateEnabled = React.useMemo(() : boolean=>{

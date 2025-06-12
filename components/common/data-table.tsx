@@ -18,14 +18,16 @@ export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   isLoading?: boolean;
+  ignorePagination?:boolean
 }
 
 export default function DataTable<TData, TValue>({
   columns,
   data,
   isLoading,
+  ignorePagination  = false
 }: DataTableProps<TData, TValue>) {
-  const {isPaginateEnabled,paginate,} = usePaginate();
+  const {isPaginateEnabled,paginate} = usePaginate();
   const { t, isRtl } = useLocalizer();
 
   const [pagination, setPagination] = React.useState<{pageIndex:number,pageSize:number}>({
@@ -44,7 +46,7 @@ export default function DataTable<TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    ...(isPaginateEnabled && {
+    ...((!ignorePagination && isPaginateEnabled) && {
       getPaginationRowModel:getPaginationRowModel(),
       onPaginationChange:setPagination,
       state:{

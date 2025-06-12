@@ -34,7 +34,10 @@
         "ar_desc":"الوصف بالعربي",
         "en_desc":"الوصف بالانجليزي",
         "cities":"المدن",
+        "address":"العنوان",
         "region":"المنطقة",
+        "background":"الخلفية",
+        "thumbnail":"صورة مصغرة",
         "otp_length":"طول رمز ال OTP",
         "mis_login_count":"عدد مرات الدخول الخاطىء المسموح بها",
         "password_min_length":"اقل طول لكلمة المرور",
@@ -43,10 +46,13 @@
         "remove_old_sessions":"مسح الجلسات القديمة",
         "subs":"الفئات الفرعية",
         "category":"الفئة",
+        "providers":"مزودي الخدمة",
         "full_name":"الاسم الكامل",
         "organization_name":"اسم الشركة",
         "max_distance_between":"اقصى مسافة بين مزود الخدمة والعميل بالمتر",
         "is_online":"حالة الاتصال",
+        "is_active":"متاح",
+        "is_company":"حساب شركات",
         "services":"الخدمات",
         "disable_paginate_option":"إبطال خيار التنقل",
         "file_show":"عرض الملف",
@@ -58,7 +64,22 @@
         "en_question":"السؤال بالانجليزي",
         "ar_answer":"الجواب بالعربي",
         "en_answer":"الجواب بالانجليزي",
-        "language":"اللغة"
+        "language":"اللغة",
+        "service_image":"صورة الخدمة",
+        "ar_details":"التفاصيل بالعربي",
+        "en_details":"التفاصيل بالانجليزي",
+        "show_in_main_slider":"يعرض في السلايدر الرئيسي",
+        "show_in_sub_slider":"يعرض في السلايدر الفرعي",
+        "end_exclusive_time_stamp":"حصري الى",
+        "end_time_stamp":"تاريخ الانتهاء",
+        "ar_content":"المحتوى بالعربي",
+        "en_content":"المحتوى بالانجليزية",
+        "discount_rate":"نسبة التخفيض",
+        "include_spares":"يشمل قطع الغيار",
+        "include_transportation":"يشمل التوصيل",
+        "start_time_stamp":"تاريخ البدء",
+        "main_service":"الخدمة الرئيسية",
+        "sub_service":"الخدمة الفرعية"
     },
     "placeholders":{
         "phone_or_email":"اكتب رقم الموبايل او البريد الالكتروني",
@@ -86,8 +107,11 @@
         "ar_question":"اكتب السؤال بالعربي",
         "en_question":"اكتب السؤال بالانجليزي",
         "ar_answer":"اكتب الجواب بالعربي",
-        "en_answer":"اكتب الجواب بالانجليزي"
-
+        "en_answer":"اكتب الجواب بالانجليزي",
+        "ar_details":"اكتب التفاصيل بالعربي",
+        "en_details":"اكتب التفاصيل بالانجليزي",
+        "ar_content":"اكتب المحتوى بالعربي",
+        "en_content":"اكتب المحتوى بالانجليزي"
     },
     "status":{
         "Idle":"خامل",
@@ -112,6 +136,7 @@
         "show":"عرض",
         "details":"تفاصيل",
         "search":"بحث",
+        "delete":"حذف",
         "migrate":"تحديث قاعدة البيانات"
     },
     "tooltips":{
@@ -133,12 +158,15 @@
         "category_details":"تفاصيل الفئة",
         "linked_sub_services":"الخدمات الفرعية المرتبطة",
         "choose_operation":"اختر العملية",
+        "sub_services":"الخدمات الفرعية",
         "user_data":"بيانات المستخدم",
         "extra_data":"بيانات اضافية",
         "company_data":"بيانات الشركة",
         "services":"الخدمات",
         "add_social_media":"إضافة منصة تواصل اجتماعي",
         "add_common_question":"إضافة سؤال شائع",
+        "add_ads":"إضافة اعلان",
+        "update_ads":"تعديل الاعلان",
         "update":"تعديل",
         "add":"إضافة",
         "show_details":"عرض التفاصيل",
@@ -157,7 +185,10 @@
         "max_length":"تم تجاوز طول الحقل",
         "invalid_email":"البريد الالكتروني غير صحيح",
         "only_one_service":"يجب اختيار خدمة واحدة فقط",
-        "required_services":"يجب اختيار خدمة واحدة على الاقل"
+        "required_services":"يجب اختيار خدمة واحدة على الاقل",
+        "no_sub_services":"لا يوجد خدمات فرعية",
+        "unable_delete":"غير قادر على الحذف",
+        "unacceptable_value":"قيمة غير مقبولة"
     },
     "routes":{
         "home":"الرئيسية",
@@ -172,7 +203,10 @@
         "social_media":"وسائل التواصل الاجتماعي",
         "common_questions":"الأسئلة الشائعة",
         "contact_us":"تواصل معنا",
-        "profile":"الملف الشخصي"
+        "profile":"الملف الشخصي",
+        "services":"الخدمات",
+        "ads":"الاعلانات",
+        "offers":"العروض"
         },
     "socialMedias":{
         "facebook":"فيسبوك",

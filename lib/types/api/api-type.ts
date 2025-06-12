@@ -197,6 +197,8 @@ interface APIMainServiceResponseType{
     enDesc:string,
     serviceImg?:string | null,
     stopEnabled:boolean,
+    crtdAt?:string | null,
+    lastUpdateAt?:string | null,
 };
 
 
@@ -225,6 +227,37 @@ interface APIServiceDetailsResponseType{
     offerId?:number,
     discountRate?:number,
     priceAfterDiscount?:number,
+}
+
+
+interface APIProfileType{
+id: number,
+name: string,
+isCompany: boolean,
+personImg?: string | null,
+email?: string | null,
+phoneNumber:string,
+city?:DropdownType<number> | null,
+isOnline: boolean,
+isActive:boolean,
+arAddress?: string,
+enAddress?: string,
+latitudes?:number | null,
+longitudes?:number | null
+}
+
+
+interface APIOfferProvider extends Partial<APIProfileType>{
+    providerOfferId:number,
+    offerId:number
+}
+
+
+interface APIProfileDetailsType{
+profileId: number,
+fullName: string,
+role: RoleType,
+profileStatusCode:number
 }
 
 interface APIProviderServiceItemBaseeRsponseType{
@@ -305,6 +338,70 @@ interface APICommonQuestionsResponseType {
     lastUpdateAt?:string | null,
 }
 
+
+interface APIAdsResponseType {
+    id:number,
+    arTitle:string,
+    enTitle:string,
+    arContent?:string | null,
+    enContent?:string | null,
+    endExclusiveTimeStamp?: number | null,
+    endTimeStamp?: number | null,
+    thumbnail?:string | null,
+    background?:string | null,
+    showInMainSlider:boolean,
+    showInSubSlider:boolean,
+    stopEnabled:boolean,
+    serviceProviders?:Array<APIProfileType>
+    crtdBy?:string | null,
+    mdfBy?:string | null,
+    crtdAt?:string | null,
+    lastUpdateAt?:string | null,
+}
+
+
+interface APIOfferResponseType{
+    id:number,
+    arDesc:string,
+    enDesc:string,
+    arContent?:string | null,
+    enContent?:string | null,
+    backgroundImg?:string | null ,
+    discountRate : number,
+    includeSpares:boolean,
+    includeTransportation:boolean,
+    startTimeStamp?:number | null,
+    endTimeStamp?:number | null,
+    stopEnabled:boolean,
+    crtdBy?:string | null,
+    mdfBy?:string | null,
+    crtdAt?:string | null,
+    lastUpdateAt?:string | null,
+}
+
+
+interface APIOfferSubServiceProviderResponseType {
+    id:number,
+    providerOfferId:number,
+    subServiceProviderId:number,
+    subServiceDetails:{
+        mainServiceId:number,
+        mainServiceArDesc?:string,
+        mainServiceEnDesc?:string,
+        id:number,
+        arDesc:string,
+        enDesc:string,
+        arDetails?:string | null,
+        enDetails?:string | null,
+        subServiceImg?:string | null,
+        stopEnabled:boolean,
+        crtdAt?:string,
+        crtdBy?:string,
+        mdfBy?:string | null,
+        lastUpdateAt?:string | null
+    }
+};
+
 export type {
     APIResponseType,
     APIErrorFieldType,
@@ -333,5 +430,11 @@ export type {
     APIProviderServiceItemBaseeRsponseType,
     APISocialMediaResponseType,
     APICommonQuestionsResponseType,
-    APIContactUsResponseType
+    APIContactUsResponseType,
+    APIAdsResponseType,
+    APIProfileType,
+    APIProfileDetailsType,
+    APIOfferResponseType,
+    APIOfferProvider,
+    APIOfferSubServiceProviderResponseType
 };

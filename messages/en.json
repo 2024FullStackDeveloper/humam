@@ -24,8 +24,15 @@
         "identity_type":"Identity Type",
         "identity_number":"Identity Number",
         "identity_img":"Identity Image",
-         "city":"City",
+        "city":"City",
+        "providers":"Providers",
+        "is_company":"Organizations account",
+        "address":"Address",
+        "ar_details":"Arabic details",
+        "en_details":"English details",
         "career":"Career",
+        "background":"Background",
+        "thumbnail":"Thumbnail",
         "company_id":"Company Id",
         "company_name":"Company Name",
         "cr_number":"Commercial Register Number",
@@ -45,6 +52,7 @@
         "category":"Category",
         "full_name":"Full Name",
         "is_online":"Online status",
+        "is_active":"Avaliable",
         "max_distance_between":"Maximum distance between the service provider and the client in meters",
         "services":"Services",
         "organization_name":"Company Name",
@@ -58,7 +66,19 @@
         "en_question":"English Question",
         "ar_answer":"Arabic Answer",
         "en_answer":"English Answer",
-        "language":"Language"
+        "language":"Language",
+        "service_image":"Service image",
+        "show_in_main_slider":"Displayed in the main slider",
+        "show_in_sub_slider":"Displayed in the sub slider",
+        "end_exclusive_time_stamp":"Exclusive to",
+        "end_time_stamp":"Expired date",
+        "ar_content":"Arabic content",
+        "en_content":"English content",
+        "include_spares":"Includes spare parts",
+        "include_transportation":"Includes transportation",
+        "start_time_stamp":"Started date",
+        "main_service":"Main service",
+        "sub_service":"Sub service"
     },
     "placeholders":{
         "phone_or_email":"Type mobile number or email",
@@ -87,8 +107,12 @@
         "ar_question":"Type Arabic Question",
         "en_question":"Type English Question",
         "ar_answer":"Type Arabic Answer",
-        "en_answer":"Type English Answer"
-
+        "en_answer":"Type English Answer",
+        "ar_details":"Type Arabic details",
+        "en_details":"Type English details",
+        "ar_content":"Type Arabic content",
+        "en_content":"Type English content",
+        "discount_rate":"Discount rate"
 
     },
     "buttons":{
@@ -106,6 +130,7 @@
         "show":"Show",
         "details":"Details",
         "search":"Search",
+        "delete":"Delete",
         "migrate":"Database update"
     },
     "tooltips":{
@@ -135,10 +160,13 @@
          "category_details":"Category Details",
          "linked_sub_services":"Linked Subservices",
          "choose_operation":"Choose operation",
+         "sub_services":"Sub services",
          "user_data":"User Data",
          "extra_data":"Extra Data",
          "company_data":"Company Data",
          "services":"Services",
+         "add_ads":"Add ads",
+         "update_ads":"Update ads",
          "add_social_media":"Add Social Media Platform",
          "add_common_question":"Add Common Question",
          "update":"Update",
@@ -159,8 +187,10 @@
         "max_length":"Field length exceeded",
         "invalid_email":"Invalid email",
         "only_one_service":"Only one service must be selected",
-        "required_services":"At least one service must be selected"
-
+        "required_services":"At least one service must be selected",
+        "no_sub_services":"No sub services found",
+        "unable_delete":"Unable to delete",
+        "unacceptable_value":"Unacceptable value"
     },
     "routes":{
         "home":"Home",
@@ -175,7 +205,10 @@
         "social_media":"Social Media",
         "common_questions":"Common Questions",
         "contact_us":"Contact Us",
-        "profile":"Profile"
+        "profile":"Profile",
+        "services":"Services",
+        "ads":"Ads",
+        "offers":"Offers"
 
     },
         "socialMedias":{

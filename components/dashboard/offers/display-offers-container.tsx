@@ -1,5 +1,6 @@
 "use client";
 
+import ActiveBudge from "@/components/common/active-budge";
 import DataTable from "@/components/common/data-table";
 import FormButton from "@/components/common/form-button";
 import PageWrapper from "@/components/common/page-wrapper";
@@ -14,38 +15,45 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import { useContactUsStore } from "@/lib/features/contact-us/use-contact-us-store";
+import { useAdsStore } from "@/lib/features/ads/use-ads-store";
+import { useOffersStore } from "@/lib/features/offers/use-offers-store";
 import useLocalizer from "@/lib/hooks/use-localizer";
 import usePaginate from "@/lib/hooks/use-paginate";
-import { APIContactUsResponseType } from "@/lib/types/api/api-type";
+import {
+  APIAdsResponseType,
+  APIOfferResponseType,
+} from "@/lib/types/api/api-type";
+import { cn } from "@/lib/utils";
+import { convertFiletimeToDate } from "@/lib/utils/stuff-client";
 import { ColumnDef } from "@tanstack/react-table";
 import dateFormat from "dateformat";
-import { Trash2 } from "lucide-react";
+import { Edit, Info, Trash2 } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
-import ContactUsAddDlg from "./contact-us-add-dlg";
+import OfferDetailsSheet from "./offer-details-sheet";
 
 
-const DisplayContactUsContainer = () => {
-  const { isPending, result, contacts, getContacts, deleteContact } =
-    useContactUsStore();
+const DisplayOffersContainer = () => {
+  const { isPending, result, offers , getOffers , deleteOffer} = useOffersStore();
   const { t } = useLocalizer();
   const { paginate } = usePaginate();
   const [visible, setVisible] = React.useState<boolean>(false);
-  const [createDlgVisible, setCreateDlgVisible] = React.useState<boolean>(false);
-  const [deleteContactId, setDeleteContactId] = React.useState<
-    number | undefined
-  >(undefined);
-
+  const [createIsFormOpen,setCreateIsFormOpen] = React.useState<boolean>(false);
+  const [isUpdateFormOpen,setUpdateIsFormOpen] = React.useState<boolean>(false);
+  const [deleteOfferId, setDeleteOfferId] = React.useState<number | undefined>(
+    undefined
+  );
+  const [offerDetails,setOfferDetails] = React.useState<APIOfferResponseType | undefined>(undefined);
+  const [isSheetOpen,setIsSheetOpen] = React.useState<boolean>(false);
   const fetchData = async () => {
-    await getContacts(paginate);
+    await getOffers(paginate);
   };
 
   React.useEffect(() => {
     fetchData();
   }, [paginate]);
 
-  const cols = React.useMemo<ColumnDef<APIContactUsResponseType>[]>(() => {
+  const cols = React.useMemo<ColumnDef<APIOfferResponseType>[]>(() => {
     return [
       {
         accessorKey: "id",
@@ -61,10 +69,29 @@ const DisplayContactUsContainer = () => {
         },
       },
       {
-        accessorKey: "phoneNumber",
-        header: t("labels.phone_number"),
+        accessorKey: "arDesc",
+        header: t("labels.ar_desc"),
       },
-
+      {
+        accessorKey: "enDesc",
+        header: t("labels.en_desc"),
+      },
+      {
+        accessorKey: "discountRate",
+        header: t("labels.discount_rate"),
+        cell: ({ row }) => {
+          const data = row.original;
+          return data?.discountRate?.toString() + "%";
+        },
+      },
+      {
+        accessorKey: "stopEnabled",
+        header: t("labels.stopped"),
+        cell: ({ row }) => {
+          const data = row.original;
+          return <ActiveBudge isActive={data?.stopEnabled} />;
+        },
+      },
       {
         accessorKey: "crtdAt",
         header: t("labels.crtd_at"),
@@ -78,16 +105,43 @@ const DisplayContactUsContainer = () => {
         },
       },
       {
+        accessorKey: "lastUpdateAt",
+        header: t("labels.last_update_at"),
+        cell: ({ row }) => {
+          const data = row.original;
+          return data.lastUpdateAt ? (
+            <bdi>{dateFormat(data.lastUpdateAt, "dd/mm/yyyy hh:MM TT")}</bdi>
+          ) : (
+            <></>
+          );
+        },
+      },
+      {
         id: "actions",
         header: t("labels.actions"),
         cell: ({ row }) => {
           const data = row.original;
           return (
             <div className="flex flex-row items-center justify-center gap-2">
+            <Button variant="default" title={t("tooltips.details_show")}
+            onClick={()=>{
+            setOfferDetails(data);
+            setIsSheetOpen(true);
+            }}
+            >
+             <Info />
+           </Button>
+            <Button 
+              variant="destructive"
+              onClick={()=>{
+                setUpdateIsFormOpen(true);
+              }}>
+                <Edit/>
+              </Button>
               <Button
                 onClick={() => {
                   setVisible(true);
-                  setDeleteContactId(data.id);
+                  setDeleteOfferId(data.id);
                 }}
                 variant="dangerOutline"
               >
@@ -98,7 +152,7 @@ const DisplayContactUsContainer = () => {
         },
       },
     ];
-  }, [contacts, paginate]);
+  }, [offers, paginate]);
 
   return (
     <PageWrapper
@@ -112,7 +166,7 @@ const DisplayContactUsContainer = () => {
         await fetchData();
       }}
       onAdd={() => {
-         setCreateDlgVisible(true);
+        setCreateIsFormOpen(true)
       }}
       breadcrumbs={[
         {
@@ -120,21 +174,22 @@ const DisplayContactUsContainer = () => {
           link: "/dashboard",
         },
         {
-          itemTitle: "routes.global_settings",
-          link: "/dashboard",
-        },
-        {
-          itemTitle: "routes.contact_us",
+          itemTitle: "routes.offers",
         },
       ]}
     >
-      <DataTable isLoading={isPending} columns={cols} data={contacts ?? []} />
-
+      <DataTable isLoading={isPending} columns={cols} data={offers ?? []} />
+      <OfferDetailsSheet 
+      data={offerDetails} 
+      isOpen={isSheetOpen} 
+      onClose={()=>{
+        setIsSheetOpen(false)
+      }}/>
       <Dialog
         open={visible}
         onOpenChange={() => {
           setVisible(false);
-          setDeleteContactId(undefined);
+          setDeleteOfferId(undefined);
         }}
       >
         <DialogContent>
@@ -148,8 +203,8 @@ const DisplayContactUsContainer = () => {
           <DialogFooter>
             <form
               action={async () => {
-                if (deleteContactId) {
-                  const result = await deleteContact(deleteContactId);
+                if (deleteOfferId) {
+                  const result = await deleteOffer(deleteOfferId);
 
                   if (!result?.isServerOn) {
                     toast.error(t(result?.serverOffMessage));
@@ -170,7 +225,7 @@ const DisplayContactUsContainer = () => {
             <Button
               onClick={() => {
                 setVisible(false);
-                setDeleteContactId(undefined);
+                setDeleteOfferId(undefined);
               }}
               variant="secondary"
             >
@@ -179,16 +234,9 @@ const DisplayContactUsContainer = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <ContactUsAddDlg 
-        title={t("titles.add")} 
-        createDlgVisible={createDlgVisible} 
-        onCreateDlgVisibleChange={setCreateDlgVisible}  
-        onAdded={async () => {
-          await fetchData();
-        }}    
-      />
+
     </PageWrapper>
   );
 };
 
-export default DisplayContactUsContainer;
+export default DisplayOffersContainer;

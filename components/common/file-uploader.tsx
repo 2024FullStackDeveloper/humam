@@ -41,7 +41,7 @@ export interface FileUploaderProps {
   label: string;
   multiple?: boolean;
   type?: "image" | "file" | "none";
-  onChange?: (file: z.infer<typeof FileSchema>) => void,
+  onChange?: (file: z.infer<typeof FileSchema>, orgFile? : File) => void,
   error?:string
   disabled?:boolean,
   path?:string
@@ -74,17 +74,18 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     setFiles(acceptedFiles);
     let fileBase64Result: string | undefined = undefined;
     let fileName: string | undefined = undefined;
+    let orgFile : File | undefined = undefined;
     if (acceptedFiles?.length > 0) {
-      const file = acceptedFiles[0];
-      fileName = file.name;
-      fileBase64Result = await toBase64(file);
+      orgFile  = acceptedFiles[0];
+      fileName = orgFile.name;
+      fileBase64Result = await toBase64(orgFile);
     }
     
     if(props?.onChange){ 
       props.onChange({
         data: fileBase64Result,
         extension: fileName?.split(".").pop(),
-      });
+      },orgFile);
     }
   };
 

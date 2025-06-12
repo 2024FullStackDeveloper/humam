@@ -10,10 +10,11 @@ const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> & {
     label: string;
+    isBetween ?: boolean
     
   }
->(({ className, label, ...props }, ref) => (
-  <Label className="flex flex-row items-center gap-2 text-sm md:text-lg">
+>(({ className, label, isBetween = false, ...props }, ref) => (
+  <Label className={cn("flex flex-row items-center gap-2 text-sm md:text-lg ",isBetween && " justify-between")}>
     {label}
     <SwitchPrimitives.Root
     dir="ltr"

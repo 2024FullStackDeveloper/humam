@@ -41,11 +41,11 @@ export function validateAPIErrors(errors?: Array<APIErrorFieldType> | null): Map
   }
 }
 
-export function toBase64(file: File): Promise<string> {
+export function toBase64(file: File , split:boolean = true): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
-    reader.onload = () => resolve((reader.result as string).split(",")[1])
+    reader.onload = () => {resolve(split ? (reader.result as string).split(",")[1]: (reader.result as string))}
     reader.onerror = (error) => reject(error)
   })
 }
@@ -111,4 +111,36 @@ export function getSocialMediaNameFromType(isRtl :boolean,  mediaType:SocialMedi
     default:
       return "Unknown";
   }
+}
+
+
+export function convertFiletimeToDate(fileTime: bigint | number): Date {
+    // Convert to bigint if it's a number to ensure proper handling of large values
+    const fileTimeBigInt = typeof fileTime === 'number' ? BigInt(fileTime) : fileTime;
+    
+    // FILETIME is in 100-nanosecond intervals (10^-7 seconds)
+    // Convert to milliseconds (10^-3 seconds) by dividing by 10,000
+    const millisecondsBigInt = fileTimeBigInt / BigInt(10000);
+    
+    // Convert to a number (note: this may lose precision for very large bigints)
+    const milliseconds = Number(millisecondsBigInt);
+    
+    // The Windows epoch is January 1, 1601 (UTC) which is 11644473600000 milliseconds
+    // before the Unix epoch (January 1, 1970 UTC)
+    const windowsEpoch = 11644473600000;
+    
+    // Create a JavaScript Date (Unix epoch)
+    return new Date(milliseconds - windowsEpoch);
+}
+
+
+export function dateToFileTime(date: Date): bigint {
+    // The number of 100-nanosecond intervals between Jan 1, 1601 and Jan 1, 1970
+    const EPOCH_DIFFERENCE = BigInt("116444736000000000");
+    
+    // Get the time in milliseconds since Jan 1, 1970
+    const msSince1970 = date.getTime();
+    
+    // Convert to 100-nanosecond intervals and add the epoch difference
+    return EPOCH_DIFFERENCE + BigInt(msSince1970) * BigInt(10000);
 }

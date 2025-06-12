@@ -70,6 +70,52 @@ interface StateResponseType<T> {
     serverOffMessage?: string,
 };
 
+
+export interface ServiceTitle {
+  ar: string;
+  en: string;
+}
+
+export interface ServiceDescription {
+  ar: string;
+  en: string;
+}
+
+export interface SubService {
+  id: string;
+  name: ServiceTitle;
+  imageUrl?: string;
+  description?: ServiceDescription;
+  isActive: boolean;
+}
+
+export interface Service {
+  id: string;
+  name: ServiceTitle;
+  description: ServiceDescription;
+  level: 'basic' | 'premium';
+  price: number;
+  isActive: boolean;
+  features: string[];
+  imageUrl?: string;
+  subServices: SubService[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface CreateServiceRequest {
+  name: ServiceTitle;
+  description: ServiceDescription;
+  level: 'basic' | 'premium';
+  price: number;
+  imageUrl?: string;
+  subServices: SubService[];
+}
+
+export interface UpdateServiceRequest extends Partial<CreateServiceRequest> {
+  id: string;
+}
+
 export type {
     DropdownType,
     GlobalResponseType,
