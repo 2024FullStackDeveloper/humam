@@ -30,9 +30,9 @@ const UserServicesDlg = ({
   const [subServices, setSubServices] = React.useState<
     Array<APISubServiceResponseType> | undefined | null
   >([]);
-  const [providerServicesDetails, setProviderServicesDetails] = React.useState<
-    Array<number> | undefined | null
-  >([]);
+  // const [providerServicesDetails, setProviderServicesDetails] = React.useState<
+  //   Array<number> | undefined | null
+  // >([]);
   const [providerServices,setProviderServices] = React.useState<APIProviderServiceResponseType | undefined | null>(undefined);
   const isMainServiceLocked = React.useCallback(()=>{
     return providerServices?.mainServices?.find(e=>e.serviceId == mainServiceId)?.stopEnabled;
@@ -80,18 +80,18 @@ const UserServicesDlg = ({
         }
       }
 
-      if (response[0]?.result?.code == 0) {
-        const providerServices = response[0]?.result?.data?.servicesDetails;
-        if (providerServices && providerServices.length > 0) {
-          const ids = providerServices.map((item) => item.serviceId);
-          setProviderServicesDetails(ids);
-        }
-      }
+      // if (response[0]?.result?.code == 0) {
+      //   const providerServices = response[0]?.result?.data?.servicesDetails;
+      //   if (providerServices && providerServices.length > 0) {
+      //     const ids = providerServices.map((item) => item.serviceId);
+      //     setProviderServicesDetails(ids);
+      //   }
+      // }
     });
 
     return () => {
       setSubServices([]);
-      setProviderServicesDetails([]);
+      // setProviderServicesDetails([]);
     };
   }, [mainServiceId, providerId]);
 
@@ -109,7 +109,7 @@ const UserServicesDlg = ({
         <ToggleServices
           providerServices={providerServices}
           subServices={subServices}
-          serviceDetailsIds={providerServicesDetails}
+    
         />
       </DialogContent>
     </Dialog>

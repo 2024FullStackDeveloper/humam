@@ -154,6 +154,8 @@ const UpdateAdsForm: React.FC<UpdateAdsFormProps> = ({ isOpen, adsDetails , onCl
       onSubmit();
       setErrors(undefined);
       onClose();
+    }else{
+      toast.error(response.message);
     }
   };
 
@@ -163,7 +165,7 @@ const UpdateAdsForm: React.FC<UpdateAdsFormProps> = ({ isOpen, adsDetails , onCl
         <DialogTrigger/>
         <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{t("titles.update_ads")}</DialogTitle>
+            <DialogTitle>{t("titles.update")}</DialogTitle>
             <DialogDescription />
           </DialogHeader>
 

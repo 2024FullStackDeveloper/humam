@@ -25,11 +25,11 @@ import React, { useTransition } from "react";
 
 export interface ToggleServicesProps {
   subServices?: Array<APISubServiceResponseType> | null;
-  serviceDetailsIds?: Array<number> | null;
+  // serviceDetailsIds?: Array<number> | null;
   providerServices?:APIProviderServiceResponseType | null
 }
 
-const ToggleServices = ({ subServices, serviceDetailsIds , providerServices }: ToggleServicesProps) => {
+const ToggleServices = ({ subServices , providerServices }: ToggleServicesProps) => {
   const { isRtl } = useLocalizer();
   const values = React.useDeferredValue(subServices);
   const [active, setActive] = React.useState<number | null>(null);
@@ -53,28 +53,28 @@ const ToggleServices = ({ subServices, serviceDetailsIds , providerServices }: T
 
 
 
-  const handleChangeSubs = (id: number) => {
-    startTransition(async () => {
-      setServiceDetails([]);
-      const response = await ApiAction<
-        APICollectionResponseType<APIServiceDetailsResponseType>
-      >({
-        controller: "services",
-        url: `${id}/service_details`,
-        method: "GET",
-        revalidate: 10,
-      });
+  // const handleChangeSubs = (id: number) => {
+  //   startTransition(async () => {
+  //     setServiceDetails([]);
+  //     const response = await ApiAction<
+  //       APICollectionResponseType<APIServiceDetailsResponseType>
+  //     >({
+  //       controller: "services",
+  //       url: `${id}/service_details`,
+  //       method: "GET",
+  //       revalidate: 10,
+  //     });
 
-      if (response?.result?.code == 0) {
-        if(serviceDetailsIds && serviceDetailsIds?.length > 0){
-          const filtered = response?.result.data?.resultSet?.filter((item) =>
-            serviceDetailsIds?.includes(item.id)
-          );
-          setServiceDetails(filtered);
-        }
-      }
-    });
-  };
+  //     // if (response?.result?.code == 0) {
+  //     //   if(serviceDetailsIds && serviceDetailsIds?.length > 0){
+  //     //     const filtered = response?.result.data?.resultSet?.filter((item) =>
+  //     //       serviceDetailsIds?.includes(item.id)
+  //     //     );
+  //     //     setServiceDetails(filtered);
+  //     //   }
+  //     // }
+  //   });
+  // };
 
   return (
     <div dir={isRtl ? "rtl" : "ltr"} className="flex flex-col gap-2 mt-4">
@@ -85,7 +85,6 @@ const ToggleServices = ({ subServices, serviceDetailsIds , providerServices }: T
               <Tooltip>
                 <TooltipTrigger asChild onClick={() => setActive(item?.id)}>
                   <div
-                    onClick={() => handleChangeSubs(item?.id)}
                     className={cn(
                       "bg-secondary/10 p-2 rounded-md w-[160px] h-[160px] flex flex-col gap-2 items-center justify-evenly shadow-md cursor-pointer",
                       active === item?.id ? "border-2 border-primary" : ""
@@ -115,7 +114,7 @@ const ToggleServices = ({ subServices, serviceDetailsIds , providerServices }: T
             </TooltipProvider>
           ))}
       </div>
-      <Separator className="my-2" />
+      {/* <Separator className="my-2" />
       <div className="flex flex-row gap-2 items-center">
         {isPending &&
           Array.from({ length: 3 }).map((_, index) => (
@@ -136,7 +135,7 @@ const ToggleServices = ({ subServices, serviceDetailsIds , providerServices }: T
               </Badge>
             ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 };

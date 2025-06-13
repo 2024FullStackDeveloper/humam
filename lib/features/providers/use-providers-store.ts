@@ -1,11 +1,12 @@
 import ApiAction from '@/lib/server/action';
-import {  APIProviderServiceResponseType} from '@/lib/types/api/api-type'
+import {  APIProviderServiceResponseType, APIProviderServiceType} from '@/lib/types/api/api-type'
 import { CoreStateType, StateResponseType } from '@/lib/types/common-type';
 import { create } from 'zustand'
 
 interface ProviderServicesState extends CoreStateType<APIProviderServiceResponseType>{
     providerServices?:APIProviderServiceResponseType | null,
-    getProviderServices:(provider:number)=>Promise<StateResponseType<any> | undefined | null>,
+    getProviderServices:(provider:number)=>Promise<StateResponseType<APIProviderServiceResponseType> | undefined | null>,
+    getActiveProviderServices:(provider:number)=>Promise<StateResponseType<Array<APIProviderServiceType>> | undefined | null>,
     patchProviderServices:(providerId:number,level:number,services:{id:number,stopEnabled:boolean}[])=>Promise<StateResponseType<any> | undefined | null>,
 };
 
@@ -28,7 +29,17 @@ const useProviderServicesStore = create<ProviderServicesState>(
             }
         );
         set({isPending:false, providerServices :response.result?.data,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage});
-        return {isPending:false, providerServices :response.result?.data,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage};
+        return {isPending:false, data :response.result?.data,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage};
+        },
+        getActiveProviderServices:async (providerId:number)=>{
+           const response = await ApiAction<Array<APIProviderServiceType>>(
+            {
+                controller:"services",
+                url:`providers/${providerId}/active`,
+                method:"GET",
+            }
+        );
+        return {data :response.result?.data,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage};
         },
         patchProviderServices:async (providerId:number,level:number,services:{id:number,stopEnabled:boolean}[])=>{
             set({isPending:true,result:undefined , providerServices:undefined,code:undefined,message:undefined,});

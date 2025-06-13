@@ -294,10 +294,6 @@ const DisplaySocialMediaContainer = () => {
           link: "/dashboard",
         },
         {
-          itemTitle: "routes.global_settings",
-          link: "/dashboard",
-        },
-        {
           itemTitle: "routes.social_media",
         },
       ]}

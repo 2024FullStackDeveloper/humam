@@ -103,6 +103,7 @@ const PageWrapper = ({
 
   React.useEffect(() => {
     if (
+      isPaginateEnabled &&
       !path.includes("create") &&
       !path.includes("update") &&
       !path.includes("settings") &&
@@ -117,7 +118,7 @@ const PageWrapper = ({
           }`
       );
     }
-  }, []);
+  }, [isPaginateEnabled]);
 
   return (
     <div className=" w-full h-full relative  rounded-md !bg-secondary/10 shadow flex flex-col">

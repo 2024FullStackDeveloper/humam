@@ -66,10 +66,6 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
           link: "/dashboard",
         },
         {
-          itemTitle: "routes.settings",
-          link: "/dashboard",
-        },
-        {
           itemTitle: "routes.global_settings",
         },
       ]}

@@ -30,6 +30,7 @@ const DashboardWrapper = ({
   const [collpased,setCollpased] = React.useState<boolean>(false);
   const searchParams = useSearchParams();
 
+  
 
   const purePath = React.useMemo(() : string=>{
     return path?.replace(searchParams.toString(),"").replace("?","");

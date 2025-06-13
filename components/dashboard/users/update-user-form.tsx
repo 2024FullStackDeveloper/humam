@@ -60,11 +60,11 @@ const UpdateUserForm = ({userDetails}:{userDetails?:APIUserResponse2Type | null}
       Array<{level: number; id: number; stopEnabled: boolean}>
     >([]);
     const router = useRouter();
-    const {providerServices,getProviderServices,isPending : servicesPending} = useProviderServicesStore();
+    const {getProviderServices,isPending : servicesPending} = useProviderServicesStore();
 
     async function fetchData() {
       setFetchLoading(true);
-      const response = await Promise.all([getRegions(),getSpecificCategory(1),getAllServices(),getProviderServices(userDetails?.profileId ?? 0)]);
+      const response = await Promise.all([getRegions(),getSpecificCategory(1),getAllServices()]);
       if(response?.[1]){
         setIdentityTypes(response?.[1]?.subs);
       }
@@ -75,38 +75,60 @@ const UpdateUserForm = ({userDetails}:{userDetails?:APIUserResponse2Type | null}
       fetchData();
     },[]);
 
-
-
-    React.useEffect(()=>{
-
+    const fetchProviderServices = async ()=>{
+      const response = await getProviderServices(userDetails?.profileId ?? 0);
+      if(response?.code == 0 && response?.data){
       let _servicesLevels :{level: number; id: number; stopEnabled: boolean}[] = [];
       if(activeMainServices?.length == 0){
-        setActiveMainServices(providerServices?.mainServices ?? []);
-        _servicesLevels = (providerServices?.mainServices ?? []).map(e=>({
+        setActiveMainServices(response?.data?.mainServices ?? []);
+        _servicesLevels = (response?.data?.mainServices ?? [])?.map(e=>({
           level:1,
           id:e.serviceId,
           stopEnabled: e.stopEnabled
         }));
       }
       if(activeSubServices?.length == 0){
-        setActiveSubServices(providerServices?.subServices ?? []);
-        _servicesLevels = [..._servicesLevels,...(providerServices?.subServices ?? []).map(e=>({
+        setActiveSubServices(response?.data?.subServices ?? []);
+        _servicesLevels = [..._servicesLevels,...(response?.data?.subServices ?? []).map(e=>({
           level:2,
           id:e.serviceId,
           stopEnabled: e.stopEnabled
         }))];
       }
-      if(activeServicesDetails?.length == 0){
-        setActiveServicesDetails(providerServices?.servicesDetails ?? []);
-        _servicesLevels = [..._servicesLevels,...(providerServices?.servicesDetails ?? []).map(e=>({
-          level:3,
-          id:e.serviceId,
-          stopEnabled: e.stopEnabled
-        }))];
-      }
       setServicesLevels(_servicesLevels);
+      }
+    };
 
-    },[providerServices]);
+    React.useEffect(()=>{
+        fetchProviderServices();
+      // let _servicesLevels :{level: number; id: number; stopEnabled: boolean}[] = [];
+      // if(activeMainServices?.length == 0){
+      //   setActiveMainServices(providerServices?.mainServices ?? []);
+      //   _servicesLevels = (providerServices?.mainServices ?? []).map(e=>({
+      //     level:1,
+      //     id:e.serviceId,
+      //     stopEnabled: e.stopEnabled
+      //   }));
+      // }
+      // if(activeSubServices?.length == 0){
+      //   setActiveSubServices(providerServices?.subServices ?? []);
+      //   _servicesLevels = [..._servicesLevels,...(providerServices?.subServices ?? []).map(e=>({
+      //     level:2,
+      //     id:e.serviceId,
+      //     stopEnabled: e.stopEnabled
+      //   }))];
+      // }
+      // // if(activeServicesDetails?.length == 0){
+      // //   setActiveServicesDetails(providerServices?.servicesDetails ?? []);
+      // //   _servicesLevels = [..._servicesLevels,...(providerServices?.servicesDetails ?? []).map(e=>({
+      // //     level:3,
+      // //     id:e.serviceId,
+      // //     stopEnabled: e.stopEnabled
+      // //   }))];
+      // // }
+      // setServicesLevels(_servicesLevels);
+      // console.log(_servicesLevels)
+    },[]);
   
     React.useEffect(()=>{
       const result = {...request}
@@ -161,13 +183,13 @@ const UpdateUserForm = ({userDetails}:{userDetails?:APIUserResponse2Type | null}
     });
 
 
-    const detailsServices = activeServicesDetails?.map((e)=>{
-      const item = servicesLevels?.find(ee=>ee.level == 3 && ee.id == e.serviceId);
-      if(item){
-        return {id:item.id,stopEnabled:item.stopEnabled};
-      }
-      return {id:e.serviceId,stopEnabled:false};
-    });
+    // const detailsServices = activeServicesDetails?.map((e)=>{
+    //   const item = servicesLevels?.find(ee=>ee.level == 3 && ee.id == e.serviceId);
+    //   if(item){
+    //     return {id:item.id,stopEnabled:item.stopEnabled};
+    //   }
+    //   return {id:e.serviceId,stopEnabled:false};
+    // });
 
 
     if(mainServices?.length > 0){
@@ -179,9 +201,9 @@ const UpdateUserForm = ({userDetails}:{userDetails?:APIUserResponse2Type | null}
     }
 
 
-    if(detailsServices?.length > 0){
-      await patchProviderServices(userDetails!.profileId,3,detailsServices);
-    }
+    // if(detailsServices?.length > 0){
+    //   await patchProviderServices(userDetails!.profileId,3,detailsServices);
+    // }
 
 
   };
@@ -415,7 +437,7 @@ const UpdateUserForm = ({userDetails}:{userDetails?:APIUserResponse2Type | null}
                     existingServices={servicesLevels}
                     activeMainServices={activeMainServices}
                     activeSubServices={activeSubServices}
-                    activeServicesDetails={activeServicesDetails}
+                    // activeServicesDetails={activeServicesDetails}
                     dlgTitle={t("titles.linked_sub_services")}
                     onChange={(level, values) => {
                       switch (level) {
@@ -435,10 +457,10 @@ const UpdateUserForm = ({userDetails}:{userDetails?:APIUserResponse2Type | null}
 
                           break;
 
-                        case 3:
-                          setActiveServicesDetails(values);
+                        // case 3:
+                        //   setActiveServicesDetails(values);
 
-                          break;
+                        //   break;
                       }
                     }}
                     onToggleStopped={(value)=>{

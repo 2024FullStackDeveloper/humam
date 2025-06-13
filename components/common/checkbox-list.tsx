@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useLayoutEffect } from 'react';
 import { Check, Filter } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -66,6 +66,12 @@ const CheckboxList: React.FC<CheckboxListProps> = ({
 }) => {
   const [internalItems, setInternalItems] = useState<CheckboxItem[]>(items);
   const [filterText, setFilterText] = useState('');
+
+
+  useLayoutEffect(()=>{
+    setInternalItems(items);
+  },[items]);
+
 
   const handleItemToggle = (id: string, checked: boolean) => {
     setInternalItems(prev => 

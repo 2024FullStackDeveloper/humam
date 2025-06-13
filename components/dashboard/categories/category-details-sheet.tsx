@@ -57,7 +57,7 @@ const CategoryDetailsSheet = ({data}:{data:APICategoryResponseType})=>{
             className="h-12 rounded-none"
             title={t("labels.subs")}
             />
-           <DataTable columns={cols} data={values ? orderBy(values,"orderValue","asc") : []} />
+           <DataTable ignorePagination columns={cols} data={values ? orderBy(values,"orderValue","asc") : []} />
           </div>
         </SheetContent>
       </Sheet>

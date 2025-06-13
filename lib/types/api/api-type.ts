@@ -384,7 +384,7 @@ interface APIOfferSubServiceProviderResponseType {
     id:number,
     providerOfferId:number,
     subServiceProviderId:number,
-    subServiceDetails:{
+    subServiceDetails?:{
         mainServiceId:number,
         mainServiceArDesc?:string,
         mainServiceEnDesc?:string,
@@ -401,6 +401,10 @@ interface APIOfferSubServiceProviderResponseType {
         lastUpdateAt?:string | null
     }
 };
+
+interface APIProviderServiceType extends APIServiceItemResponseType{
+  subServiceList?:Array<APIServiceItemResponseType> | null
+}
 
 export type {
     APIResponseType,
@@ -436,5 +440,6 @@ export type {
     APIProfileDetailsType,
     APIOfferResponseType,
     APIOfferProvider,
-    APIOfferSubServiceProviderResponseType
+    APIOfferSubServiceProviderResponseType,
+    APIProviderServiceType
 };

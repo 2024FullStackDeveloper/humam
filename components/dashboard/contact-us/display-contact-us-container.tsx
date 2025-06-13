@@ -120,10 +120,6 @@ const DisplayContactUsContainer = () => {
           link: "/dashboard",
         },
         {
-          itemTitle: "routes.global_settings",
-          link: "/dashboard",
-        },
-        {
           itemTitle: "routes.contact_us",
         },
       ]}

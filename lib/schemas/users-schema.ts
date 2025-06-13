@@ -233,7 +233,7 @@ const UpdateUserSchema = z.object({
                 });
             }
 
-            if(!props?.addionalData?.personFile){
+            if(!props?.addionalData?.personFile && !props?.addionalData?.identityFileUrl){
                 context.addIssue({
                     code: z.ZodIssueCode.custom,
                     path:["personFile"],

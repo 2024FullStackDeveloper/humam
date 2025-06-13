@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,18 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import { X, Plus, Upload, Edit, Info } from "lucide-react";
+import {  Plus, Info } from "lucide-react";
 import SubServiceForm from "./sub-service-form";
 import FileUploader from "@/components/common/file-uploader";
 import useLocalizer from "@/lib/hooks/use-localizer";
@@ -34,7 +24,6 @@ import { max } from "lodash";
 import { useServicesStore } from "@/lib/features/services/use-services-store";
 import { validateAPIErrors, validateData } from "@/lib/utils/stuff-client";
 import { toast } from "sonner";
-import { fetchData } from "next-auth/client/_utils";
 
 interface ServiceFormProps {
   isOpen: boolean;
@@ -70,6 +59,10 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
     return 0;
   },[request]);
 
+
+  React.useEffect(()=>{
+    setErrors(undefined);
+  },[]);
 
   const handleSubmit = async () => {
     setErrors(undefined);
@@ -148,13 +141,9 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
         <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {mode === "create" ? "اضافة خدمة" : "تعديل خدمة"}
+              {mode === "create" ? t("titles.add") : t("titles.update")}
             </DialogTitle>
-            <DialogDescription>
-              {mode === "create"
-                ? "اضافة خدمة جديدة الى قائمة الخدمات"
-                : "تعديل خدمة من القائمة"}
-            </DialogDescription>
+            <DialogDescription/>
           </DialogHeader>
 
           <form action={handleSubmit} className="space-y-6">

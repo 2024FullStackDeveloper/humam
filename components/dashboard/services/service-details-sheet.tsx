@@ -7,13 +7,13 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import useLocalizer from "@/lib/hooks/use-localizer";
-import { CalendarClock, Info, InfoIcon, LockIcon } from "lucide-react";
+import { CalendarClock, InfoIcon, LockIcon } from "lucide-react";
 import {
   APICollectionResponseType,
   APIMainServiceResponseType,
   APISubServiceResponseType,
 } from "@/lib/types/api/api-type";
-import React, { useTransition } from "react";
+import React from "react";
 import Image from "next/image";
 import SingleRow from "@/components/common/single-row";
 import dateFormat from "dateformat";
@@ -42,8 +42,9 @@ const ServiceDetailsSheet = ({
   const [subServices, setSubServices] = React.useState<
     Array<APISubServiceResponseType>
   >([]);
-  const [isPending, startTransaition] = useTransition();
+  const [isLoading,setIsLoading] = React.useState<boolean>(false);
   const fetchData = async () => {
+    setIsLoading(true);
     const result = await ApiAction<
       APICollectionResponseType<APISubServiceResponseType>
     >({
@@ -55,12 +56,11 @@ const ServiceDetailsSheet = ({
     if (result?.result?.code == 0) {
       setSubServices(orderBy(result?.result?.data?.resultSet ?? [],"id"));
     }
+        setIsLoading(false);
   };
 
   React.useEffect(() => {
-    startTransaition(async () => {
-      await fetchData();
-    });
+     fetchData();
   }, [data]);
 
   const { deleteSubService, patchSubService } = useServicesStore();
@@ -164,9 +164,9 @@ const ServiceDetailsSheet = ({
           />
           <TitleHeader             
            className="h-12 rounded-none"
-           title={"الخدمات الفرعية"} />
+           title={t("titles.sub_services")} />
           <div className="flex flex-col gap-2">
-            {isPending
+            {isLoading
               ? Array.from({ length: 3 }).map((_, index) => (
                   <Skeleton
                     key={index}

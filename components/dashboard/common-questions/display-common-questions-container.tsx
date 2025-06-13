@@ -176,10 +176,6 @@ const DisplayCommonQuestionsContainer = () => {
           link: "/dashboard",
         },
         {
-          itemTitle: "routes.global_settings",
-          link: "/dashboard",
-        },
-        {
           itemTitle: "routes.common_questions",
         },
       ]}

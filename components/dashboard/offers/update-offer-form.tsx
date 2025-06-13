@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Info } from "lucide-react";
+import { Info, Percent } from "lucide-react";
 import FileUploader from "@/components/common/file-uploader";
 import useLocalizer from "@/lib/hooks/use-localizer";
 import z from "zod";
@@ -27,93 +27,55 @@ import {
 } from "@/lib/utils/stuff-client";
 import { toast } from "sonner";
 import { DateTimePicker } from "@/components/common/date-time-picker";
-import CheckboxList, { CheckboxItem } from "@/components/common/checkbox-list";
-import { IAddAdsSchema } from "@/lib/schemas/ads-schema";
-import { useAdsStore } from "@/lib/features/ads/use-ads-store";
-import { useUsersStore } from "@/lib/features/users/use-users-store";
-import { Skeleton } from "@/components/ui/skeleton";
+import { IPatchOfferSchema } from "@/lib/schemas/offers-schema";
+import { useOffersStore } from "@/lib/features/offers/use-offers-store";
+import { APIOfferResponseType } from "@/lib/types/api/api-type";
 
-interface AdsFormProps {
+interface UpdateOfferFormProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: () => void;
+  details?:APIOfferResponseType | null
 }
 
-const AdsForm: React.FC<AdsFormProps> = ({ isOpen, onClose, onSubmit }) => {
+const UpdateOfferForm: React.FC<UpdateOfferFormProps> = ({ isOpen, onClose, onSubmit ,details }) => {
   const { t } = useLocalizer();
   const initial = {
-    arTitle: "",
-    enTitle: "",
-    stopEnabled: false,
-    showInMainSlider: false,
-    showInSubSlider: false,
+    arDesc: details?.arDesc,
+    enDesc: details?.enDesc,
+    arContent:details?.arContent ?? undefined,
+    enContent:details?.enContent ?? undefined,
+    stopEnabled: details?.stopEnabled ?? false,
+    includeTransportation: details?.includeTransportation ?? false,
+    includeSpares: details?.includeSpares ?? false,
+    startTimeStamp:details?.startTimeStamp ?? undefined,
+    endTimeStamp:details?.endTimeStamp ?? undefined,
+    discountRate:details?.discountRate
   };
-  const [request, setRequest] =
-    useState<z.infer<typeof IAddAdsSchema>>(initial);
+  const [request, setRequest] = useState<z.infer<typeof IPatchOfferSchema>>(initial);
   const [errors, setErrors] = React.useState<any | undefined>(undefined);
-  const { addAds } = useAdsStore();
-  const { filterUserProfiles } = useUsersStore();
-  const [providers, setProviders] = React.useState<Array<CheckboxItem> | null | undefined>([]);
-  const [isLoading,setIsLoading] = React.useState<boolean>(false);
+  const { patchOffer } = useOffersStore();
 
-  const fetchProviders = async ()=>{
-      setIsLoading(true);
-      const response = await filterUserProfiles({
-        filters: [
-          {
-            field: "role",
-            operator: "contains",
-            value: "worker",
-            logic: "or",
-          },
-          {
-            field: "role",
-            operator: "contains",
-            value: "organization",
-            logic:"and"
-          },
-          {
-            field: "profileStatusCode",
-            operator: "equal",
-            value: 5,
-          },
-        ],
-      });
 
-      if (response?.code == 0) {
-        setProviders(
-          response?.data?.filter(e=>e.profileStatusCode == 5)?.map((e) => ({
-            id: e.profileId.toString(),
-            label: e.fullName,
-            checked: false,
-          }))
-        );
-      }
-      setIsLoading(false);
-  }
-
-  React.useEffect(() => {
+  React.useEffect(()=>{
     setErrors(undefined);
-    if(isOpen){
-      fetchProviders();
-    }
-    return ()=>{
-      setProviders([]);
+    setRequest(initial)
+  },[]);
+
+    React.useLayoutEffect(()=>{
       setErrors(undefined);
-      setIsLoading(false);
-    }
-  }, [isOpen]);
+      setRequest(initial);
+    },[details]);
 
   const handleSubmit = async () => {
     setErrors(undefined);
-    const validate = validateData(IAddAdsSchema, request);
+    const validate = validateData(IPatchOfferSchema, request);
 
     if (!validate.isValid) {
       setErrors(validate.errorsList);
       return;
     }
-
-    const response = await addAds(request);
+    const response = await patchOffer(details?.id ?? 0,request);
     if (!response?.isServerOn) {
       toast.error(t(response?.serverOffMessage));
       return;
@@ -132,7 +94,8 @@ const AdsForm: React.FC<AdsFormProps> = ({ isOpen, onClose, onSubmit }) => {
       onClose();
     }else{
       toast.error(response.message);
-     }
+      console.log(response);
+    }
   };
 
   return (
@@ -150,6 +113,7 @@ const AdsForm: React.FC<AdsFormProps> = ({ isOpen, onClose, onSubmit }) => {
               <div className="flex items-center gap-4">
                 <div className="flex-1">
                   <FileUploader
+                    path={details?.backgroundImg ?? ""}
                     type="image"
                     label={t("labels.background")}
                     onChange={(file) => {
@@ -165,52 +129,34 @@ const AdsForm: React.FC<AdsFormProps> = ({ isOpen, onClose, onSubmit }) => {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <FileUploader
-                    type="image"
-                    label={t("labels.thumbnail")}
-                    onChange={(file) => {
-                      setRequest({ ...request, thumbnailFile: file });
-                    }}
-                    error={
-                      (errors?.thumbnailFile && t(errors?.thumbnailFile[0])) ||
-                      (errors?.ThumbnailFile && t(errors?.ThumbnailFile[0]))
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Input
                   id="arDesc"
-                  value={request?.arTitle}
+                  value={request?.arDesc}
                   onChange={({ currentTarget: { value } }) => {
-                    setRequest({ ...request, arTitle: value });
+                    setRequest({ ...request, arDesc: value });
                   }}
                   required
                   label={t("labels.ar_desc")}
                   placeholder={t("placeholders.ar_desc")}
                   prefixicon={<Info />}
-                  error={errors?.arTitle && t(errors?.arTitle[0])}
+                  error={errors?.arDesc && t(errors?.arDesc[0])}
                 />
               </div>
               <div className="space-y-2">
                 <Input
                   id="enDesc"
-                  value={request?.enTitle}
+                  value={request?.enDesc}
                   onChange={({ currentTarget: { value } }) => {
-                    setRequest({ ...request, enTitle: value });
+                    setRequest({ ...request, enDesc: value });
                   }}
                   required
                   dir="rtl"
                   label={t("labels.en_desc")}
                   placeholder={t("placeholders.en_desc")}
                   prefixicon={<Info />}
-                  error={errors?.enTitle && t(errors?.enTitle[0])}
+                  error={errors?.enDesc && t(errors?.enDesc[0])}
                 />
               </div>
             </div>
@@ -220,27 +166,23 @@ const AdsForm: React.FC<AdsFormProps> = ({ isOpen, onClose, onSubmit }) => {
                 <DateTimePicker
                   format24
                   value={
-                    request?.endExclusiveTimeStamp
-                      ? convertFiletimeToDate(request?.endExclusiveTimeStamp)
+                    request?.startTimeStamp
+                      ? convertFiletimeToDate(request?.startTimeStamp)
                       : undefined
                   }
                   onChange={(value) => {
                     if (value) {
                       setRequest({
                         ...request,
-                        endExclusiveTimeStamp: parseInt(dateToFileTime(value).toString().replace("n","")),
+                        startTimeStamp: parseInt(dateToFileTime(value).toString().replace("n","")),
                       });
                       return;
                     }
-                    setRequest({
-                      ...request,
-                      endExclusiveTimeStamp: undefined,
-                    });
                   }}
-                  label={t("labels.end_exclusive_time_stamp")}
+                  label={t("labels.start_time_stamp")}
                   error={
-                    errors?.endExclusiveTimeStamp &&
-                    t(errors?.endExclusiveTimeStamp[0])
+                    errors?.startTimeStamp &&
+                    t(errors?.startTimeStamp[0])
                   }
                 />
               </div>
@@ -261,12 +203,28 @@ const AdsForm: React.FC<AdsFormProps> = ({ isOpen, onClose, onSubmit }) => {
                       });
                       return;
                     }
-                    setRequest({ ...request, endTimeStamp: undefined });
                   }}
                   error={errors?.endTimeStamp && t(errors?.endTimeStamp[0])}
                 />
               </div>
             </div>
+
+              <Input
+                  id="discountRate"
+                  type="number"
+                  value={request?.discountRate ?? 0}
+                  onChange={({ currentTarget: { value } }) => {
+                    if(!isNaN(parseFloat(value))){
+                    console.log(parseFloat(value))
+                    setRequest({ ...request, discountRate: value ? parseFloat(value) : 0});
+                    }
+                  }}
+                  required
+                  dir="rtl"
+                  label={t("labels.discount_rate")}
+                  prefixicon={<Percent />}
+                  error={errors?.discountRate && t(errors?.discountRate[0])}
+                />
 
             <div className="flex flex-col gap-2">
               <Textarea
@@ -299,47 +257,21 @@ const AdsForm: React.FC<AdsFormProps> = ({ isOpen, onClose, onSubmit }) => {
               />
               <Switch
                 isBetween
-                label={t("labels.show_in_main_slider")}
-                checked={request?.showInMainSlider}
+                label={t("labels.include_spares")}
+                checked={request?.includeSpares}
                 onCheckedChange={(checked) => {
-                  setRequest({ ...request, showInMainSlider: checked });
+                  setRequest({ ...request, includeSpares: checked });
                 }}
               />
               <Switch
                 isBetween
-                label={t("labels.show_in_sub_slider")}
-                checked={request?.showInSubSlider}
+                label={t("labels.include_transportation")}
+                checked={request?.includeTransportation}
                 onCheckedChange={(checked) => {
-                  setRequest({ ...request, showInSubSlider: checked });
+                  setRequest({ ...request, includeTransportation: checked });
                 }}
               />
             </div>
-
-            {isLoading ? (
-              <div className="flex flex-col gap-2">
-                <Skeleton className="h-10 w-full rounded-md" />
-                <Skeleton className="h-40 w-full rounded-md" />
-              </div>
-            ) : (
-              <CheckboxList
-                items={providers ?? []}
-                title={t("labels.providers")}
-                onItemChange={(id, checked) => {
-                  let providersList =
-                    request?.serviceProviders?.filter(
-                      (e) => e.toString() !== id.toString()
-                    ) ?? [];
-                  if (checked) {
-                    providersList = [...providersList, parseInt(id)];
-                  }
-                  setRequest({
-                    ...request,
-                    serviceProviders:
-                      providersList?.length > 0 ? providersList : undefined,
-                  });
-                }}
-              />
-            )}
 
             <DialogFooter>
               <Button
@@ -361,4 +293,4 @@ const AdsForm: React.FC<AdsFormProps> = ({ isOpen, onClose, onSubmit }) => {
   );
 };
 
-export default AdsForm;
+export default UpdateOfferForm;

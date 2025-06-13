@@ -203,10 +203,6 @@ const DisplayCatgoriesContainer = () => {
           link: "/dashboard",
         },
         {
-          itemTitle: "routes.settings",
-          link: "/dashboard",
-        },
-        {
           itemTitle: "routes.global_categories",
         },
       ]}

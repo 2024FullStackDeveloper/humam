@@ -54,7 +54,7 @@ const RegionDetailsSheet = ({data}:{data:APIRegionResponseType})=>{
             className="h-12 rounded-none"
             title={t("labels.cities")}
             />
-           <DataTable columns={cols} data={data?.cities ?? []} />
+           <DataTable ignorePagination columns={cols} data={data?.cities ?? []} />
           </div>
         </SheetContent>
       </Sheet>

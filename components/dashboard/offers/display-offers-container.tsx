@@ -31,6 +31,8 @@ import { Edit, Info, Trash2 } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
 import OfferDetailsSheet from "./offer-details-sheet";
+import OfferForm from "./offer-form";
+import UpdateOfferForm from "./update-offer-form";
 
 
 const DisplayOffersContainer = () => {
@@ -134,6 +136,7 @@ const DisplayOffersContainer = () => {
             <Button 
               variant="destructive"
               onClick={()=>{
+                setOfferDetails(data);
                 setUpdateIsFormOpen(true);
               }}>
                 <Edit/>
@@ -234,6 +237,28 @@ const DisplayOffersContainer = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <OfferForm 
+      isOpen={createIsFormOpen}
+      onClose={()=>{
+        setCreateIsFormOpen(false);
+      }}
+      onSubmit={async ()=>{
+        await fetchData()
+      }}
+      />
+
+
+      <UpdateOfferForm 
+      details={offerDetails}
+      isOpen={isUpdateFormOpen}
+      onClose={()=>{
+        setUpdateIsFormOpen(false);
+      }}
+      onSubmit={async ()=>{
+        await fetchData()
+      }}
+      />
 
     </PageWrapper>
   );

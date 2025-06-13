@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,23 +11,19 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import { X, Plus, Upload, Edit, Info } from "lucide-react";
+import { X, Plus, Info } from "lucide-react";
 import SubServiceForm from "./sub-service-form";
 import FileUploader from "@/components/common/file-uploader";
 import useLocalizer from "@/lib/hooks/use-localizer";
 import z from "zod";
-import { IAddService, IEditSubService, IPatchMainService, ISubService } from "@/lib/schemas/services-schema";
+import { IEditSubService, IPatchMainService, ISubService } from "@/lib/schemas/services-schema";
 import SubServiceCard from "./sub-service-card";
 import FormButton from "@/components/common/form-button";
 import { max } from "lodash";
 import { useServicesStore } from "@/lib/features/services/use-services-store";
 import { validateAPIErrors, validateData } from "@/lib/utils/stuff-client";
 import { toast } from "sonner";
-import { fetchData } from "next-auth/client/_utils";
 import { APIMainServiceResponseType } from "@/lib/types/api/api-type";
 
 interface UpdateServiceFormProps {
@@ -55,6 +51,7 @@ const UpdateServiceForm: React.FC<UpdateServiceFormProps> = ({
   const {patchMainService,addSubService} = useServicesStore();
 
   React.useLayoutEffect(()=>{
+    setErrors(undefined);
     setRequest(initial)
   },[service]);
 
@@ -148,11 +145,9 @@ const UpdateServiceForm: React.FC<UpdateServiceFormProps> = ({
         <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              { "تعديل خدمة"}
+              {t("titles.update")}
             </DialogTitle>
-            <DialogDescription>
-              { "تعديل خدمة من القائمة"}
-            </DialogDescription>
+            <DialogDescription/>
           </DialogHeader>
 
           <form action={handleSubmit} className="space-y-6">

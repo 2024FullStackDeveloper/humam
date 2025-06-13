@@ -30,7 +30,6 @@ export interface ServiceContainerProps {
   data: APIServiceInfoResponseType;
   activeMainServices?: Array<APIProviderServiceItemBaseeRsponseType> | null;
   activeSubServices?: Array<APIProviderServiceItemBaseeRsponseType> | null;
-  activeServicesDetails?: Array<APIProviderServiceItemBaseeRsponseType> | null;
   existingServices?: Array<{level:number,id:number,stopEnabled:boolean}> | null;
   onChange?: (level: number, values: APIProviderServiceItemBaseeRsponseType[]) => void;
   editable?: boolean;
@@ -42,23 +41,23 @@ const ServiceContainerButton = ({
   data,
   ...props
 }: ServiceContainerProps) => {
-  const { isRtl } = useLocalizer();
+  // const { isRtl } = useLocalizer();
   const [on, toggle] = useToggle(false);
-  const [details, setDetails] = React.useState<
-    Array<APIServiceItemResponseType> | null | undefined
-  >([]);
+  // const [details, setDetails] = React.useState<
+  //   Array<APIServiceItemResponseType> | null | undefined
+  // >([]);
 
-  const handlePopulateDetails = (item: APISubServiceItemResponseType) => {
-    setDetails(item?.serviceDetailsList);
-  };
+  // const handlePopulateDetails = (item: APISubServiceItemResponseType) => {
+  //   setDetails(item?.serviceDetailsList);
+  // };
 
-  const {t} = useLocalizer();
+  // const {t} = useLocalizer();
 
-  React.useEffect(()=>{
-    if(on){
-      setDetails([]);
-    }
-  },[on]);
+  // React.useEffect(()=>{
+  //   if(on){
+  //     setDetails([]);
+  //   }
+  // },[on]);
 
 
   const [existingServices,setExistingServices] = React.useState<Array<{level:number,id:number,stopEnabled:boolean}> | null | undefined>(props?.existingServices);
@@ -78,9 +77,9 @@ const ServiceContainerButton = ({
 
 
 
-  const activeServicesDetailsValues  = React.useMemo(() => { 
-    return props?.activeServicesDetails?.map((item) => item.serviceId) ?? [];
-  },[props?.activeServicesDetails]);
+  // const activeServicesDetailsValues  = React.useMemo(() => { 
+  //   return props?.activeServicesDetails?.map((item) => item.serviceId) ?? [];
+  // },[props?.activeServicesDetails]);
 
 
   return (
@@ -95,7 +94,7 @@ const ServiceContainerButton = ({
           if(props?.onChange){
             props?.onChange(1, [...(props?.activeMainServices?.filter((e) => e.serviceId !== data?.id) ?? [])]);
             props?.onChange(2, []);
-            props?.onChange(3, []);
+            // props?.onChange(3, []);
           }
           return;
         }
@@ -125,6 +124,7 @@ const ServiceContainerButton = ({
               {data?.subServiceList && data?.subServiceList?.length > 0 ? (
                 data?.subServiceList?.map((item) => (
                   <ServiceButton
+                    showDetails={false}
                     editable={props?.editable}
                     stopped={existingServices?.find((e) => e?.level == 2 && e.id == item.id)?.stopEnabled ?? false}
                     isFound={existingServices?.some((e) => e?.level == 2 && e.id == item.id) ?? false}
@@ -135,9 +135,9 @@ const ServiceContainerButton = ({
                     }}
                     key={`sub-${item.id}`}
                     {...item}
-                    onClick={() => {
-                      handlePopulateDetails(item);
-                    }}
+                    // onClick={() => {
+                    //   handlePopulateDetails(item);
+                    // }}
                     checked={activeSubServicesValues?.includes(item.id) ?? false}
                     onChange={()=>{
                       if (activeSubServicesValues?.includes(item?.id)) {
@@ -147,7 +147,7 @@ const ServiceContainerButton = ({
                               (e) => e.serviceId !== item?.id
                             ) ?? []),
                           ]);
-                          props?.onChange(3, []);
+                          // props?.onChange(3, []);
                         }
 
                         return;
@@ -169,7 +169,7 @@ const ServiceContainerButton = ({
                 </div>
               )}
             </div>
-            <div className="flex flex-row gap-2 flex-wrap items-center">
+            {/* <div className="flex flex-row gap-2 flex-wrap items-center">
               {details &&
                 details?.length > 0 &&
                 details?.map((item) => {
@@ -218,7 +218,7 @@ const ServiceContainerButton = ({
                   {existingServices?.find((e) => e?.level == 3 && e.id == item.id)?.stopEnabled ? <Lock size={14}/> : <Unlock size={14}/>}
                 </Badge>
                 })}
-            </div>
+            </div> */}
           </div>
         </DialogContent>
       </Dialog>
@@ -240,6 +240,7 @@ export const ServiceButton = ({
   checked,
   stopped = false,
   isFound = false,
+  showDetails = true,
   ...props
 }: APIServiceItemResponseType & {
   editable?:boolean,
@@ -248,6 +249,7 @@ export const ServiceButton = ({
   onChange?:(checked:boolean)=>void,
   stopped?:boolean,
   isFound?:boolean,
+  showDetails?:boolean
   onToggleStopped?: (value:{id:number,checked:boolean})=>void
 }) => {
   const { t,isRtl } = useLocalizer();
@@ -274,7 +276,7 @@ export const ServiceButton = ({
             }
          }} label={t("labels.stopped")}  className="data-[state=checked]:bg-danger data-[state=checked]:text-white"/>}
          </div>
-          <Button
+          {showDetails && <Button
             disabled={!checked}
             onClick={() => onClick && onClick()}
             variant="default"
@@ -282,6 +284,7 @@ export const ServiceButton = ({
           >
             {t("buttons.details")}
           </Button>
+        }
         </div>
       </div>
     </div>

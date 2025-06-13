@@ -33,7 +33,7 @@ export default async function ApiAction<TResponse>({
     if(paginateOptions){
         fullUrl+=`?paginate=${paginateOptions?.paginate}&page=${paginateOptions?.page}&size=${paginateOptions?.size}`;
     }
-    const { locale } = await getServerLocale();
+    const { lang } = await getServerLocale();
     const session = await getServerSession(authOptions);
     const token = session?.user?.token;
 
@@ -46,7 +46,7 @@ export default async function ApiAction<TResponse>({
             },
             headers: {
                 "Content-Type": "application/json",
-                "Accept-Language": locale,
+                "Accept-Language": lang,
                 "Authorization":  authorized == true ? "Token ".concat(token!) : ''
             },
             body: body ? JSON.stringify(body) : formData ? formData : null,

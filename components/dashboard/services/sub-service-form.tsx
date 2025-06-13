@@ -143,13 +143,9 @@ const SubServiceForm: React.FC<SubServiceFormProps> = ({
       <DialogContent className="sm:max-w-[550px]  overflow-x-hidden">
         <DialogHeader>
           <DialogTitle>
-            {mode === "create" ? "اضافة خدمة فرعية" : "تعديل خدمة فرعية"}
+            {mode === "create" ? t("titles.add") : t("titles.update")}
           </DialogTitle>
-          <DialogDescription>
-            {mode === "create"
-              ? "اضافة خدمة فرعية الى الخدمة الرئيسية"
-              : "تعديل الخدمة الفرعية للخدمة الرئيسية"}
-          </DialogDescription>
+          <DialogDescription/>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">

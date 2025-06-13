@@ -78,7 +78,8 @@
         "include_transportation":"Includes transportation",
         "start_time_stamp":"Started date",
         "main_service":"Main service",
-        "sub_service":"Sub service"
+        "sub_service":"Sub service",
+        "discount_rate":"Discount rate"
     },
     "placeholders":{
         "phone_or_email":"Type mobile number or email",
@@ -112,7 +113,9 @@
         "en_details":"Type English details",
         "ar_content":"Type Arabic content",
         "en_content":"Type English content",
-        "discount_rate":"Discount rate"
+        "discount_rate":"Discount rate",
+        "main_service":"Select main service",
+        "sub_service":"Select sub service"
 
     },
     "buttons":{

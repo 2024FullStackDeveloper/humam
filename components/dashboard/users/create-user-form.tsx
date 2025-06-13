@@ -403,7 +403,7 @@ const CreateUserForm = () => {
                     data={e}
                     activeMainServices={activeMainServices}
                     activeSubServices={activeSubServices}
-                    activeServicesDetails={activeServicesDetails}
+                    // activeServicesDetails={activeServicesDetails}
                     dlgTitle={t("titles.linked_sub_services")}
                     onChange={(level, values) => {
                       switch (level) {

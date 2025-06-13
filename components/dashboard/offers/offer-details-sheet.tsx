@@ -46,6 +46,7 @@ import Image from "next/image";
 import React from "react";
 import { toast } from "sonner";
 import OfferProviderDetailsDlg from "./offer-provider-details-dlg";
+import UpdateOfferProviderServicesForm from "./update-offer-provider-services-form";
 
 const OfferDetailsSheet = ({ data , isOpen , onClose }: { 
   data?: APIOfferResponseType ,   
@@ -60,6 +61,7 @@ const OfferDetailsSheet = ({ data , isOpen , onClose }: {
   const [deleteId,setDeleteId] = React.useState<number | undefined>(undefined);
   const [offerProviderDetails,setOfferProviderDetails] = React.useState<APIOfferProvider | undefined>(undefined);
   const [isOfferProviderOpen,setIsOfferProviderOpen] = React.useState<boolean>(false);
+  const [isUpdateOfferProviderOpen,setIsUpdateOfferProviderOpen] = React.useState<boolean>(false);
 
 
   const fetchProviders = async ()=>{
@@ -118,7 +120,10 @@ const OfferDetailsSheet = ({ data , isOpen , onClose }: {
                     }}>
                       <Info/>
                     </Button>
-                    <Button variant="destructive">
+                    <Button onClick={()=>{
+                      setOfferProviderDetails(data);
+                      setIsUpdateOfferProviderOpen(true);
+                    }} variant="destructive">
                       <Edit/>
                     </Button>
                     <Button variant="dangerOutline"
@@ -357,6 +362,15 @@ const OfferDetailsSheet = ({ data , isOpen , onClose }: {
     isOpen={isOfferProviderOpen}
     onClose={()=>{
       setIsOfferProviderOpen(false);
+      setOfferProviderDetails(undefined);
+    }}
+    />
+
+    <UpdateOfferProviderServicesForm
+    details={offerProviderDetails}
+    isOpen={isUpdateOfferProviderOpen}
+    onClose={()=>{ 
+      setIsUpdateOfferProviderOpen(false);
       setOfferProviderDetails(undefined);
     }}
     />

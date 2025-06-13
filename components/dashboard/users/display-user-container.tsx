@@ -9,7 +9,7 @@ import dateFormat from "dateformat";
 import UserDetailsSheet from "./user-details-sheet";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { FormInput, Phone, RefreshCcw } from "lucide-react";
+import {  RefreshCcw } from "lucide-react";
 import React from "react";
 import DataTable from "@/components/common/data-table";
 import PageWrapper from "@/components/common/page-wrapper";
@@ -17,14 +17,12 @@ import { useRouter } from "@/i18n/routing";
 import usePaginate from "@/lib/hooks/use-paginate";
 import SortButton from "@/components/common/sort-button";
 import { useServicesStore } from "@/lib/features/services/use-services-store";
-import { Input } from "@/components/ui/input";
 import PhoneNumberInput from "@/components/common/phone-number-input";
 import FormButton from "@/components/common/form-button";
 
 const DisplayUserContainer = () => {
   const { t } = useLocalizer();
   const {paginate} = usePaginate();
-  const paginateValue = React.useDeferredValue(paginate);
   const router = useRouter();
   const [filter,setFilter] = React.useState<string | undefined>(undefined);
 
@@ -178,7 +176,7 @@ const DisplayUserContainer = () => {
   }
 
   async function fetchData() {
-    await getUsers(paginateValue);
+    await getUsers(paginate);
   }
 
   React.useEffect(() => {
@@ -187,7 +185,7 @@ const DisplayUserContainer = () => {
 
   React.useEffect(() => {
     fetchData();
-  }, [paginateValue]);
+  }, [paginate]);
 
 
   return (
@@ -217,8 +215,8 @@ const DisplayUserContainer = () => {
     paginationOptions={{
         pagesCount:result?.result?.data?.numberOfPages,
         itemCount:result?.result?.data?.count,
-        size:paginateValue?.size ?? 50,
-        page:paginateValue?.page ?? 1
+        size:paginate?.size ?? 50,
+        page:paginate?.page ?? 1
     }}
     breadcrumbs={[
       {

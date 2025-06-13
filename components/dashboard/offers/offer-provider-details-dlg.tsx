@@ -30,7 +30,7 @@ const OfferProviderDetailsDlg: React.FC<OfferProviderDetailsDlgProps> = ({
   onClose,
   details,
 }) => {
-  const { t  , isRtl} = useLocalizer();
+  const { t , isRtl} = useLocalizer();
   const {getOfferProviderSubServices} = useOffersStore();
   const [providerServices,setProviderServices] = React.useState<Array<APIOfferSubServiceProviderResponseType> | undefined>([]);
   const [isLoading,setIsLoading] = React.useState<boolean>(false);
