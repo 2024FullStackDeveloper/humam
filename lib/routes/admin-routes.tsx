@@ -1,4 +1,4 @@
-import { Home, Megaphone, MicVocal, Settings, Shapes, Tag, Users } from "lucide-react";
+import { HandCoins, Home, Megaphone, MicVocal, Settings, Shapes, Tag, Users } from "lucide-react";
 import { RouteType } from "../types/common-type";
 
 const adminRoutes : Array<RouteType> = [
@@ -34,42 +34,60 @@ const adminRoutes : Array<RouteType> = [
     },
     {
         id:6,
+        title:"routes.operations",
+        route:'',
+        icon: <HandCoins />,
+        sub:[
+            {
+                id:61,
+                title:"routes.wallet",
+                route:"/dashboard/wallet",
+            },
+            {
+                id:62,
+                title:"routes.transcations",
+                route:"/dashboard/transcations",
+            }
+        ]
+    },
+    {
+        id:7,
         title:"routes.settings",
         route:'',
         icon: <Settings/>,
         sub:[
             {
-                id:61,
+                id:71,
                 title:"routes.regions_cities",
                 route:"/dashboard/regions",
             },
             {
-                id:62,
+                id:72,
                 title:"routes.global_categories",
                 route:"/dashboard/categories",
             },
             {
-                id:63,
+                id:73,
                 title:"routes.global_settings",
                 route:"/dashboard/settings",
             },
            {
-                id:64,
+                id:74,
                 title:"routes.contact_us",
                 route:"/dashboard/contact-us",
             },
             {
-                id:65,
+                id:75,
                 title:"routes.social_media",
                 route:"/dashboard/social-media",
             },
             {
-                id:66,
+                id:76,
                 title:"routes.common_questions",
                 route:"/dashboard/common-questions",
             },
             {
-                id:67,
+                id:77,
                 title:"routes.about_app",
                 route:"/dashboard/about-app",
             }

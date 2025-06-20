@@ -79,7 +79,32 @@
         "start_time_stamp":"Started date",
         "main_service":"Main service",
         "sub_service":"Sub service",
-        "discount_rate":"Discount rate"
+        "discount_rate":"Discount rate",
+        "invoice_status":"Invoice status",
+        "display_currency_iso":"Currency",
+        "payment_method":"Payment method",
+        "service_amount":"Service amount",
+        "total_amount":"Total amount",
+        "customer_reference":"Customer Reference",
+        "transaction_date":"Transaction date",
+        "payment_date":"Payment date",
+        "status":"Status",
+        "order_id":"Order Id",
+        "provider":"Provider",
+        "review_approve":"Review and approve",
+        "invoice_id":"Invoice id",
+        "invoice_reference":"Invoice reference",
+        "transaction_reference":"Transaction reference",
+        "payment_channel":"Payment channel",
+        "customer_service_charge":"Customer service charge",
+        "expiry_date":"Invoice expiry date",
+        "expiry_time":"Invoice expiry time",
+        "vat_amount":"Vat amount",
+        "due_value":"Due amount",
+        "provider_percentage":"Provider percentage",
+        "provider_profit":"Provider commission",
+        "platform_profit":"Platform commission"
+
     },
     "placeholders":{
         "phone_or_email":"Type mobile number or email",
@@ -175,7 +200,9 @@
          "update":"Update",
         "add":"Add",
          "show_details":"Show Details",
-        "permissions":"Permissions"
+        "permissions":"Permissions",
+        "commission_details":"Commission details"
+
     },
     "paragraphs":{
         "otp_not_sent":"If the code is not sent",
@@ -211,7 +238,10 @@
         "profile":"Profile",
         "services":"Services",
         "ads":"Ads",
-        "offers":"Offers"
+        "offers":"Offers",
+        "operations":"Operations",
+        "wallet":"Wallet",
+        "transcations":"Financial transaction"
 
     },
         "socialMedias":{

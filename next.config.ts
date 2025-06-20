@@ -14,7 +14,14 @@ const nextConfig: NextConfig = {
         protocol: 'http',
         hostname: 'localhost',
         port: '8099',
-      }
+      },
+     {
+        protocol: 'https',
+        hostname: 'demo.myfatoorah.com',
+        port: '',
+        pathname: '/imgs/payment-methods/**',
+        search: '',
+      },
     ]
 },
 };

@@ -54,6 +54,7 @@
         "is_active":"متاح",
         "is_company":"حساب شركات",
         "services":"الخدمات",
+        "provider":"مزود الخدمة",
         "disable_paginate_option":"إبطال خيار التنقل",
         "file_show":"عرض الملف",
         "choose":"اختيار",
@@ -79,7 +80,30 @@
         "include_transportation":"يشمل التوصيل",
         "start_time_stamp":"تاريخ البدء",
         "main_service":"الخدمة الرئيسية",
-        "sub_service":"الخدمة الفرعية"
+        "sub_service":"الخدمة الفرعية",
+        "invoice_status":"حالة الفاتورة",
+        "display_currency_iso":"العملة",
+        "payment_method":"طريقة الدفع",
+        "service_amount":"مبلغ الخدمة",
+        "total_amount":"اجمالي المبلغ",
+        "customer_reference":"مرجع العميل",
+        "transaction_date":"تاريخ الحركة",
+        "payment_date":"تاريخ الدفع",
+        "status":"الحالة",
+        "order_id":"رقم الطلب",
+        "review_approve":"مراجعة واعتماد",
+        "invoice_id":"رقم الفاتورة",
+        "invoice_reference":"مرجع الفاتورة",
+        "transaction_reference":"مرجع الحركة",
+        "payment_channel":"قناة الدفع",
+        "customer_service_charge":"عمولة خدمة من العميل",
+        "expiry_date":"تاريخ انتهاء الفاتورة",
+        "expiry_time":"وقت انتهاء الفاتورة",
+        "vat_amount":"مبلغ الضريبة المضافة",
+        "due_value":"المبلغ المستحق",
+        "provider_percentage":"نسبة مزود الخدمة",
+        "provider_profit":"عمولة مزود الخدمة",
+        "platform_profit":"عمولة المنصة"
     },
     "placeholders":{
         "phone_or_email":"اكتب رقم الموبايل او البريد الالكتروني",
@@ -172,7 +196,8 @@
         "update":"تعديل",
         "add":"إضافة",
         "show_details":"عرض التفاصيل",
-        "permissions":"الصلاحيات"
+        "permissions":"الصلاحيات",
+        "commission_details":"تفاصيل العمولة"
     },
     "paragraphs":{
         "otp_not_sent":"إذا لم يتم إرسال الرمز",
@@ -208,7 +233,10 @@
         "profile":"الملف الشخصي",
         "services":"الخدمات",
         "ads":"الاعلانات",
-        "offers":"العروض"
+        "offers":"العروض",
+        "operations":"العمليات",
+        "wallet":"المحفظة",
+        "transcations":"الحركة المالية"
         },
     "socialMedias":{
         "facebook":"فيسبوك",

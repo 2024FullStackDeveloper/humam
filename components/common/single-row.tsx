@@ -21,7 +21,7 @@ mode = "row"
     <div className={cn(mode == "row" ? "flex-row justify-between items-center" : "flex-col"," flex  gap-2 w-full")}>
       <div className="gap-2 flex flex-row  items-center">
           {icon}
-        <span  className="text-sm text-secondary">
+        <span  className="text-sm md:text-[16px] text-primary/90 font-bold">
             {label}
         </span>
       </div>

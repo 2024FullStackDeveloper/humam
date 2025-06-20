@@ -43,6 +43,7 @@ const PageWrapper = ({
   breadcrumbs: Array<{
     itemTitle: string;
     link?: string;
+    disabled?:boolean
   }>;
   contentClassName?: string;
   stickyButtomControls?: boolean;
@@ -79,7 +80,7 @@ const PageWrapper = ({
         const length = breadcrumbs.length - 1;
         const item = breadcrumbs[index];
         result.push(
-          <BreadcrumbItem key={index}>
+          <BreadcrumbItem key={index} className={cn(item?.disabled && "pointer-events-none")}>
             {index < length ? (
               <BreadcrumbLink href={item.link ?? ""}>
                 {t(item.itemTitle)}

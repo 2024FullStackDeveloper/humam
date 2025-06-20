@@ -400,10 +400,87 @@ interface APIOfferSubServiceProviderResponseType {
         mdfBy?:string | null,
         lastUpdateAt?:string | null
     }
-};
+}
 
 interface APIProviderServiceType extends APIServiceItemResponseType{
   subServiceList?:Array<APIServiceItemResponseType> | null
+}
+
+
+enum InvoiceStatusTypes
+{
+Pending = 1,
+Paid = 2,
+Canceled =3
+}
+
+
+enum PaymentTypes
+{
+Cash = 1,
+Card
+}
+
+
+enum TransactionTypes
+{
+Pending = 1,
+Completed 
+}
+
+
+interface APIShortProviderInfoResponseType{
+    id:number,
+    name:string,
+    isCompany:boolean,
+    personImg?:string,
+    email?:string,
+    phoneNumber:string
+}
+
+
+interface APITransactionProfitResponseType{
+   id:number,
+   providerInfo?:APIShortProviderInfoResponseType,
+   providerPercentage?:number,
+   providerProfit?:number,
+   platformProfit?:number,
+   isTransfered:boolean,
+   crtdBy?:string  | null ,
+   crtdAt?:string | null ,
+   mdfBy?:string | null ,
+   lastUpdateAt?:string | null
+}
+
+
+
+interface APITransactionResponseType{
+id:number,
+orderId:number,
+invoiceId?:string | null ,
+invoiceStatus : InvoiceStatusTypes,
+customerReference?:string,
+invoiceReference?:string,
+displayCurrencyIso?:string,
+serviceAmount?:number,
+totalAmount?:number,
+paymentMethod:PaymentTypes,
+profits?:APITransactionProfitResponseType | null,
+electronicPaymentMethod ?: number | null,
+transactionReference?:string | null,
+customerServiceCharge?:number | null ,
+totalServiceCharge?:number | null ,
+transactionDate?:string | null,
+expiryDate?:string | null ,
+expiryTime?:string | null,
+vatAmount?:number | null ,
+dueValue?:number | null ,
+paymentDate?:string | null ,
+status?:TransactionTypes | null,
+crtdBy?:string  | null ,
+crtdAt?:string | null ,
+mdfBy?:string | null ,
+lastUpdateAt?:string | null
 }
 
 export type {
@@ -441,5 +518,11 @@ export type {
     APIOfferResponseType,
     APIOfferProvider,
     APIOfferSubServiceProviderResponseType,
-    APIProviderServiceType
+    APIProviderServiceType,
+    APITransactionResponseType,
+    APITransactionProfitResponseType,
+    APIShortProviderInfoResponseType,
+    TransactionTypes,
+    PaymentTypes,
+    InvoiceStatusTypes
 };

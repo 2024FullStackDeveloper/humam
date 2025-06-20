@@ -17,7 +17,7 @@ const useSocialMediaStore = create<SocialMediaState>(
     (set)=>({
         isPending:false,
         result:undefined,
-        users:undefined,
+        socialMedias:undefined,
         code:undefined,
         message:undefined,
         isServerOn:true,
