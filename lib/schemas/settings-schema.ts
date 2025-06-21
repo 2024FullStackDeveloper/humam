@@ -14,6 +14,7 @@ const UpdateGlobalSettingsSchema = z.object({
     complexPasswordEnabled:z.boolean(),
     misLoginCount:z.number().gt(0,{message:"errors.required_field"}),
     maxDistanceBetween:z.number().gt(0,{message:"errors.required_field"}),
+    serviceProviderPercentage:z.number().gte(0,{message:"errors.required_field"}).lte(100,{message:"errors.unacceptable_value"}),
 });
 
 

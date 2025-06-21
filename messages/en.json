@@ -117,7 +117,8 @@
         "notes":"Notes",
         "stars":"Stars",
         "service_evaluation_message":"Evaluation message",
-        "avaliable":"Available"
+        "avaliable":"Available",
+                "provider_commission_rate":"Provider commission rate"
 
     },
     "placeholders":{
@@ -154,7 +155,8 @@
         "en_content":"Type English content",
         "discount_rate":"Discount rate",
         "main_service":"Select main service",
-        "sub_service":"Select sub service"
+        "sub_service":"Select sub service",
+        "provider_commission_rate":"Type provider commission rate"
 
     },
     "buttons":{

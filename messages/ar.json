@@ -117,7 +117,8 @@
         "notes":"ملاحظات",
         "stars":"عدد النجوم",
         "service_evaluation_message":"رسالة التقييم",
-        "avaliable":"متاح"
+        "avaliable":"متاح",
+        "provider_commission_rate":"نسبة عمولة مزود الخدمة"
     },
     "placeholders":{
         "phone_or_email":"اكتب رقم الموبايل او البريد الالكتروني",
@@ -151,7 +152,8 @@
         "ar_content":"اكتب المحتوى بالعربي",
         "en_content":"اكتب المحتوى بالانجليزي",
         "main_service":"اختر الخدمة الرئيسية",
-        "sub_service":"اختر الخدمة الفرعية"
+        "sub_service":"اختر الخدمة الفرعية",
+        "provider_commission_rate":"اكتب  نسبة عمولة مزود الخدمة"
     },
     "status":{
         "Idle":"خامل",

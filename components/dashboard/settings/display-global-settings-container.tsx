@@ -9,7 +9,7 @@ import useLocalizer from "@/lib/hooks/use-localizer";
 import { UpdateGlobalSettingsSchema } from "@/lib/schemas/settings-schema";
 import { APIGlobalSettingsResponseType } from "@/lib/types/api/api-type";
 import { validateAPIErrors, validateData } from "@/lib/utils/stuff-client";
-import { Info, LockIcon, LogIn } from "lucide-react";
+import { Info, LockIcon, LogIn, Percent } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
 import z from "zod";
@@ -25,6 +25,7 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
     complexPasswordEnabled:settingsValue?.complexPasswordEnabled ?? false,
     misLoginCount:settingsValue?.misLoginCount ?? 0,
     maxDistanceBetween:settingsValue?.maxDistanceBetween ?? 0,
+    serviceProviderPercentage:settingsValue?.serviceProviderPercentage ?? 0,
   });
   const [errors,setErrors] = React.useState<any | undefined>(undefined);
   const {isPending,isServerOn,serverOffMessage, updateGlobalSettings , migrate} = useGlobalSettingsStore();
@@ -133,6 +134,18 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
               setRequest({...request,maxDistanceBetween:  value.value ? parseInt(value.value) : 0});
              }}
              error={errors?.maxDistanceBetween && t(errors?.maxDistanceBetween[0])}
+
+          />
+
+          <NumericInput
+            label={t("labels.provider_commission_rate")}
+            placeholder={t("placeholders.provider_commission_rate")}
+            prefixicon={<Percent />}
+            value={request?.serviceProviderPercentage}
+            onValueChange={(value)=>{
+              setRequest({...request,serviceProviderPercentage:  value.value ? parseInt(value.value) : 0});
+             }}
+             error={errors?.serviceProviderPercentage && t(errors?.serviceProviderPercentage[0])}
 
           />
             <DecorationBox

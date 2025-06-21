@@ -139,6 +139,7 @@ interface APIGlobalSettingsResponseType{
     complexPasswordEnabled:boolean,
     misLoginCount:number,
     maxDistanceBetween?:number,
+    serviceProviderPercentage?:number | null,
 };
 
 enum CategoryTypes{
