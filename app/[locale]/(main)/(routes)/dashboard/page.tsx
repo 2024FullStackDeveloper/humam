@@ -1,44 +1,22 @@
 "use client";
+import useLocalizer from "@/lib/hooks/use-localizer";
+import React from "react";
 
-import DecorationBox from "@/components/common/decoration-box";
-import NoDataBox from "@/components/common/no-data-box";
-import StatisticBox from "@/components/dashboard/statistic-box";
-import { Users2Icon } from "lucide-react";
 
+const StatisticsComp = React.lazy(() => import("@/components/dashboard/dashboard-statistics"));
+const PendingOrdersComp = React.lazy(() => import("@/components/dashboard/dashboard-pending-order"));
+const OnlineProvidersComp = React.lazy(() => import("@/components/dashboard/dashboard-online-provider"));
+const TodayTransactionsComp = React.lazy(() => import("@/components/dashboard/dashboard-today-trans"));
 const DashboardPage = () => {
+  const {t} = useLocalizer();
   return (
-    <div className="w-full h-full flex flex-col gap-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3  items-center gap-3">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <StatisticBox
-            key={index}
-            icon={<Users2Icon />}
-            title={"عدد المستخدمين"}
-            subtitle={"الشركات"}
-            value={0}
-          />
-        ))}
-      </div>
-      <DecorationBox
-        headerContent={"طلبات المستخدمين القادمة"}
-        contentClassName=" h-72 w-full"
-      >
-        <NoDataBox />
-      </DecorationBox>
-
+    <div className="w-full h-full flex flex-col gap-4">
+          
+      <StatisticsComp/>
+      <PendingOrdersComp/>
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-5">
-        <DecorationBox
-          headerContent={"سجل حركة المستخدمين"}
-          contentClassName="h-72 w-full"
-        >
-          <NoDataBox />
-        </DecorationBox>
-        <DecorationBox
-          headerContent={"طلبات المستخدمين القادمة"}
-          contentClassName="h-72 w-full"
-        >
-          <NoDataBox />
-        </DecorationBox>
+      <OnlineProvidersComp/>
+      <TodayTransactionsComp/>
       </div>
     </div>
   );

@@ -165,6 +165,10 @@ const DisplayRegionContainer = () => {
           itemTitle: "routes.home",
           link: "/dashboard",
         },
+       {
+          itemTitle: "routes.global_settings",
+          disabled: true,
+        },
         {
           itemTitle: "routes.regions_cities",
         },

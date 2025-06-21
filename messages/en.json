@@ -89,6 +89,7 @@
         "transaction_date":"Transaction date",
         "payment_date":"Payment date",
         "status":"Status",
+        "description":"Description",
         "order_id":"Order Id",
         "provider":"Provider",
         "review_approve":"Review and approve",
@@ -103,7 +104,20 @@
         "due_value":"Due amount",
         "provider_percentage":"Provider percentage",
         "provider_profit":"Provider commission",
-        "platform_profit":"Platform commission"
+        "platform_profit":"Platform commission",
+        "default":"Default",
+        "location":"Location",
+        "offer_id":"Offer id",
+        "payment_url":"Payment url",
+        "completed":"Completed",
+        "completed_at":"Completed at",
+        "service_time":"Service time",
+         "when_change_status_at":"Response time",
+        "order_status":"Order status",
+        "notes":"Notes",
+        "stars":"Stars",
+        "service_evaluation_message":"Evaluation message",
+        "avaliable":"Available"
 
     },
     "placeholders":{
@@ -198,11 +212,32 @@
          "add_social_media":"Add Social Media Platform",
          "add_common_question":"Add Common Question",
          "update":"Update",
-        "add":"Add",
+         "add":"Add",
          "show_details":"Show Details",
-        "permissions":"Permissions",
-        "commission_details":"Commission details"
-
+         "permissions":"Permissions",
+         "commission_details":"Commission details",
+         "receiving_balance":"Received balance",
+         "pending_balance":"Pending balance",
+         "wallet_balance":"Wallet balance",
+         "client_data":"Client data",
+         "client_coords":"Client coords",
+         "service_data":"Service data",
+         "extra_services":"Extra services",
+         "phases":"Service phases",
+         "service_evaluation":"Service evaluation",
+        "clients_count":"Number of clients",
+        "org_providers_count":"Number of service providers in the organization",
+        "workers_count":"Number of workers",
+        "pending_orders":"Pending provider accounts",
+        "online_providers":"Online service providers",
+        "today_trans":"Today's transactions",
+        "other_settings":"Other Settings"
+    },
+        "roles":{
+        "worker":"Worker",
+        "organization":"Organization",
+        "admin":"Admin",
+        "client":"Client"
     },
     "paragraphs":{
         "otp_not_sent":"If the code is not sent",

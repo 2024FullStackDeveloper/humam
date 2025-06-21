@@ -33,7 +33,7 @@ const usePaginate = ()=>{
 
  const isPaginateEnabled = React.useMemo(() : boolean=>{
     return paginate?.paginate == true;
- },[paginate]);
+ },[paginate,path]);
 
  const changePaginateSize = (limit:number)=>{
     if(isPaginateEnabled && urlSearchParams.get("size")){

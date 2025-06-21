@@ -41,9 +41,9 @@ const SidebarSticky = ({ toggle, onToggle , collapsed , onCollapse}: SidebarStic
 
       <div className="relative flex flex-row items-center gap-4 mx-5">
         <ProfileButton />
-        <TextButton variant="white">
+        {/* <TextButton variant="white">
           <Bell />
-        </TextButton>
+        </TextButton> */}
         <LangSwitcher varient="destructive" />
       </div>
     </header>

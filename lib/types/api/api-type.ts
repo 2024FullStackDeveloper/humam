@@ -101,6 +101,7 @@ interface APIUserProfileType{
     profileStatusCode:number,
     profileStatus:AccountStatusType,
     isOnline:boolean,
+    isActive:boolean,
     mainServices?:Array<number> | null,
 };
 
@@ -253,12 +254,6 @@ interface APIOfferProvider extends Partial<APIProfileType>{
 }
 
 
-interface APIProfileDetailsType{
-profileId: number,
-fullName: string,
-role: RoleType,
-profileStatusCode:number
-}
 
 interface APIProviderServiceItemBaseeRsponseType{
     serviceId:number,
@@ -453,6 +448,14 @@ interface APITransactionProfitResponseType{
 }
 
 
+interface APIWalletResponseType{
+   id:string,
+   pendingProfit?:number | null,
+   receivingProfit?:number | null,
+   balance?:number
+}
+
+
 
 interface APITransactionResponseType{
 id:number,
@@ -481,6 +484,157 @@ crtdBy?:string  | null ,
 crtdAt?:string | null ,
 mdfBy?:string | null ,
 lastUpdateAt?:string | null
+}
+
+
+export interface BaseEntity {
+crtdBy?:string  | null ,
+crtdAt?:string | null ,
+mdfBy?:string | null ,
+lastUpdateAt?:string | null
+}
+
+export interface ClientCoordsResponseType extends BaseEntity {
+  coordsId: number;
+  isDefault: boolean;
+  latitudes: number;
+  longitudes: number;
+  arAddress?: string | null;
+  enAddress?: string | null;
+}
+
+export interface PersonResponseType {
+  profileId: number;
+  personImg?: string | null;
+  fullName: string;
+  phoneNumber: string;
+  email?: string | null;
+}
+
+
+export interface ServiceProviderResponseType {
+  profileId: number;
+  personImg?: string | null;
+  fullName: string;
+  phoneNumber: string;
+  email?: string | null;
+  isCompany: boolean;
+  companyName?: string | null;
+}
+
+export interface ClientSubServiceResponseType {
+  id: number;
+  arDesc: string;
+  enDesc: string;
+  subServiceImg?: string | null;
+  offerId?: number | null;
+  discountRate?: number | null;
+}
+
+export enum OrderPhaseTypes
+{
+    ReceivedOrder = 1,
+    Preparation,
+    OnRoad,
+    OnSite,
+    Progress,
+    Completed,
+    Paid,
+    ConfirmPayment
+}
+
+export enum ServiceTimeTypes
+{
+Now = 1,
+Later
+}
+
+
+export enum OrderStatusTypes
+{
+Waiting = 1,
+Pending,
+Approved,
+Rejected,
+Canceled,
+CompletedPaid
+}
+
+export interface InvoiceDto {
+  invoiceId: string | null;
+  invoiceStatus: InvoiceStatusTypes;
+  customerReference: string;
+  invoiceReference: string | null;
+  displayCurrencyIso: string | null;
+  serviceProviderAmount: number;
+  serviceTotalAmount: number;
+  paymentMethod: PaymentTypes;
+  electronicPaymentMethod: number | null;
+  expiryDate: string | null;
+  expiryTime: string | null; // TimeSpan represented as string (e.g., "02:30:00")
+  canRecreate: boolean;
+  transactionReference: string | null;
+  transactionDate: string;
+  paymentDate: string | null;
+  paidCurrencyIso: string | null;
+  customerServiceCharge: number;
+  totalServiceCharge: number;
+  vatAmount: number;
+  dueValue: number;
+  paymentUrl: string | null;
+}
+
+ export interface DetailsDto {
+  serviceDetails: ClientServiceResponseType;
+  serviceProviderAmount?: number | null;
+  serviceTotalAmount?: number | null;
+  paymentMethod?: PaymentTypes | null;
+  paymentAmount?: number | null;
+  paymentAt?: Date | null;
+  invoice?: InvoiceDto | null;
+}
+
+export interface ClientServiceResponseType {
+  id: number;
+  arDesc: string;
+  enDesc: string;
+  serviceImg?: string | null;
+  subServices: ClientSubServiceResponseType[]; 
+}
+
+export interface PhaseResponseType{
+    phase:OrderPhaseTypes,
+    completed:boolean,
+    completedAt?:string | null
+}
+
+ interface SendServiceOrderResponseDto extends BaseEntity {
+  orderId: number;
+  coords: ClientCoordsResponseType;
+  client: PersonResponseType;
+  serviceProvider: ServiceProviderResponseType;
+  orderDetails: DetailsDto;
+  extraServices?: string[];
+  phases?: PhaseResponseType[];
+  videoRecordingPath?: string | null;
+  voiceRecordingPath?: string | null;
+  attachments?: string[]; // Fixed typo from "Attatchments"
+  serviceTimeImplementation: ServiceTimeTypes;
+  serviceTime: string; // TimeSpan as string (e.g., "02:30:00")
+  arrivalTime?: string | null; // TimeSpan as nullable string
+  serviceStatus: OrderStatusTypes;
+  whenChangeStatusAt?: Date | null;
+  chatEnabled: boolean;
+  serviceEvaluation?: number | null;
+  evaluationContent?: string | null;
+  notes?: string | null;
+}
+
+interface APIDashboardResponseType {
+    wallet?: APIWalletResponseType | null, 
+    clientsCount?: number | null,
+    workerProvidersCount?: number | null,
+    organizationProvidersCount?: number | null,
 }
 
 export type {
@@ -514,7 +668,6 @@ export type {
     APIContactUsResponseType,
     APIAdsResponseType,
     APIProfileType,
-    APIProfileDetailsType,
     APIOfferResponseType,
     APIOfferProvider,
     APIOfferSubServiceProviderResponseType,
@@ -524,5 +677,8 @@ export type {
     APIShortProviderInfoResponseType,
     TransactionTypes,
     PaymentTypes,
-    InvoiceStatusTypes
+    InvoiceStatusTypes,
+    APIWalletResponseType,
+    SendServiceOrderResponseDto,
+    APIDashboardResponseType
 };

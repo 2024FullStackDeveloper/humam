@@ -176,6 +176,10 @@ const DisplayCommonQuestionsContainer = () => {
           link: "/dashboard",
         },
         {
+          itemTitle: "routes.global_settings",
+          disabled: true,
+        },
+        {
           itemTitle: "routes.common_questions",
         },
       ]}

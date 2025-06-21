@@ -9,7 +9,7 @@ import useLocalizer from "@/lib/hooks/use-localizer";
 import { UpdateGlobalSettingsSchema } from "@/lib/schemas/settings-schema";
 import { APIGlobalSettingsResponseType } from "@/lib/types/api/api-type";
 import { validateAPIErrors, validateData } from "@/lib/utils/stuff-client";
-import { LockIcon, LogIn } from "lucide-react";
+import { Info, LockIcon, LogIn } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
 import z from "zod";
@@ -170,8 +170,6 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
                }}
               />
             </DecorationBox>
-            <div className="flex flex-col gap-5 p-5">
-          </div>
         </div>
       </div>
     </PageWrapper>

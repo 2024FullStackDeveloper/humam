@@ -12,7 +12,7 @@ import {
 import CircleButton from "./circle-button";
 import { cn } from "@/lib/utils";
 import useLocalizer from "@/lib/hooks/use-localizer";
-import { usePathname, useRouter } from "@/i18n/routing";
+import { useRouter } from "@/i18n/routing";
 import DataTablePagination, {
   DataTablepaginationProps,
 } from "./data-table-pagination";
@@ -22,7 +22,6 @@ import { Filter, Plus, RefreshCcw, X } from "lucide-react";
 // import { Switch } from "../ui/switch";
 import { VariantButtomType } from "@/lib/types/common-type";
 import LoadingButton from "./loading-button";
-import { useSearchParams } from "next/navigation";
 import SizeLimmitList from "./size-limit-list";
 import usePaginate from "@/lib/hooks/use-paginate";
 import { useToggle } from "@uidotdev/usehooks";
@@ -64,10 +63,10 @@ const PageWrapper = ({
   const { t } = useLocalizer();
   const router = useRouter();
   // const [on, toggle] = useToggle(false);
-  const params = useSearchParams();
+  // const params = useSearchParams();
   // const searchParams = new URLSearchParams(params.toString());
-  const path = usePathname();
-  const paginationValue = React.useDeferredValue(props?.paginationOptions);
+  // const path = usePathname();
+  // const paginationValue = React.useDeferredValue(props?.paginationOptions);
   const { isPaginateEnabled } = usePaginate();
   const [on, toggle] = useToggle(false);
 
@@ -102,23 +101,23 @@ const PageWrapper = ({
     return undefined;
   }, [breadcrumbs]);
 
-  React.useEffect(() => {
-    if (
-      !path.includes("create") &&
-      !path.includes("update") &&
-      !path.includes("settings") &&
-      !path.includes("about-app") &&
-      !path.includes("profile")
-    ) {
-      router.push(
-        path +
-          "?" +
-          `paginate=true&page=${paginationValue?.page ?? 0}&size=${
-            paginationValue?.size ?? 0
-          }`
-      );
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   if (
+  //     !path.includes("create") &&
+  //     !path.includes("update") &&
+  //     !path.includes("settings") &&
+  //     !path.includes("about-app") &&
+  //     !path.includes("profile")
+  //   ) {
+  //     router.push(
+  //       path +
+  //         "?" +
+  //         `paginate=true&page=${paginationValue?.page ?? 0}&size=${
+  //           paginationValue?.size ?? 0
+  //         }`
+  //     );
+  //   }
+  // }, []);
 
   return (
     <div className=" w-full h-full relative  rounded-md !bg-secondary/10 shadow flex flex-col">

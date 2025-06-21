@@ -223,3 +223,12 @@ export function getPaymentChannel(channel_id:number){
 			}
   ].find(e=>e.PaymentMethodId == channel_id);
 }
+
+
+export function formatSaudiRiyal (amount: number): string {
+  return amount.toLocaleString('ar-SA', {
+    style: 'currency',
+    currency: 'SAR',
+    currencyDisplay: 'symbol' 
+  });
+};

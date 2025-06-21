@@ -1,5 +1,5 @@
 import ApiAction from '@/lib/server/action';
-import { APICollectionResponseType, APIProfileDetailsType, APIUserProfileType, APIUserResponse2Type, APIUserResponseType } from '@/lib/types/api/api-type'
+import { APICollectionResponseType, APIUserProfileType, APIUserResponse2Type, APIUserResponseType } from '@/lib/types/api/api-type'
 import { CoreStateType, PaginateType, StateResponseType } from '@/lib/types/common-type';
 import { create } from 'zustand'
 import z from "zod";
@@ -13,7 +13,7 @@ interface UsersState extends CoreStateType<APIUserResponseType>{
     addNewUser:(props:z.infer<typeof UserSchema>)=>Promise<StateResponseType<APIUserResponse2Type> | undefined | null>,
     updateUserProfile:(profileId:number, props:z.infer<typeof UpdateUserSchema>)=>Promise<StateResponseType<APIUserResponse2Type> | undefined | null>,
     filterUsersByPhoneNumber:(phoneNumber:string)=>Promise<void>,
-    filterUserProfiles:(filter:any)=>Promise<StateResponseType<Array<APIProfileDetailsType>> | undefined | null>,
+    filterUserProfiles:(filter:any)=>Promise<StateResponseType<Array<APIUserProfileType>> | undefined | null>,
 };
 
 const useUsersStore = create<UsersState>(
@@ -60,13 +60,12 @@ const useUsersStore = create<UsersState>(
         set({isPending:false,result:response,users:response.result?.data?.resultSet,code:response.result?.code,message:response.result?.message,isServerOn:response.isServerOn,serverOffMessage:response.serverOffMessage});
         },
         filterUserProfiles:async (filter)=>{
-           const response = await ApiAction<APICollectionResponseType<APIProfileDetailsType>>(
+           const response = await ApiAction<APICollectionResponseType<APIUserProfileType>>(
             {
                 controller:"admin",
                 url:"users/profiles",
                 method:"POST",
                 authorized:true,
-                revalidate:10,
                 body:filter
             }
         );

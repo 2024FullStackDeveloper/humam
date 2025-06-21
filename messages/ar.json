@@ -38,6 +38,7 @@
         "region":"المنطقة",
         "background":"الخلفية",
         "thumbnail":"صورة مصغرة",
+        "description":"الوصف",
         "otp_length":"طول رمز ال OTP",
         "mis_login_count":"عدد مرات الدخول الخاطىء المسموح بها",
         "password_min_length":"اقل طول لكلمة المرور",
@@ -103,7 +104,20 @@
         "due_value":"المبلغ المستحق",
         "provider_percentage":"نسبة مزود الخدمة",
         "provider_profit":"عمولة مزود الخدمة",
-        "platform_profit":"عمولة المنصة"
+        "platform_profit":"عمولة المنصة",
+        "default":"افتراضي",
+        "location":"الموقع",
+        "offer_id":"رقم العرض",
+        "payment_url":"رابط الدفع",
+        "completed":"مكتمل",
+        "completed_at":"تاريخ الاكتمال",
+        "service_time":"وقت الخدمة",
+        "when_change_status_at":"وقت الاستجابة",
+        "order_status":"حالة الطلب",
+        "notes":"ملاحظات",
+        "stars":"عدد النجوم",
+        "service_evaluation_message":"رسالة التقييم",
+        "avaliable":"متاح"
     },
     "placeholders":{
         "phone_or_email":"اكتب رقم الموبايل او البريد الالكتروني",
@@ -197,7 +211,24 @@
         "add":"إضافة",
         "show_details":"عرض التفاصيل",
         "permissions":"الصلاحيات",
-        "commission_details":"تفاصيل العمولة"
+        "commission_details":"تفاصيل العمولة",
+        "receiving_balance":"الرصيد المستلم",
+        "pending_balance":"الرصيد المعلق",
+        "wallet_balance":"رصيد المحفظة",
+        "client_data":"بيانات العميل",
+        "client_coords":"احداثيات العميل",
+        "service_data":"بيانات الخدمة",
+        "extra_services":"خدمات اضافية",
+        "phases":"خطوات الخدمة",
+        "service_evaluation":"تقييم الخدمة",
+        "clients_count":"عدد العملاء",
+        "org_providers_count":"عدد مزودي الخدمة من اصحاب الشركات",
+        "workers_count":"عدد مزودي الخدمة من العمال",
+        "pending_orders":"حسابات مزودي الخدمة المعلقة",
+        "online_providers":"حسابات مزودي الخدمة المتصلة",
+        "today_trans":"طلبات اليوم",
+        "other_settings":"اعدادات اخرى"
+
     },
     "paragraphs":{
         "otp_not_sent":"إذا لم يتم إرسال الرمز",
@@ -216,6 +247,12 @@
         "no_sub_services":"لا يوجد خدمات فرعية",
         "unable_delete":"غير قادر على الحذف",
         "unacceptable_value":"قيمة غير مقبولة"
+    },
+    "roles":{
+        "worker":"عامل",
+        "organization":"شركة",
+        "admin":"مدير",
+        "client":"عميل"
     },
     "routes":{
         "home":"الرئيسية",

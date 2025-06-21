@@ -28,8 +28,10 @@ import { useTransactionsStore } from "@/lib/features/transactions/use-transactio
 
 const TransactionDetailsSheet = ({
   data,
+  onRefresh
 }: {
   data: APITransactionResponseType;
+  onRefresh?:()=>Promise<void>
 }) => {
   const { t, isRtl } = useLocalizer();
   const value = React.useDeferredValue(data);
@@ -67,6 +69,9 @@ const TransactionDetailsSheet = ({
       if (response?.code == 0 && response?.data) {
         toast.success(response?.message);
         setIsTransfered(true);
+        if(onRefresh){
+          onRefresh();
+        }
       } else {
         toast.error(response?.message);
       }
