@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import LangSwitcher from "../common/lang-switcher";
+import LangSwitcher from "./lang-switcher";
 import useLocalizer from "@/lib/hooks/use-localizer";
-const SignInWrapper = ({
+const SplitWrapper = ({
   appName = "Humam",
   children,
 }: React.PropsWithChildren<{
@@ -47,4 +47,4 @@ const SignInWrapper = ({
     </div>
   );
 };
-export default SignInWrapper;
+export default SplitWrapper;

@@ -1,10 +1,10 @@
 "use client";
 import SignInForm from "@/components/sign-in/sign-in-form";
-import SignInLayout from "@/components/sign-in/sign-in-wrapper";
+import SplitWrapper from "@/components/common/split-wrapper";
 export default function SignInPage() {
   return (
-    <SignInLayout appName="Humam">
+    <SplitWrapper >
         <SignInForm/>
-    </SignInLayout>
+    </SplitWrapper>
   );
 }

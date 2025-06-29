@@ -229,7 +229,9 @@
         "pending_orders":"حسابات مزودي الخدمة المعلقة",
         "online_providers":"حسابات مزودي الخدمة المتصلة",
         "today_trans":"طلبات اليوم",
-        "other_settings":"اعدادات اخرى"
+        "other_settings":"اعدادات اخرى",
+        "confirm_delete_account":"تأكيد حذف الحساب",
+        "otp_sent_to":"تم ارسال رمز التحقق الى"
 
     },
     "paragraphs":{
@@ -248,7 +250,8 @@
         "required_services":"يجب اختيار خدمة واحدة على الاقل",
         "no_sub_services":"لا يوجد خدمات فرعية",
         "unable_delete":"غير قادر على الحذف",
-        "unacceptable_value":"قيمة غير مقبولة"
+        "unacceptable_value":"قيمة غير مقبولة",
+        "otp_send_failed":"فشل في إرسال رمز التحقق"
     },
     "roles":{
         "worker":"عامل",

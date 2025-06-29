@@ -1,5 +1,5 @@
 import ForgetPasswordForm from "@/components/forget-password/forget-password-form";
-import SignInWrapper from "@/components/sign-in/sign-in-wrapper";
+import SignInWrapper from "@/components/common/split-wrapper";
 const ForgetPasswordPage = () => {
   return (
     <SignInWrapper>

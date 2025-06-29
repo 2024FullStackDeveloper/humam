@@ -233,7 +233,9 @@
         "pending_orders":"Pending provider accounts",
         "online_providers":"Online service providers",
         "today_trans":"Today's transactions",
-        "other_settings":"Other Settings"
+        "other_settings":"Other Settings",
+        "confirm_delete_account":"Confirm delete account",
+        "otp_sent_to":"OTP code sent to"
     },
         "roles":{
         "worker":"Worker",
@@ -257,7 +259,8 @@
         "required_services":"At least one service must be selected",
         "no_sub_services":"No sub services found",
         "unable_delete":"Unable to delete",
-        "unacceptable_value":"Unacceptable value"
+        "unacceptable_value":"Unacceptable value",
+        "otp_send_failed":"Failed to send verification code"
     },
     "routes":{
         "home":"Home",

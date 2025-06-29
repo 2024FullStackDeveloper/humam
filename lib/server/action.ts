@@ -13,7 +13,8 @@ export default async function ApiAction<TResponse>({
     formData,
     paginateOptions,
     revalidate,
-    authorized
+    authorized,
+    manualToken
 }: {
     controller: string,
     url: string,
@@ -22,7 +23,8 @@ export default async function ApiAction<TResponse>({
     formData?: FormData,
     paginateOptions?:PaginateType,
     revalidate?: number,
-    authorized?:boolean
+    authorized?:boolean,
+    manualToken?:string
 }): Promise<GlobalResponseType<APIResponseType<TResponse>>> {
 
     
@@ -35,7 +37,7 @@ export default async function ApiAction<TResponse>({
     }
     const { lang } = await getServerLocale();
     const session = await getServerSession(authOptions);
-    const token = session?.user?.token;
+    const token = manualToken ? manualToken : session?.user?.token;
 
     if (body && formData) throw new Error("It can't use both  body and formData fields with same time.");
     try {
