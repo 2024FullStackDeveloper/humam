@@ -3,8 +3,11 @@ import { redirect } from "@/i18n/routing";
 import ApiAction from "@/lib/server/action";
 import { APICollectionResponseType, APIRegionResponseType } from "@/lib/types/api/api-type";
 import { DropdownType } from "@/lib/types/common-type";
+import { Metadata } from "next";
 import { getLocale } from "next-intl/server";
-
+export const metadata: Metadata = {
+  title: "تعديل منطقة",
+};
 const UpdateRegionPage = async ({
   searchParams
 }: {

@@ -106,6 +106,8 @@ const DisplayGlobalSettingsContainer = ({settings}:{settings?:APIGlobalSettingsR
             label={t("labels.otp_length")}
             placeholder={t("placeholders.otp_length")}
             prefixicon={<LockIcon />}
+            readOnly
+            disabled
             value={request?.otpLength}
             onValueChange={(value)=>{
               setRequest({...request,otpLength: value.value ? parseInt(value.value) : 0});

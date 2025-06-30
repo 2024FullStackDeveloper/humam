@@ -2,8 +2,12 @@ import UpdateUserForm from "@/components/dashboard/users/update-user-form";
 import { redirect } from "@/i18n/routing";
 import ApiAction from "@/lib/server/action";
 import { APIUserResponse2Type } from "@/lib/types/api/api-type";
+import { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import React from "react";
+export const metadata: Metadata = {
+  title: "تعديل مستخدم",
+};
 export default async function UpdateUserPage({
   searchParams
 }: {

@@ -2,6 +2,10 @@ import CreateRegionForm from "@/components/dashboard/regions/create-region-form"
 import ApiAction from "@/lib/server/action";
 import { APICollectionResponseType, APIRegionResponseType } from "@/lib/types/api/api-type";
 import { DropdownType } from "@/lib/types/common-type";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "اضافة منطقة جديدة",
+};
 const CreateRegionPage = async ()=>{
 const response = await ApiAction<APICollectionResponseType<APIRegionResponseType>>({
     controller:"settings",

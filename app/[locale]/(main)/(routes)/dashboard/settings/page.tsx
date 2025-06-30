@@ -1,6 +1,10 @@
 import DisplayGlobalSettingsContainer from "@/components/dashboard/settings/display-global-settings-container";
 import ApiAction from "@/lib/server/action";
 import { APIGlobalSettingsResponseType } from "@/lib/types/api/api-type";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "الاعدادات العامة",
+};
 const SettingsPage = async ()=>{
 
 const respnse = await ApiAction<APIGlobalSettingsResponseType>({

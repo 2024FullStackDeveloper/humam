@@ -160,6 +160,7 @@ const UpdateServiceForm: React.FC<UpdateServiceFormProps> = ({
                     label={t("labels.service_image")}
                     onChange={(file) => {
                        setRequest({ ...request, serviceFile: file });
+                       console.log(file);
                     }}
                     error={(errors?.serviceFile && t(errors?.serviceFile[0])) || (errors?.ServiceFile && t(errors?.ServiceFile[0]))}
                   />
